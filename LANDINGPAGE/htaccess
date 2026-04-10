@@ -1,0 +1,23 @@
+# ============================================================
+# UNBOND Members Area – .htaccess
+# Datei: public_html/members/.htaccess
+#
+# Verhindert direkten Zugriff auf Dateien im /members/-Ordner.
+# Alle Zugriffe laufen durch index.php.
+# ============================================================
+
+# Verhindere Verzeichnisauflistung
+Options -Indexes
+
+# Alle Anfragen durch index.php leiten AUSSER wenn Datei direkt existiert
+# (damit CSS/JS/Bilder im ebook/ Unterordner direkt geladen werden können)
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/members/?$
+RewriteRule ^ index.php [L]
+
+# Direkten Zugriff auf die E-Book-HTML-Datei verhindern
+# (nur index.php darf sie ausliefern)
+<Files "index.html">
+    Order allow,deny
+    Deny from all
+</Files>

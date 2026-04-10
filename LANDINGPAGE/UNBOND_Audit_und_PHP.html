@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>UNBOND – Landing Page Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --bordeaux:#6B3E44; --sage:#7A9E8A; --dark-green:#2D4F3C; --graphite:#4A4E52; --warning:#D4A574; --cream:#F4EDE4; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Lato',sans-serif; background:#f0ece8; color:var(--graphite); padding:30px 16px 80px; }
+.page { max-width:820px; margin:0 auto; }
+.cover { background:linear-gradient(135deg,var(--dark-green),#1a3028); color:white; padding:44px 40px; border-radius:14px; margin-bottom:28px; }
+.cover h1 { font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.7rem; margin-bottom:8px; }
+.cover p { opacity:.8; line-height:1.7; font-size:.95rem; }
+h2 { font-family:'Montserrat',sans-serif; font-weight:700; color:var(--bordeaux); border-bottom:3px solid var(--sage); padding-bottom:8px; margin:32px 0 14px; font-size:1.2rem; }
+h3 { font-family:'Montserrat',sans-serif; color:var(--dark-green); font-size:.95rem; font-weight:700; margin:18px 0 8px; }
+p,li { line-height:1.8; font-size:.94rem; margin-bottom:10px; }
+ul,ol { margin:8px 0 14px 18px; }
+.card { background:white; border-radius:10px; padding:22px 26px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,.07); }
+.card.red { border-left:4px solid #C4836E; }
+.card.orange { border-left:4px solid var(--warning); }
+.card.green { border-left:4px solid var(--sage); background:rgba(122,158,138,.03); }
+.card.ok { border-left:4px solid var(--sage); }
+.status { display:inline-block; padding:2px 9px; border-radius:10px; font-size:.75rem; font-weight:700; font-family:'Montserrat',sans-serif; margin-left:6px; vertical-align:middle; }
+.s-ok { background:rgba(122,158,138,.15); color:var(--dark-green); }
+.s-fix { background:rgba(196,131,110,.18); color:#7A3020; }
+.s-warn { background:rgba(212,165,116,.2); color:#7A5510; }
+table { width:100%; border-collapse:collapse; font-size:.86rem; margin:12px 0; }
+th { background:var(--dark-green); color:white; padding:9px 13px; text-align:left; font-family:'Montserrat',sans-serif; font-size:.75rem; letter-spacing:1px; }
+td { padding:9px 13px; border-bottom:1px solid rgba(122,158,138,.15); vertical-align:top; }
+tr:nth-child(even) td { background:rgba(122,158,138,.04); }
+.code { background:#1a1a2e; color:#e8f4f8; padding:16px 20px; border-radius:8px; font-family:'Courier New',monospace; font-size:.83rem; line-height:1.75; margin:12px 0; overflow-x:auto; white-space:pre; }
+.code .c { color:#7A9E8A; }
+.code .s { color:#D4A574; }
+.code .k { color:#9B7FA4; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <h1>Landing Page Audit – unbond-landingpage-v7.html</h1>
+  <p>Vollständige Überprüfung: Was ist fertig, was fehlt, was muss vor Go-Live erledigt werden.</p>
+</div>
+
+<h2>✅ Was fertig ist und gut funktioniert</h2>
+
+<div class="card ok">
+  <table>
+    <thead><tr><th>Element</th><th>Status</th><th>Anmerkung</th></tr></thead>
+    <tbody>
+      <tr><td>Toxikometer-Test (25 Fragen, 5 Kategorien)</td><td><span class="status s-ok">✓ Fertig</span></td><td>Vollständige Quiz-Engine, localStorage-Speicherung</td></tr>
+      <tr><td>Profil-Matching (7 Profile)</td><td><span class="status s-ok">✓ Fertig</span></td><td>_matchedProfileKey wird in generateProfile() korrekt gesetzt</td></tr>
+      <tr><td>Radar-Charts (Chart.js)</td><td><span class="status s-ok">✓ Fertig</span></td><td>Preview + Ergebnis-Chart, animiert</td></tr>
+      <tr><td>Result-Modal mit Opt-In</td><td><span class="status s-ok">✓ Fertig</span></td><td>Gabel-Zustand (PANIK/SEHNSUCHT/VERWIRRUNG) + E-Mail-Feld</td></tr>
+      <tr><td>handleOptIn() Funktion</td><td><span class="status s-ok">✓ Fertig</span></td><td>Ruft send_to_brevo.php auf (Datei fehlt noch – siehe unten)</td></tr>
+      <tr><td>Glossar (15 Begriffe)</td><td><span class="status s-ok">✓ Fertig</span></td><td>Accordion, vollständig ausgefüllt</td></tr>
+      <tr><td>FAQ-Section</td><td><span class="status s-ok">✓ Fertig</span></td><td>Accordion funktioniert</td></tr>
+      <tr><td>Impressum-Modal</td><td><span class="status s-warn">⚠ Lücken</span></td><td>Struktur da, Platzhalter ausfüllen (siehe unten)</td></tr>
+      <tr><td>Datenschutz-Modal</td><td><span class="status s-warn">⚠ Lücken</span></td><td>Struktur da, E-Mail-Anbieter eintragen</td></tr>
+      <tr><td>Cookie-Banner</td><td><span class="status s-ok">✓ Fertig</span></td><td>Accept/Dismiss mit localStorage</td></tr>
+      <tr><td>SEO Meta-Tags</td><td><span class="status s-ok">✓ Fertig</span></td><td>Title, Description, Keywords, OG-Tags vorhanden</td></tr>
+      <tr><td>Notfallnummern im Footer</td><td><span class="status s-ok">✓ Fertig</span></td><td>Telefonseelsorge + Gewalt-Hotline</td></tr>
+      <tr><td>Responsive Design</td><td><span class="status s-ok">✓ Fertig</span></td><td>Mobile Breakpoints vorhanden</td></tr>
+      <tr><td>Scroll-Progress + Back-to-Top</td><td><span class="status s-ok">✓ Fertig</span></td><td>Beide funktionieren</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>🔴 KRITISCH – ohne das kann die Seite nicht live gehen</h2>
+
+<div class="card red">
+  <h3>1. send_to_brevo.php fehlt <span class="status s-fix">Muss erstellt werden</span></h3>
+  <p>Die Landing Page ruft <code>fetch('send_to_brevo.php', ...)</code> auf – diese Datei existiert noch nicht auf dem Server. Ohne sie schlägt jede E-Mail-Anmeldung mit einem Netzwerkfehler fehl.</p>
+  <p><strong>Lösung:</strong> Die fertige PHP-Datei ist weiter unten in diesem Dokument. Einfach als <code>send_to_brevo.php</code> im selben Ordner wie <code>index.html</code> auf Hostinger hochladen.</p>
+</div>
+
+<div class="card red">
+  <h3>2. hero-bg.png fehlt <span class="status s-fix">Bild hochladen oder URL ersetzen</span></h3>
+  <p>Die Seite referenziert <code>background: url('hero-bg.png')</code> – lokal, ohne Pfad. Wenn die Datei nicht neben der HTML-Datei auf dem Server liegt, bleibt der Hintergrund einfarbig dunkel (<code>#1a2420</code>) statt das Hintergrundbild zu zeigen.</p>
+  <p><strong>Lösung:</strong> Entweder hero-bg.png auf Hostinger in <code>public_html/</code> hochladen, oder im CSS durch eine absolute CDN-URL ersetzen.</p>
+</div>
+
+<div class="card red">
+  <h3>3. Digistore24-Link ist Platzhalter <span class="status s-fix">URL eintragen</span></h3>
+  <p>Der Link <code>https://www.digistore24.com/PLATZHALTER</code> erscheint <strong>4×</strong> in der Seite (Navbar, Hero, E-Book-Section, Result-Modal). Alle klickbaren E-Book-Buttons führen ins Leere.</p>
+  <p><strong>Lösung:</strong> Echten Digistore24-Produkt-Link einsetzen. Suchen & Ersetzen: <code>https://www.digistore24.com/PLATZHALTER</code> → deine echte URL.</p>
+</div>
+
+<div class="card red">
+  <h3>4. Score-Diskrepanz: /50 vs. /125 <span class="status s-fix">Abstimmen</span></h3>
+  <p>Der Report (PDF/HTML) zeigt „___ / 125 Punkte". Die Landing Page zeigt im Result-Modal „Dein Score: X / 50". Das verwirrt Nutzerinnen, die beides sehen.</p>
+  <p><strong>Ursache:</strong> 25 Fragen × max. 2 Punkte pro Frage in der JS-Logik = 50. Der Report hingegen rechnet 25 Fragen × max. 5 = 125.</p>
+  <p><strong>Lösung Option A:</strong> In <code>generateProfile()</code> Zeile 3569 den Score mit 2,5 multiplizieren: <code>const reportScore = Math.round(totalScore * 2.5);</code> – dann in der Anzeige <code>reportScore / 125</code> zeigen.</p>
+  <p><strong>Lösung Option B:</strong> Den Report auf /50 umstellen (einfacher).</p>
+</div>
+
+<h2>🟠 RECHTLICH – vor Go-Live ausfüllen</h2>
+
+<div class="card orange">
+  <h3>5. Impressum: Platzhalter ausfüllen <span class="status s-warn">Deine Daten eintragen</span></h3>
+  <ul>
+    <li><code>Milena [Nachname bitte ergänzen]</code> → vollständiger Name</li>
+    <li><code>[Straße, Hausnummer bitte ergänzen]</code> → vollständige Adresse</li>
+    <li>E-Mail-Adresse: Die cloudflare-verschlüsselte E-Mail sieht aus wie <code>[email protected]</code> – prüfen ob sie korrekt entschlüsselt wird</li>
+  </ul>
+</div>
+
+<div class="card orange">
+  <h3>6. Datenschutz: E-Mail-Anbieter eintragen <span class="status s-warn">Pflicht</span></h3>
+  <p>Abschnitt 4 lautet aktuell: <em>„[Platzhalter: Anbieter eintragen, z.B. MailerLite / ActiveCampaign]"</em></p>
+  <p><strong>Ersetzen durch:</strong> „Diese Seite verwendet Brevo (Sendinblue SAS, 55 rue d'Amsterdam, 75008 Paris, Frankreich) für den E-Mail-Versand. Mit Brevo besteht ein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO. Deine E-Mail-Adresse wird ausschließlich zur Zusendung des angeforderten Reports und der 7-Tage-Begleitsequenz verwendet."</p>
+</div>
+
+<div class="card orange">
+  <h3>7. Datenschutz: Eigene Daten im Abschnitt 1 eintragen <span class="status s-warn">Pflicht</span></h3>
+  <p>Abschnitt 1 enthält: <em>„[Platzhalter: Name und Adresse]"</em> → identisch mit Impressum ausfüllen.</p>
+</div>
+
+<h2>🟡 EMPFOHLEN – verbessert Qualität und Conversion</h2>
+
+<div class="card">
+  <h3>8. Score an Brevo übergeben <span class="status s-warn">Empfohlen</span></h3>
+  <p>Aktuell übergibt handleOptIn() an die PHP: <code>email, zustand, profil</code> – aber <strong>nicht den totalScore</strong>. Damit kann Brevo keine score-basierte Segmentierung machen.</p>
+  <p><strong>Fix:</strong> In handleOptIn() (Zeile ~3693) die Variable <code>_currentScore</code> ergänzen und im fetch-Body mitsenden. Dazu in generateProfile() Zeile 3567 global speichern:</p>
+  <div class="code"><span class="c">// In generateProfile(), nach Zeile 3567:</span>
+window._currentScore = totalScore;  <span class="c">// global merken</span>
+
+<span class="c">// In handleOptIn(), im JSON.stringify Body ergänzen:</span>
+body: JSON.stringify({
+  email:   email,
+  zustand: _gabelZustand,
+  profil:  _matchedProfileKey || <span class="s">'unbekannt'</span>,
+  score:   window._currentScore || 0  <span class="c">// NEU</span>
+})</div>
+</div>
+
+<div class="card">
+  <h3>9. og:image Meta-Tag fehlt <span class="status s-warn">Empfohlen für Social Sharing</span></h3>
+  <p>Beim Teilen auf WhatsApp, Instagram etc. erscheint kein Vorschaubild. In den <code>&lt;head&gt;</code> einfügen:</p>
+  <div class="code">&lt;meta property=<span class="s">"og:image"</span> content=<span class="s">"https://unbond.de/og-image.jpg"</span>&gt;
+&lt;meta property=<span class="s">"og:url"</span> content=<span class="s">"https://unbond.de"</span>&gt;</div>
+  <p>Bild: 1200×630px, zeigt Logo + Tagline. Auf Hostinger hochladen.</p>
+</div>
+
+<div class="card">
+  <h3>10. Favicon fehlt <span class="status s-warn">Empfohlen</span></h3>
+  <p>Im Browser-Tab erscheint kein Icon. In den <code>&lt;head&gt;</code> einfügen:</p>
+  <div class="code">&lt;link rel=<span class="s">"icon"</span> type=<span class="s">"image/png"</span> href=<span class="s">"favicon.png"</span>&gt;</div>
+</div>
+
+<div class="card">
+  <h3>11. Kontakt-Link im Footer ist # <span class="status s-warn">Ausfüllen</span></h3>
+  <p>Footer: <code>&lt;a href="#"&gt;Kontakt&lt;/a&gt;</code> → ersetzen durch <code>mailto:milena@unbond.de</code> oder eine Kontaktseite.</p>
+</div>
+
+<div class="card">
+  <h3>12. Google Fonts: DSGVO-konformes Self-Hosting optional <span class="status s-warn">Optional</span></h3>
+  <p>Die Datenschutzerklärung hat bereits einen Hinweis auf Google Fonts. Für maximale DSGVO-Sicherheit können die Fonts lokal auf Hostinger gespeichert werden. Tool: <a href="https://google-webfonts-helper.herokuapp.com" style="color:var(--dark-green);">google-webfonts-helper.herokuapp.com</a> – die Fonts herunterladen, hochladen, im CSS referenzieren.</p>
+</div>
+
+<h2>Zusammenfassung: Reihenfolge für Go-Live</h2>
+
+<div class="card green">
+  <table>
+    <thead><tr><th>Schritt</th><th>Was</th><th>Zeit</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>send_to_brevo.php erstellen + hochladen (Code unten)</td><td>20 Min.</td></tr>
+      <tr><td><strong>2</strong></td><td>hero-bg.png auf Hostinger hochladen</td><td>5 Min.</td></tr>
+      <tr><td><strong>3</strong></td><td>Digistore24-Platzhalter durch echte URL ersetzen (4×)</td><td>5 Min.</td></tr>
+      <tr><td><strong>4</strong></td><td>Score-Diskrepanz /50 vs /125 beheben</td><td>10 Min.</td></tr>
+      <tr><td><strong>5</strong></td><td>Impressum: Name + Adresse eintragen</td><td>5 Min.</td></tr>
+      <tr><td><strong>6</strong></td><td>Datenschutz: Brevo als Anbieter eintragen</td><td>5 Min.</td></tr>
+      <tr><td><strong>7</strong></td><td>Score in handleOptIn() an PHP übergeben</td><td>5 Min.</td></tr>
+      <tr><td><strong>8</strong></td><td>Domain verbinden (Hostinger DNS)</td><td>15 Min. + Propagation</td></tr>
+      <tr><td><strong>9</strong></td><td>Kompletter Test-Durchlauf (Test-E-Mail eintragen, Report empfangen)</td><td>30 Min.</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px;font-weight:700;color:var(--dark-green);">Geschätzter Aufwand bis Go-Live: ~2 Stunden</p>
+</div>
+
+<!-- ============================================================
+     DER FEHLENDE PHP-FILE
+============================================================ -->
+<h2>Der fehlende File: send_to_brevo.php</h2>
+
+<p>Diesen Code als Datei <code>send_to_brevo.php</code> speichern und in <code>public_html/</code> (neben index.html) auf Hostinger hochladen.</p>
+<p><strong>Vor dem Upload:</strong> <code>DEIN_BREVO_API_KEY</code> durch deinen echten API-Key ersetzen (Brevo Dashboard → Einstellungen → API-Keys) und <code>DEINE_LISTEN_ID</code> durch die Zahl deiner Brevo-Kontaktliste.</p>
+
+<div class="code">&lt;?php
+<span class="c">// ============================================================
+// UNBOND – Brevo Opt-In Handler
+// Datei: send_to_brevo.php
+// Hochladen nach: public_html/ (gleicher Ordner wie index.html)
+// ============================================================</span>
+
+<span class="c">// ── Konfiguration ──────────────────────────────────────────</span>
+<span class="k">define</span>(<span class="s">'BREVO_API_KEY'</span>, <span class="s">'DEIN_BREVO_API_KEY'</span>);    <span class="c">// aus Brevo Dashboard</span>
+<span class="k">define</span>(<span class="s">'BREVO_LIST_ID'</span>, 1);                           <span class="c">// Zahl deiner Brevo-Liste</span>
+<span class="k">define</span>(<span class="s">'ALLOWED_ORIGIN'</span>, <span class="s">'https://unbond.de'</span>);        <span class="c">// deine Domain</span>
+
+<span class="c">// ── CORS ──────────────────────────────────────────────────</span>
+header(<span class="s">'Access-Control-Allow-Origin: '</span> . ALLOWED_ORIGIN);
+header(<span class="s">'Access-Control-Allow-Methods: POST, OPTIONS'</span>);
+header(<span class="s">'Access-Control-Allow-Headers: Content-Type'</span>);
+header(<span class="s">'Content-Type: application/json; charset=UTF-8'</span>);
+
+if ($_SERVER[<span class="s">'REQUEST_METHOD'</span>] === <span class="s">'OPTIONS'</span>) { http_response_code(204); exit; }
+if ($_SERVER[<span class="s">'REQUEST_METHOD'</span>] !== <span class="s">'POST'</span>)  { echo json_encode([<span class="s">'success'</span>=&gt;false,<span class="s">'error'</span>=&gt;<span class="s">'Ungültige Anfrage'</span>]); exit; }
+
+<span class="c">// ── Eingabe lesen & validieren ────────────────────────────</span>
+$raw  = file_get_contents(<span class="s">'php://input'</span>);
+$data = json_decode($raw, true);
+
+$email  = isset($data[<span class="s">'email'</span>])   ? filter_var(trim($data[<span class="s">'email'</span>]),   FILTER_SANITIZE_EMAIL) : <span class="s">''</span>;
+$profil = isset($data[<span class="s">'profil'</span>])  ? htmlspecialchars(trim($data[<span class="s">'profil'</span>]),  ENT_QUOTES) : <span class="s">'unbekannt'</span>;
+$zustand= isset($data[<span class="s">'zustand'</span>]) ? htmlspecialchars(trim($data[<span class="s">'zustand'</span>]), ENT_QUOTES) : <span class="s">''</span>;
+$score  = isset($data[<span class="s">'score'</span>])   ? intval($data[<span class="s">'score'</span>])   : 0;
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([<span class="s">'success'</span>=&gt;false, <span class="s">'error'</span>=&gt;<span class="s">'Ungültige E-Mail-Adresse'</span>]); exit;
+}
+
+<span class="c">// ── Brevo API: Kontakt anlegen / aktualisieren ────────────</span>
+$payload = [
+    <span class="s">'email'</span>         =&gt; $email,
+    <span class="s">'updateEnabled'</span> =&gt; true,
+    <span class="s">'listIds'</span>       =&gt; [BREVO_LIST_ID],
+    <span class="s">'attributes'</span>    =&gt; [
+        <span class="s">'PROFIL'</span>    =&gt; $profil,
+        <span class="s">'ZUSTAND'</span>   =&gt; $zustand,
+        <span class="s">'SCORE'</span>     =&gt; $score,
+        <span class="s">'TEST_DATUM'</span>=&gt; date(<span class="s">'Y-m-d'</span>)
+    ]
+];
+
+$ch = curl_init(<span class="s">'https://api.brevo.com/v3/contacts'</span>);
+curl_setopt_array($ch, [
+    CURLOPT_POST           =&gt; true,
+    CURLOPT_POSTFIELDS     =&gt; json_encode($payload),
+    CURLOPT_RETURNTRANSFER =&gt; true,
+    CURLOPT_HTTPHEADER     =&gt; [
+        <span class="s">'Content-Type: application/json'</span>,
+        <span class="s">'Accept: application/json'</span>,
+        <span class="s">'api-key: '</span> . BREVO_API_KEY
+    ],
+    CURLOPT_TIMEOUT        =&gt; 15
+]);
+
+$response  = curl_exec($ch);
+$httpCode  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch);
+curl_close($ch);
+
+<span class="c">// ── Antwort auswerten ────────────────────────────────────</span>
+<span class="c">// 201 = Kontakt neu angelegt, 204 = Kontakt aktualisiert → beides OK</span>
+if (in_array($httpCode, [201, 204])) {
+    echo json_encode([<span class="s">'success'</span>=&gt;true]);
+    exit;
+}
+
+<span class="c">// Brevo-Fehlerdetails auslesen</span>
+$brevoData = json_decode($response, true);
+$errMsg    = isset($brevoData[<span class="s">'message'</span>]) ? $brevoData[<span class="s">'message'</span>] : <span class="s">'Fehler beim Speichern'</span>;
+
+<span class="c">// Bekannte Fehlercodes abfangen</span>
+if ($httpCode === 400 &amp;&amp; isset($brevoData[<span class="s">'code'</span>]) &amp;&amp; $brevoData[<span class="s">'code'</span>] === <span class="s">'duplicate_parameter'</span>) {
+    <span class="c">// E-Mail schon in der Liste – trotzdem Erfolg anzeigen</span>
+    echo json_encode([<span class="s">'success'</span>=&gt;true]);
+    exit;
+}
+
+http_response_code(500);
+echo json_encode([<span class="s">'success'</span>=&gt;false, <span class="s">'error'</span>=&gt;$errMsg]);
+?&gt;</div>
+
+<h2>Domain mit Hostinger verbinden</h2>
+<div class="card green">
+  <p>Sobald die Dateien hochgeladen sind:</p>
+  <ol>
+    <li>In hPanel: <strong>Domains → unbond.de → DNS / Nameserver</strong></li>
+    <li>Prüfen ob A-Record auf die Hostinger-IP zeigt (hPanel zeigt sie dir)</li>
+    <li>Wenn Domain woanders registriert: Nameserver auf Hostinger-NS umstellen</li>
+    <li>SSL: hPanel → SSL → Let's Encrypt aktivieren (kostenlos, automatisch)</li>
+    <li>Warte 15–60 Min. auf DNS-Propagation</li>
+    <li>Test: <code>https://unbond.de</code> öffnen → Landing Page erscheint</li>
+    <li>Test: Opt-In-Formular ausfüllen → Brevo-Dashboard prüfen ob Kontakt angelegt wurde</li>
+  </ol>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Search, 
+  ShieldCheck, 
+  AlertTriangle, 
+  Send, 
+  Brain, 
+  MessageSquare, 
+  RefreshCcw,
+  Info,
+  ArrowRight,
+  Eye,
+  Lock,
+  Unlock
+} from 'lucide-react';
+
+const App = () => {
+  const [userInput, setUserInput] = useState('');
+  const [analysis, setAnalysis] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeAnalysis, setActiveAnalysis] = useState(null);
+
+  const systemPrompt = `
+    Du agierst als klinische Expertin für narzisstischen Missbrauch innerhalb des Programms UNBOND. 
+    Deine Aufgabe ist es, Nachrichten der Ex-Partnerin (Hoover-Mails) zu dekonstruieren.
+
+    REGELN FÜR DIE ANALYSE:
+    1. Identifiziere Gaslighting (Verdrehung der Realität).
+    2. Identifiziere DARVO (Täter-Opfer-Umkehr).
+    3. Identifiziere Pity Play (Mitleidsmasche).
+    4. Übersetze den manipulativen Satz in die "Ehrliche Wahrheit" (Was die Ex eigentlich meint).
+
+    TONALITÄT:
+    Klinisch präzise, aber warm und validierend gegenüber der Nutzerin. 
+    Nutze Begriffe wie "Ozean" (für die Nutzerin) und "Wolf" (für die Täterin), wenn es passt.
+  `;
+
+  // Silkes Brief - In Segmente zerlegt für die Visualisierung
+  const silkeLetterElements = [
+    {
+      text: "Ich fand es sehr belastend, besonders weil du dich direkt in die Opferrolle begeben hast und deine Vorwürfe kund getan hast.",
+      tactic: "DARVO / Schuldumkehr",
+      translation: "Ich weigere mich, Verantwortung für mein Handeln zu übernehmen. Indem ich dich als 'Opferrolle' abtue, mache ich dich zur Täterin meines schlechten Gewissens."
+    },
+    {
+      text: "Ich möchte dir doch noch einmal ans Herz legen die Dinge nicht so zu verdrehen.",
+      tactic: "Gaslighting",
+      translation: "Ich werde die Fakten so lange biegen, bis ich die Kontrolle über das Narrativ habe. Deine Erinnerung nenne ich 'Verdrehung', um deinen Verstand zu verunsichern."
+    },
+    {
+      text: "Ich war bei der Polizei weil du mich mit deinen Spritzen Fotos in den Glauben gelassen hast du seist in einem hilflosen Zustand.",
+      tactic: "Administrative Gewalt / Maske der Sorge",
+      translation: "Ich nutze das System, um dich offiziell als 'unfähig' zu markieren. Ein Rettungsversuch wäre über 112 gelaufen, nicht über die Polizei und das Jugendamt."
+    },
+    {
+      text: "Schuldzuweisungen sind weder sinnvoll noch führt es zu irgendetwas. Jede hat ihren Anteil daran gehabt.",
+      tactic: "Falsche Äquivalenz",
+      translation: "Ich setze meine Gewalt mit deinen Reaktionen darauf gleich. Wenn wir beide 'schuld' sind, muss ich mich nicht entschuldigen."
+    },
+    {
+      text: "Ich hatte Dir im Juli schon Freundschaft angeboten du wolltest nicht. Dann lass uns doch wenigstens jetzt im Frieden sein.",
+      tactic: "Die Friedens-Falle",
+      translation: "Ich möchte, dass du schweigst und meine Version der Geschichte akzeptierst. 'Frieden' bedeutet für mich: Keine Konsequenzen für mein Verhalten."
+    }
+  ];
+
+  const callGemini = async (prompt, retryCount = 0) => {
+    const apiKey = ""; 
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] }
+        })
+      });
+
+      if (!response.ok) throw new Error('API Error');
+
+      const data = await response.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text;
+    } catch (err) {
+      if (retryCount < 5) {
+        const delay = Math.pow(2, retryCount) * 1000;
+        await new Promise(res => setTimeout(res, delay));
+        return callGemini(prompt, retryCount + 1);
+      }
+      throw err;
+    }
+  };
+
+  const handleAnalyze = async (textToAnalyze = userInput) => {
+    if (!textToAnalyze.trim()) return;
+    setLoading(true);
+    setError(null);
+    setAnalysis(null);
+
+    try {
+      const result = await callGemini(textToAnalyze);
+      setAnalysis(result);
+    } catch (err) {
+      setError("Verbindung zum Decoder unterbrochen. Bitte versuche es gleich noch einmal.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FDFCFB] p-4 md:p-8 font-sans text-slate-800">
+      <div className="max-w-4xl mx-auto space-y-10">
+        
+        {/* Header Section */}
+        <header className="bg-[#6B3E44] p-10 rounded-[2.5rem] text-white shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4 opacity-10">
+            <Brain size={180} />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em]">Modul 4.11</span>
+            </div>
+            <h1 className="text-4xl font-extrabold tracking-tighter mb-4">
+              Die Anatomie der Manipulation
+            </h1>
+            <p className="text-slate-200 text-lg max-w-2xl leading-relaxed">
+              Bevor du deine eigenen Nachrichten analysierst, schauen wir uns ein echtes Fallbeispiel an. Lerne, wie der "Wolf" die Sprache nutzt, um den "Ozean" zu verunsichern.
+            </p>
+          </div>
+        </header>
+
+        {/* Phase 1: Die Dekonstruktion des Briefes */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-3 px-2">
+            <Eye className="text-[#8B4F5B]" />
+            <h2 className="text-xl font-bold text-slate-700">Schritt 1: Fallanalyse (Silkes Nachricht)</h2>
+          </div>
+          
+          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-slate-100">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Klicke auf die markierten Passagen im Brief:</p>
+            
+            <div className="space-y-4">
+              {silkeLetterElements.map((item, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveAnalysis(item)}
+                  className={`w-full text-left p-6 rounded-2xl border-2 transition-all group flex gap-4 items-start ${
+                    activeAnalysis?.text === item.text 
+                    ? 'bg-slate-900 border-slate-900 text-white' 
+                    : 'bg-slate-50 border-slate-100 hover:border-[#8B4F5B]'
+                  }`}
+                >
+                  <div className={`mt-1 p-2 rounded-lg ${activeAnalysis?.text === item.text ? 'bg-[#8B4F5B]' : 'bg-white'}`}>
+                    <Search size={16} />
+                  </div>
+                  <span className="text-sm md:text-base leading-relaxed">"{item.text}"</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Visual Translation Box */}
+            {activeAnalysis && (
+              <div className="mt-10 animate-in fade-in zoom-in duration-300">
+                <div className="bg-[#F1F6F3] p-8 rounded-3xl border-2 border-[#7A9E8A] relative">
+                   <div className="absolute -top-4 left-10 bg-[#7A9E8A] text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    Die klinische Wahrheit
+                  </div>
+                  <div className="flex gap-4 mb-4">
+                    <ShieldCheck className="text-[#7A9E8A] w-6 h-6 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-bold text-[#7A9E8A] uppercase mb-1">Taktik: {activeAnalysis.tactic}</p>
+                      <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight italic">
+                        "{activeAnalysis.translation}"
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Transition Instruction */}
+        <div className="bg-[#8B4F5B] p-8 rounded-[2rem] text-white flex flex-col md:flex-row items-center gap-6 shadow-lg">
+          <div className="bg-white/10 p-4 rounded-full">
+            <Unlock size={32} />
+          </div>
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-bold mb-1">Jetzt bist du an der Reihe.</h3>
+            <p className="text-sm opacity-90">Du hast gesehen, wie die Maske fällt. Nutze jetzt den KI-Decoder, um deine eigenen Nachrichten zu analysieren. Sei radikal ehrlich zu dir selbst.</p>
+          </div>
+        </div>
+
+        {/* Phase 2: Der KI-Decoder */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-3 px-2">
+            <Brain className="text-[#8B4F5B]" />
+            <h2 className="text-xl font-bold text-slate-700">Schritt 2: Dein eigener Realitäts-Check</h2>
+          </div>
+
+          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-slate-100">
+            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-4">
+              Füge hier eine Passage ein, die dich verunsichert:
+            </label>
+            
+            <div className="relative mb-8">
+              <textarea 
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                placeholder="Kopiere hier den Satz der Ex hinein..."
+                className="w-full p-6 bg-slate-50 border-2 border-slate-100 rounded-3xl text-sm md:text-base focus:border-[#8B4F5B] focus:outline-none min-h-[150px] transition-all"
+              />
+              <button 
+                onClick={() => handleAnalyze()}
+                disabled={!userInput || loading}
+                className="absolute bottom-4 right-4 bg-[#8B4F5B] text-white p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform disabled:opacity-50"
+              >
+                {loading ? <RefreshCcw className="animate-spin h-6 w-6" /> : <Send size={24} />}
+              </button>
+            </div>
+
+            {/* AI Result Area */}
+            {analysis && (
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="bg-slate-900 text-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+                   <div className="absolute top-0 right-0 p-4 opacity-5">
+                    <Brain size={120} />
+                  </div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <ShieldCheck className="text-[#A8BDA0] w-7 h-7" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-[#A8BDA0]">
+                      E-V-E Dekonstruktion
+                    </span>
+                  </div>
+                  
+                  <div className="prose prose-invert max-w-none">
+                    <div className="text-lg md:text-xl font-medium leading-relaxed whitespace-pre-wrap">
+                      {analysis}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/10 text-xs text-slate-400 italic">
+                    "Erinnere dich: Worte sind nur Schatten. Deine Wahrheit ist das Licht."
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="mt-4 bg-rose-50 border border-rose-100 p-4 rounded-2xl text-rose-600 text-sm flex items-center gap-3">
+                <AlertTriangle size={18} /> {error}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="text-center py-10">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.4em]">
+            UNBOND – Deine Reise zur Wahrheit
+          </p>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+export default App;

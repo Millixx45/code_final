@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toxische Beziehung erkennen | UNBOND Toxikometer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ============================
+           ORIGINAL DESIGN SYSTEM
+           ============================ */
+        :root {
+            --sage-green: #7A9E8A; --mauve: #9B7FA4; --cream: #F4EDE4;
+            --graphite: #4A4E52; --terracotta: #C4836E; --bordeaux: #6B3E44;
+            --glass-bg: rgba(12, 14, 18, 0.55); --glass-blur: blur(16px);
+            --glass-border: rgba(244, 237, 228, 0.09);
+        }
+
+        body {
+            font-family: 'Poppins', 'Lato', sans-serif;
+            background: url('hero-bg.png') center right / cover no-repeat fixed; /* Rechtsbündiges Bild */
+            background-color: #1a2420; color: rgba(244, 237, 228, 0.88);
+            line-height: 1.7; overflow-x: hidden;
+        }
+
+        /* ORIGINAL TYPOGRAPHY */
+        h1 { font-family: 'Poppins', sans-serif; font-size: 2.6rem; font-weight: 700; line-height: 1.2; color: #f5ede4; }
+        h1 span { display: block; font-weight: 300; font-size: 1.55rem; margin-top: 14px; color: rgba(244, 237, 228, 0.75); }
+        p { font-weight: 300; font-size: 1.02rem; }
+
+        /* HERO - MAXIMALE LINKSBÜNDIGKEIT */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 20px 100px; }
+        .hero-content { max-width: 700px; text-align: left; margin-left: 0; position: relative; z-index: 2; }
+        
+        .cta-btn {
+            display: inline-block; background: linear-gradient(135deg, var(--bordeaux) 0%, #8B3E44 100%);
+            color: white; padding: 18px 40px; border-radius: 8px; font-weight: 700;
+            text-decoration: none; text-transform: uppercase; transition: all 0.3s ease;
+        }
+
+        /* ORIGINAL FLIP CARDS */
+        .problem-cards { padding: 80px 0; }
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .flip-card { height: 420px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+        .flip-card-front img { width: 100%; height: 300px; object-fit: cover; }
+        .flip-card-label { padding: 18px 20px; background: var(--glass-bg); text-align: center; }
+        .flip-card-back { transform: rotateY(180deg); padding: 30px; background: var(--bordeaux); display: flex; flex-direction: column; justify-content: center; }
+
+        /* TOXIKOMETER TEST */
+        .test-section { padding: 80px 0; }
+        .glass-box { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px; }
+        .test-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; }
+        .point-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 20px 0; }
+        .point-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px 5px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .point-btn:hover, .point-btn.active { background: var(--terracotta); }
+        .question-step { display: none; }
+        .question-step.active { display: block; animation: fadeIn 0.4s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (max-width: 992px) { .test-layout, .cards-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div style="background: rgba(122, 158, 138, 0.20); border: 1px solid var(--sage-green); color: #a8d0b4; padding: 8px 20px; border-radius: 50px; display: inline-block; font-size: 0.8rem; margin-bottom: 30px; letter-spacing: 2px;">KOSTENLOSER BEZIEHUNGSTEST</div>
+            <h1>Du weißt, dass etwas nicht stimmte.<span>Aber dein Körper lässt nicht los.</span></h1>
+            <p style="margin: 35px 0; color: rgba(244, 237, 228, 0.92);">Das ist kein Versagen. Das ist <strong>Neurobiologie</strong>. Trauma Bonding hält dein Nervensystem gefangen. Erkenne das Muster im 3-Minuten-Check.</p>
+            <a href="#test" class="cta-btn">Toxikometer starten</a>
+        </div>
+    </div>
+</section>
+
+<section class="problem-cards">
+    <div class="container">
+        <div class="cards-grid">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="suchtkreislauf.jpg" alt="Suchtkreislauf">
+                        <div class="flip-card-label"><h3>Der Kreislauf</h3><p style="font-size:0.8rem; opacity:0.6;">Trauma Bonding</p></div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Biologische Sucht</h3>
+                        <p>Das Wechselbad der Gefühle wirkt neurobiologisch wie eine Droge. Dein Gehirn wartet auf den nächsten "Kick".</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="gaslighting.jpg" alt="Gaslighting">
+                        <div class="flip-card-label"><h3>Gaslighting</h3><p style="font-size:0.8rem; opacity:0.6;">Realitätsverlust</p></div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Zweifelst du?</h3>
+                        <p>Wenn deine Wahrnehmung systematisch verdreht wurde, verlierst du das Vertrauen in dich selbst. Wir zeigen dir die Wahrheit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="dating-community.jpg" alt="Dating Community">
+                        <div class="flip-card-label"><h3>Kleine Szene</h3><p style="font-size:0.8rem; opacity:0.6;">Lesbische Trennung</p></div>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Kein Entkommen?</h3>
+                        <p>Die Ex im selben Freundeskreis – in der queeren Community ist "No Contact" eine echte Herausforderung. Wir haben Lösungen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="test-section" id="test">
+    <div class="container">
+        <div class="glass-box">
+            <div class="test-layout">
+                <div>
+                    <div id="prog-text" style="font-size: 0.8rem; margin-bottom: 10px; opacity: 0.6;">Frage 1 von 10</div>
+                    <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-bottom: 40px;">
+                        <div id="prog-fill" style="width: 10%; height: 100%; background: var(--sage-green); transition: 0.3s;"></div>
+                    </div>
+                    <div id="q-container"></div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid var(--glass-border);">
+                        <canvas id="liveChart" width="300" height="300"></canvas>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <span id="score-val" style="font-size: 3rem; font-weight: 700; color: var(--terracotta);">0</span>
+                        <span style="opacity: 0.4;">/ 50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const QUESTIONS = [
+        { q: "Wurde deine Wahrnehmung oft infrage gestellt? ('Das hast du dir eingebildet')", cat: 0 },
+        { q: "Gab es einen extremen Wechsel zwischen Liebe und plötzlicher Kälte?", cat: 0 },
+        { q: "Wurde kontrolliert, mit wem du Zeit verbringst?", cat: 1 },
+        { q: "Musstest du ständig erreichbar sein, um Streit zu vermeiden?", cat: 1 },
+        { q: "Wurden deine Erfolge systematisch kleingeredet?", cat: 2 },
+        { q: "Hat sie dich vor anderen Frauen herabgesetzt?", cat: 2 },
+        { q: "Waren ihre emotionalen Reaktionen völlig unvorhersehbar?", cat: 3 },
+        { q: "Gab es ein Muster von impulsiven Trennungen und Versöhnungen?", cat: 3 },
+        { q: "Hat sie jegliche Verantwortung für Fehler abgelehnt?", cat: 4 },
+        { q: "Fühltest du dich in der Beziehung emotional verhungert?", cat: 4 }
+    ];
+
+    let current = 0; let scores = new Array(10).fill(0); let chart;
+
+    function init() {
+        const container = document.getElementById('q-container');
+        QUESTIONS.forEach((item, i) => {
+            const step = document.createElement('div');
+            step.className = `question-step ${i === 0 ? 'active' : ''}`;
+            step.id = `q-${i}`;
+            step.innerHTML = `
+                <h3 style="font-size: 1.3rem; min-height: 80px;">${item.q}</h3>
+                <div class="point-row">${[0,1,2,3,4,5].map(p => `<button class="point-btn" onclick="next(${i}, ${p})">${p}</button>`).join('')}</div>
+            `;
+            container.appendChild(step);
+        });
+
+        chart = new Chart(document.getElementById('liveChart'), {
+            type: 'radar',
+            data: { labels: ['Manipulation', 'Kontrolle', 'Abwertung', 'Chaos', 'Egoismus'], datasets: [{ data: [0,0,0,0,0], backgroundColor: 'rgba(196,131,110,0.25)', borderColor: '#C4836E', borderWidth: 2 }] },
+            options: { scales: { r: { min: 0, max: 10, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.1)' } } }, plugins: { legend: { display: false } } }
+        });
+    }
+
+    function next(idx, p) {
+        scores[idx] = p;
+        const catS = [0,0,0,0,0];
+        QUESTIONS.forEach((q, i) => { catS[q.cat] += scores[i]; });
+        chart.data.datasets[0].data = catS; chart.update();
+        document.getElementById('score-val').textContent = scores.reduce((a,b)=>a+b, 0);
+
+        if (current < 9) {
+            document.getElementById(`q-${current}`).classList.remove('active');
+            current++; document.getElementById(`q-${current}`).classList.add('active');
+            document.getElementById('prog-fill').style.width = ((current+1)*10) + "%";
+            document.getElementById('prog-text').textContent = `Frage ${current+1} von 10`;
+        } else { alert("Test abgeschlossen! Dein Ergebnis wird geladen."); }
+    }
+    window.onload = init;
+</script>
+</body>
+</html>
