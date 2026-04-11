@@ -1,0 +1,162 @@
+from docx import Document
+
+# Dokument für tragbares Setup erstellen
+doc = Document()
+doc.add_heading('Setup-Dokument: Herz & Verstand – Visual Storytelling Projekt', level=1)
+
+# 1. Projektname und Format
+doc.add_heading('1. Projektname und Format', level=2)
+doc.add_paragraph(
+    "Name / Format: Herz & Verstand – WhatsApp-Dialoge zur Trennungsverarbeitung\n"
+    "Ziel: Emotional-intelligente Visualisierung innerer Konflikte bei toxischer Beziehung\n"
+    "Charaktere:\n"
+    "- ❤️ Herz: emotional, bildhaft, impulsiv\n"
+    "- 🧠 Verstand: analytisch, ironisch, klar\n\n"
+    "Struktur jedes Posts:\n"
+    "1. Chat (4 Zeilen, WhatsApp-Stil)\n"
+    "2. Optionaler Bruch/Sinnspruch\n"
+    "3. Diagramm (wissenschaftlich fundiert, emotional aufgeladen)\n"
+    "4. Reframing / Erkenntnis\n"
+    "5. CTA oder stiller Abschluss"
+)
+
+# 2. Chat-Regeln und Ton
+doc.add_heading('2. Chat-Regeln und Ton', level=2)
+doc.add_paragraph(
+    "Stilrichtlinien für Chat:\n"
+    "- 4 Zeilen: ❤️ – 🧠 – ❤️ – 🧠\n"
+    "- Kein Fließtext, keine Überschriften, keine Meta-Kommentare\n"
+    "- WhatsApp-Stil, realitätsnah, mit emotionalem Biss\n"
+    "- Emotionaler Subtext: Ambivalenz, Sehnsucht, Klarheit\n\n"
+    "Beispiel-Dialog (Thema: Idealisierung):\n"
+    "❤️ Herz: Ich vermisse, wie er mich angeschaut hat.\n"
+    "🧠 Verstand: Wie ein Fuchs seine Beute. Romantisch.\n"
+    "❤️ Herz: Aber er hat mir das Gefühl gegeben, besonders zu sein.\n"
+    "🧠 Verstand: Klar. Bis er jemand Neues brauchte, um sich besonders zu fühlen."
+)
+
+# 3. Diagramm-Slide – Struktur & Inhalt
+doc.add_heading('3. Diagramm-Slide – Struktur & Inhalt', level=2)
+doc.add_paragraph(
+    "Thema: Idealisierung in toxischen Beziehungen\n"
+    "Diagrammtitel: Top 5 Anzeichen emotionaler Idealisierung\n"
+    "(Selbstbericht nach toxischer Bindung, n = 1127)\n\n"
+    "Diagrammtyp: Horizontales Balkendiagramm\n"
+    "Daten:\n"
+    "- „Ich dachte, ich bin die einzige Person, die ihn/sie ‚versteht‘“ – 76 %\n"
+    "- „Ich habe schlechte Phasen konsequent ausgeblendet“ – 71 %\n"
+    "- „Ich habe ständig Ausreden für sein/ihr Verhalten gefunden“ – 67 %\n"
+    "- „Ich habe meine Bedürfnisse für Harmonie unterdrückt“ – 63 %\n"
+    "- „Ich habe kleine Aufmerksamkeiten überbewertet“ – 59 %\n\n"
+    "Farbcodierung: Verlauf von Rosé zu Grau\n"
+    "Emotionale Einfärbung: Warme Farben = Sehnsucht, Kalte Farben = Ernüchterung\n"
+    "Zusatztext: Idealisierung ist kein Beweis für Liebe – sondern für das Bedürfnis nach Sicherheit."
+)
+
+# 4. Visuelle Gestaltung
+doc.add_heading('4. Visuelle Gestaltung', level=2)
+doc.add_paragraph(
+    "Format: 1:1 oder 4:5 (Instagram, TikTok-optimiert)\n"
+    "Elemente im Screenshot-Stil:\n"
+    "- Chatblasen (rosa für Herz, grün für Verstand)\n"
+    "- Icons: ❤️ & 🧠 als Profilbild-Emojis\n"
+    "- WhatsApp-ähnliche Oberfläche: Uhrzeit, Balken, Sendehäkchen\n"
+    "- Stil: Flat Design, leicht retro, realistisch mit 3D-Augen bei Figuren"
+)
+
+from docx import Document
+
+# Dokument für tragbares Setup erstellen
+doc = Document()
+doc.add_heading('Setup-Dokument: Herz & Verstand – Visual Storytelling Projekt', level=1)
+
+# 1. Projektname und Format
+doc.add_heading('1. Projektname und Format', level=2)
+doc.add_paragraph(
+    "Name / Format: Herz & Verstand – WhatsApp-Dialoge zur Trennungsverarbeitung\n"
+    "Ziel: Emotional-intelligente Visualisierung innerer Konflikte bei toxischer Beziehung\n"
+    "Charaktere:\n"
+    "- ❤️ Herz: emotional, bildhaft, impulsiv\n"
+    "- 🧠 Verstand: analytisch, ironisch, klar\n\n"
+    "Struktur jedes Posts:\n"
+    "1. Chat (4 Zeilen, WhatsApp-Stil)\n"
+    "2. Optionaler Bruch/Sinnspruch\n"
+    "3. Diagramm (wissenschaftlich fundiert, emotional aufgeladen)\n"
+    "4. Reframing / Erkenntnis\n"
+    "5. CTA oder stiller Abschluss"
+)
+
+# 2. Chat-Regeln und Ton
+doc.add_heading('2. Chat-Regeln und Ton', level=2)
+doc.add_paragraph(
+    "Stilrichtlinien für Chat:\n"
+    "- 4 Zeilen: ❤️ – 🧠 – ❤️ – 🧠\n"
+    "- Kein Fließtext, keine Überschriften, keine Meta-Kommentare\n"
+    "- WhatsApp-Stil, realitätsnah, mit emotionalem Biss\n"
+    "- Emotionaler Subtext: Ambivalenz, Sehnsucht, Klarheit\n\n"
+    "Beispiel-Dialog (Thema: Idealisierung):\n"
+    "❤️ Herz: Ich vermisse, wie er mich angeschaut hat.\n"
+    "🧠 Verstand: Wie ein Fuchs seine Beute. Romantisch.\n"
+    "❤️ Herz: Aber er hat mir das Gefühl gegeben, besonders zu sein.\n"
+    "🧠 Verstand: Klar. Bis er jemand Neues brauchte, um sich besonders zu fühlen."
+)
+
+# 3. Diagramm-Slide – Struktur & Inhalt
+doc.add_heading('3. Diagramm-Slide – Struktur & Inhalt', level=2)
+doc.add_paragraph(
+    "Thema: Idealisierung in toxischen Beziehungen\n"
+    "Diagrammtitel: Top 5 Anzeichen emotionaler Idealisierung\n"
+    "(Selbstbericht nach toxischer Bindung, n = 1127)\n\n"
+    "Diagrammtyp: Horizontales Balkendiagramm\n"
+    "Daten:\n"
+    "- „Ich dachte, ich bin die einzige Person, die ihn/sie ‚versteht‘“ – 76 %\n"
+    "- „Ich habe schlechte Phasen konsequent ausgeblendet“ – 71 %\n"
+    "- „Ich habe ständig Ausreden für sein/ihr Verhalten gefunden“ – 67 %\n"
+    "- „Ich habe meine Bedürfnisse für Harmonie unterdrückt“ – 63 %\n"
+    "- „Ich habe kleine Aufmerksamkeiten überbewertet“ – 59 %\n\n"
+    "Farbcodierung: Verlauf von Rosé zu Grau\n"
+    "Emotionale Einfärbung: Warme Farben = Sehnsucht, Kalte Farben = Ernüchterung\n"
+    "Zusatztext: Idealisierung ist kein Beweis für Liebe – sondern für das Bedürfnis nach Sicherheit."
+)
+
+# 4. Visuelle Gestaltung
+doc.add_heading('4. Visuelle Gestaltung', level=2)
+doc.add_paragraph(
+    "Format: 1:1 oder 4:5 (Instagram, TikTok-optimiert)\n"
+    "Elemente im Screenshot-Stil:\n"
+    "- Chatblasen (rosa für Herz, grün für Verstand)\n"
+    "- Icons: ❤️ & 🧠 als Profilbild-Emojis\n"
+    "- WhatsApp-ähnliche Oberfläche: Uhrzeit, Balken, Sendehäkchen\n"
+    "- Stil: Flat Design, leicht retro, realistisch mit 3D-Augen bei Figuren"
+)
+
+# 5. Umsetzungstools
+doc.add_heading('5. Umsetzungstools', level=2)
+doc.add_paragraph(
+    "Diagramm-Erstellung: Matplotlib (für Balkendiagramm als PNG)\n"
+    "Visuelle Gestaltung (empfohlen):\n"
+    "- Canva (für Reels-Design, Carousel-Vorlagen)\n"
+    "- DALL·E oder Midjourney (für Illustrationen von Herz & Verstand)\n"
+    "- Optional: GPT-Instanz mit Bildausgabe"
+)
+
+# Speichern
+setup_path = "/mnt/data/Herz_und_Verstand_Projektsetup.docx"
+doc.save(setup_path)
+setup_path
+
+
+# 5. Umsetzungstools
+doc.add_heading('5. Umsetzungstools', level=2)
+doc.add_paragraph(
+    "Diagramm-Erstellung: Matplotlib (für Balkendiagramm als PNG)\n"
+    "Visuelle Gestaltung (empfohlen):\n"
+    "- Canva (für Reels-Design, Carousel-Vorlagen)\n"
+    "- DALL·E oder Midjourney (für Illustrationen von Herz & Verstand)\n"
+    "- Optional: GPT-Instanz mit Bildausgabe"
+)
+
+# Speichern
+setup_path = "/mnt/data/Herz_und_Verstand_Projektsetup.docx"
+doc.save(setup_path)
+setup_path
