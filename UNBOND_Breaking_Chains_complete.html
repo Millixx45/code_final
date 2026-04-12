@@ -504,12 +504,23 @@ blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; opacity: 
 
 /* === PRINT === */
 @media print {
-  .hamburger-btn, .side-nav, .nav-overlay, .bottom-nav, .global-progress { display: none !important; }
-  .section-page { display: block !important; page-break-after: always; }
-  body { background: white; padding: 0; font-size: 14px; }
-  .content-box { box-shadow: none; border: 1px solid #ddd; }
-  textarea { border: none; border-bottom: 2px dashed #bbb; background: white; min-height: 50px; }
-  input[type="range"] { display: none; }
+  @page { size: A4; margin: 18mm 14mm 20mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { background: white !important; padding: 0 !important; font-size: 13px !important; color: #222 !important; }
+  .hamburger-btn, .side-nav, .nav-overlay, .bottom-nav, .global-progress,
+  .save-note, .cover-cta, .pdf-download-bar, .add-row-btn,
+  button { display: none !important; }
+  .section-page { display: block !important; page-break-after: always; overflow: visible !important; }
+  .section-page:last-of-type { page-break-after: avoid; }
+  .content-box { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: auto; }
+  .reflection-box, .science-box, .goals-box, .crisis-box, .infographic-grid { page-break-inside: avoid; break-inside: avoid; }
+  figure { page-break-inside: avoid; break-inside: avoid; }
+  textarea { border: none !important; border-bottom: 1.5px dashed #aaa !important; background: transparent !important; min-height: 60px !important; resize: none !important; display: block !important; width: 100% !important; }
+  input[type="range"] { display: none !important; }
+  input[type="checkbox"] { width: 14px; height: 14px; }
+  img { max-width: 100% !important; page-break-inside: avoid; }
+  a::after { content: none !important; }
+  .m1-story-grid, [style*="grid-template-columns:260px"] { grid-template-columns: 180px 1fr !important; }
 }
 
 @media (max-width:640px){
@@ -800,6 +811,13 @@ body { padding-top: 52px !important; }
     </div>
 
     <button class="cover-cta" data-goto="section-vorwort">Beginne deine Reise →</button>
+
+    <!-- PDF Download Bar -->
+    <div class="pdf-download-bar" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:24px 0 8px;">
+      <button onclick="printBook()" style="background:linear-gradient(135deg,#2d4f3c,#4a7c5e);color:#f4ede4;border:none;padding:12px 28px;border-radius:28px;font-size:0.9rem;font-weight:700;cursor:pointer;letter-spacing:0.5px;box-shadow:0 4px 16px rgba(45,79,60,0.35);">📄 Programm als PDF speichern</button>
+      <button onclick="printWorkbook()" style="background:linear-gradient(135deg,#6b3e44,#9b5a62);color:#f4ede4;border:none;padding:12px 28px;border-radius:28px;font-size:0.9rem;font-weight:700;cursor:pointer;letter-spacing:0.5px;box-shadow:0 4px 16px rgba(107,62,68,0.35);">📝 Workbook drucken</button>
+    </div>
+    <p style="font-size:0.75rem;color:rgba(244,237,228,0.55);margin-top:2px;">Im Browser-Druckdialog „Als PDF speichern" wählen</p>
 
     <p class="crisis-note">⚠️ Dieses Programm ersetzt keine Psychotherapie. Bei akuten Krisen bitte das <strong>Krisentelefon 0800 111 0 111</strong> anrufen (kostenlos, 24 Stunden täglich).</p>
 
@@ -7761,6 +7779,90 @@ function evaluateAmpel() {}
   }
   eiRestore();
 })();
+
+// =============================================
+// PDF & WORKBOOK PRINT FUNCTIONS
+// =============================================
+function printBook() {
+  window.print();
+}
+
+function _esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function printWorkbook() {
+  var sections = Array.from(document.querySelectorAll('.section-page'));
+  var body = '';
+
+  sections.forEach(function(sec) {
+    var h1El = sec.querySelector('.module-header h1') || sec.querySelector('h1');
+    var badgeEl = sec.querySelector('.module-badge');
+    var boxes = sec.querySelectorAll('.reflection-box');
+    if (!boxes.length || !h1El) return;
+
+    var title = (badgeEl ? badgeEl.textContent.trim() + ' · ' : '') + h1El.textContent.trim();
+    body += '\n<div class="wb-module"><h2>' + _esc(title) + '</h2>';
+
+    boxes.forEach(function(box) {
+      var h4 = box.querySelector('h4');
+      if (h4) body += '<h3>' + _esc(h4.textContent.trim()) + '</h3>';
+
+      box.querySelectorAll('p').forEach(function(p) {
+        if (p.closest && p.closest('.save-note, .crisis-note')) return;
+        var t = p.textContent.trim();
+        if (t.length > 10) body += '<p class="wb-instr">' + _esc(t) + '</p>';
+      });
+
+      box.querySelectorAll('label, textarea').forEach(function(el) {
+        var lines = '<div></div><div></div><div></div><div></div>';
+        if (el.tagName === 'LABEL') {
+          body += '<div class="wb-field"><div class="wb-lbl">' + _esc(el.textContent.trim()) + '</div><div class="wb-lines">' + lines + '</div></div>';
+        } else {
+          var prev = el.previousElementSibling;
+          if (!prev || prev.tagName !== 'LABEL') {
+            body += '<div class="wb-field"><div class="wb-lines">' + lines + '</div></div>';
+          }
+        }
+      });
+    });
+
+    body += '</div>';
+  });
+
+  var date = new Date().toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
+  var html = '<!DOCTYPE html>\n<html lang="de">\n<head><meta charset="UTF-8">\n' +
+    '<title>UNBOND \u2013 Mein Workbook</title>\n<style>\n' +
+    '* { box-sizing: border-box; margin: 0; padding: 0; }\n' +
+    'body { font-family: Georgia, "Times New Roman", serif; max-width: 740px; margin: 0 auto; padding: 36px 28px; color: #222; font-size: 13px; line-height: 1.6; }\n' +
+    'h1 { font-size: 1.9rem; color: #6b3e44; text-align: center; margin-bottom: 4px; letter-spacing: 2px; }\n' +
+    '.subtitle { text-align: center; color: #888; font-size: 0.8rem; margin-bottom: 40px; font-family: sans-serif; }\n' +
+    'h2 { font-size: 0.9rem; font-family: sans-serif; font-weight: 700; color: #2d4f3c; border-bottom: 2px solid #2d4f3c; padding-bottom: 6px; margin: 52px 0 18px; letter-spacing: 1px; text-transform: uppercase; }\n' +
+    'h3 { font-size: 0.92rem; font-family: sans-serif; color: #6b3e44; margin: 22px 0 8px; }\n' +
+    '.wb-instr { color: #444; font-size: 0.83rem; margin-bottom: 10px; font-family: sans-serif; }\n' +
+    '.wb-field { margin: 10px 0 18px; }\n' +
+    '.wb-lbl { font-family: sans-serif; font-weight: 600; font-size: 0.8rem; color: #2d4f3c; margin-bottom: 5px; }\n' +
+    '.wb-lines div { border-bottom: 1px solid #ccc; height: 28px; margin: 3px 0; }\n' +
+    '@page { size: A4; margin: 18mm 14mm 22mm; }\n' +
+    '@media print { body { padding: 0; } h2 { page-break-before: always; } .wb-module:first-child h2 { page-break-before: avoid; } }\n' +
+    '</style>\n</head>\n<body>\n' +
+    '<h1>UNBOND \xb7 Mein Workbook</h1>\n' +
+    '<div class="subtitle">Pers\xf6nliches Begleitbuch zum Ausf\xfcllen &nbsp;\xb7&nbsp; ' + date + '</div>\n' +
+    body + '\n</body>\n</html>';
+
+  var w = window.open('', '_blank', 'width=860,height=960');
+  if (!w) {
+    alert('Bitte erlaube Pop-ups f\xfcr diese Seite, um das Workbook zu \xf6ffnen.');
+    return;
+  }
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function() { w.focus(); w.print(); }, 900);
+}
 
 </script>
 
