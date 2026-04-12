@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toxische Beziehung erkennen: 10 Warnsignale und WLW-spezifische Dynamiken | UNBOND Blog</title>
+<meta name="description" content="Wie Gaslighting, Love Bombing, Triangulation und Community-Druck psychische Gesundheit und Autonomie untergraben können">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+:root {
+    --sage-green: #7A9E8A;
+    --cream: #F4EDE4;
+    --bordeaux: #6B3E44;
+    --terracotta: #C4836E;
+    --dark-green: #2D4F3C;
+    --glass-bg: rgba(28, 52, 38, 0.30);
+    --glass-border: rgba(122, 158, 138, 0.20);
+    --glass-radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('../hero-bg.png') center top / cover no-repeat fixed;
+    background-color: #1a2420;
+    color: rgba(244, 237, 228, 0.95);
+    line-height: 1.75;
+    font-size: 16px;
+    overflow-x: hidden;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(10,22,15,0.15) 0%, rgba(14,26,18,0.10) 40%, rgba(8,18,12,0.18) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+section, nav, header, footer, main { position: relative; z-index: 1; }
+
+/* NAVBAR */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(12,24,16,0.0);
+    backdrop-filter: blur(0px);
+    transition: background 0.4s, backdrop-filter 0.4s;
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.navbar.scrolled {
+    background: rgba(12,24,16,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+.nav-logo {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--cream); text-decoration: none; letter-spacing: 3px;
+}
+.nav-logo span { color: var(--sage-green); }
+.nav-back {
+    color: rgba(244,237,228,0.70); text-decoration: none;
+    font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+}
+.nav-back:hover { color: #a8d4b8; }
+.nav-cta {
+    background: linear-gradient(135deg, var(--bordeaux), #8B3E44);
+    color: white; padding: 9px 20px; border-radius: 6px;
+    font-weight: 600; font-size: 0.82rem; text-decoration: none;
+}
+
+/* ARTICLE LAYOUT */
+.article-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 130px 20px 80px;
+}
+
+/* HEADER */
+.article-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 42px 44px 36px;
+    margin-bottom: 28px;
+}
+.article-tag {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--sage-green);
+    border: 1px solid rgba(122,158,138,0.45);
+    padding: 5px 14px; border-radius: 4px;
+    margin-bottom: 18px;
+}
+.article-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 14px;
+}
+.article-header .subtitle {
+    font-size: 1rem; font-weight: 300;
+    color: rgba(244,237,228,0.78);
+    line-height: 1.7; margin-bottom: 20px;
+}
+.article-meta {
+    display: flex; flex-wrap: wrap; gap: 6px 20px;
+    font-size: 0.82rem; color: rgba(244,237,228,0.52);
+    font-family: 'Poppins', sans-serif;
+    border-top: 1px solid rgba(122,158,138,0.15);
+    padding-top: 16px; margin-top: 16px;
+}
+.article-meta span strong { color: rgba(244,237,228,0.80); }
+.btn-pdf {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--terracotta), var(--bordeaux));
+    color: white; padding: 11px 22px; border-radius: 8px;
+    font-family: 'Poppins', sans-serif; font-weight: 600;
+    font-size: 0.85rem; text-decoration: none;
+    transition: all 0.25s;
+}
+.btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,62,68,0.4); }
+
+/* ARTICLE BODY */
+.article-body {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 44px;
+}
+.abstract-box {
+    background: rgba(122,158,138,0.10);
+    border: 1px solid rgba(122,158,138,0.25);
+    border-left: 3px solid var(--sage-green);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+}
+.abstract-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--sage-green); margin-bottom: 8px;
+}
+.abstract-box p {
+    font-size: 0.9rem; color: rgba(244,237,228,0.80);
+    line-height: 1.7; margin: 0;
+}
+
+/* TYPOGRAPHY in article */
+.article-body h2 {
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 1.35rem; color: var(--cream);
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(122,158,138,0.18);
+}
+.article-body h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 600;
+    font-size: 1.05rem; color: #a8d4b8;
+    margin: 24px 0 10px;
+}
+.article-body p {
+    color: rgba(244,237,228,0.88);
+    font-size: 0.97rem; line-height: 1.82;
+    margin-bottom: 16px;
+}
+.article-body p strong { color: var(--cream); font-weight: 600; }
+.article-body ul, .article-body ol {
+    padding-left: 1.4rem; margin-bottom: 18px;
+}
+.article-body li {
+    color: rgba(244,237,228,0.85);
+    font-size: 0.96rem; line-height: 1.75;
+    margin-bottom: 6px;
+}
+.article-body blockquote {
+    border-left: 3px solid var(--terracotta);
+    background: rgba(196,131,110,0.10);
+    padding: 14px 20px; margin: 22px 0;
+    border-radius: 0 8px 8px 0;
+    color: rgba(244,237,228,0.82);
+    font-style: italic;
+}
+.article-body table {
+    width: 100%; border-collapse: collapse;
+    margin: 20px 0 28px; font-size: 0.88rem;
+}
+.article-body th {
+    background: rgba(122,158,138,0.18);
+    color: var(--cream); font-weight: 600;
+    padding: 10px 14px; text-align: left;
+    border: 1px solid rgba(122,158,138,0.25);
+}
+.article-body td {
+    padding: 9px 14px;
+    border: 1px solid rgba(122,158,138,0.15);
+    color: rgba(244,237,228,0.82);
+    vertical-align: top;
+}
+.article-body tr:nth-child(even) td {
+    background: rgba(122,158,138,0.06);
+}
+.article-body hr {
+    border: none;
+    border-top: 1px solid rgba(122,158,138,0.18);
+    margin: 28px 0;
+}
+
+/* DISCLAIMER */
+.article-disclaimer {
+    font-size: 0.78rem;
+    color: rgba(244,237,228,0.40);
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(122,158,138,0.15);
+    font-style: italic;
+}
+
+/* CTA BOX */
+.article-cta {
+    margin-top: 28px;
+    background: rgba(107,62,68,0.20);
+    border: 1px solid rgba(107,62,68,0.40);
+    border-radius: var(--glass-radius);
+    padding: 30px 32px;
+    text-align: center;
+}
+.article-cta h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 1.15rem; color: var(--cream); margin-bottom: 10px;
+}
+.article-cta p {
+    font-size: 0.88rem; color: rgba(244,237,228,0.72);
+    margin-bottom: 18px; line-height: 1.65;
+}
+.article-cta a {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--terracotta), var(--bordeaux));
+    color: white; padding: 12px 30px; border-radius: 8px;
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 0.9rem; text-decoration: none;
+    transition: all 0.25s;
+}
+.article-cta a:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,62,68,0.4); }
+
+/* MOBILE */
+@media (max-width: 640px) {
+    .article-header { padding: 28px 22px; }
+    .article-body { padding: 28px 20px; }
+    .article-wrap { padding: 110px 14px 60px; }
+}
+</style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-logo">UN<span>BOND</span></a>
+    <a href="../blog.html" class="nav-back">← Zurück zum Blog</a>
+    <a href="../index.html#ebook" class="nav-cta">E-Book – 24 €</a>
+</nav>
+
+<main class="article-wrap">
+    <header class="article-header">
+        <div class="article-tag">Erkennen · WLW</div>
+        <h1>Toxische Beziehung erkennen: 10 Warnsignale und WLW-spezifische Dynamiken</h1>
+        <p class="subtitle">Wie Gaslighting, Love Bombing, Triangulation und Community-Druck psychische Gesundheit und Autonomie untergraben können</p>
+        <div class="article-meta">
+            <span><strong>Autorin:</strong> Milena Isailov-Schöchlin</span>
+            <span><strong>Lesedauer:</strong> 10 Minuten</span>
+        </div>
+        <a class="btn-pdf" href="toxische-beziehung-warnsignale-wlw-final.pdf" download>↓ PDF herunterladen</a>
+    </header>
+
+    <article class="article-body">
+        <div class="abstract-box">
+            <div class="abstract-label">Abstract</div>
+            <p>Dieser Beitrag bündelt zehn wiederkehrende Muster emotionaler Manipulation, ergänzt um WLW-spezifische Kontexte wie U-Hauling, Community-Enge und Ex-Partnerinnen im sozialen Umfeld.</p>
+        </div>
+        <h2>Was eine Beziehung toxisch macht</h2>
+        <p>Eine Beziehung wird nicht durch einen einzelnen Streit toxisch, sondern durch <strong>wiederkehrende Muster</strong>, die Sicherheit, Selbstwert und Autonomie schrittweise untergraben. In WLW-Kontexten können zusätzliche Faktoren wie <strong>U-Hauling</strong>, ein kleiner Dating-Pool oder Ex-Partnerinnen im Freundeskreis die Dynamik verdichten.</p>
+        <h2>Die 10 wichtigsten Warnsignale</h2>
+        <h3>1. Gaslighting</h3><p>Deine Partnerin stellt systematisch deine Wahrnehmung infrage. Typische Sätze: „Das habe ich nie gesagt", „Du übertreibst" oder „Du bist zu sensibel".</p>
+        <h3>2. Love Bombing</h3><p>Zu Beginn wirkt alles überwältigend intensiv: ständige Nachrichten, Idealisierung, Zukunftspläne, schnelles Verschmelzen.</p>
+        <h3>3. Intermittierende Verstärkung</h3><p>Ein Tag voller Nähe, der nächste voller Kälte. Diese Unberechenbarkeit hält das Nervensystem in Alarmbereitschaft und bindet oft stärker als konstante, gesunde Zuwendung.</p>
+        <h3>4. Triangulation</h3><p>Dritte Personen werden benutzt, um Unsicherheit zu erzeugen: Ex-Partnerinnen, enge Freundinnen oder neue Kontakte.</p>
+        <h3>5. Isolation</h3><p>Kontrolle beginnt oft subtil: „Deine Freund*innen verstehen uns nicht." Mit der Zeit werden andere Beziehungen anstrengend gemacht oder schlechtgeredet.</p>
+        <h3>6. Kontrolle</h3><p>Standortabfragen, Handy-Kontrolle, Kritik an Kleidung, Zeit oder Kontakten – als Fürsorge verpackt.</p>
+        <h3>7. Schuldumkehr</h3><p>Selbst wenn du verletzt wurdest, entschuldigst am Ende oft du dich. Muster: Problem ansprechen → Gegenangriff → Rollenverdrehung.</p>
+        <h3>8. Emotionale Erpressung</h3><p>Drohungen mit Trennung, Rückzug oder Selbstschädigung dienen dazu, Verhalten zu erzwingen.</p>
+        <h3>9. Abwertung und fehlende Empathie</h3><p>Nach Idealisierung kippt die Dynamik in Kritik, Spott oder Kälte. Deine Gefühle werden bagatellisiert oder als „Drama" markiert.</p>
+        <h3>10. Grenzüberschreitung</h3><p>Ein gesundes „Nein" wird nicht respektiert. Grenzen – emotional, sozial, finanziell oder sexuell – werden ignoriert oder bestraft.</p>
+        <h2>Warum Betroffene so schwer gehen können</h2>
+        <table>
+            <thead><tr><th>Mechanismus</th><th>Wirkung</th></tr></thead>
+            <tbody>
+                <tr><td>Intermittierende Verstärkung</td><td>Suchtähnliche Fixierung auf die „guten" Phasen</td></tr>
+                <tr><td>Kognitive Dissonanz</td><td>Schmerzhafte Widersprüche werden beschönigt</td></tr>
+                <tr><td>Isolation</td><td>Fehlende Außenperspektive und steigende Abhängigkeit</td></tr>
+                <tr><td>Hoffnung auf Veränderung</td><td>Bindung bleibt an ein zukünftiges Ideal gebunden</td></tr>
+                <tr><td>Verlustangst</td><td>Alleinsein wirkt bedrohlicher als die Beziehung</td></tr>
+            </tbody>
+        </table>
+        <h2>WLW-spezifische Dynamiken</h2>
+        <h3>U-Hauling und schnelle Fusion</h3>
+        <p>Schnelle emotionale und räumliche Verschmelzung wird in lesbischen Kontexten oft humorvoll normalisiert. Sie kann schön sein, kann aber auch frühe Grenzverluste verdecken.</p>
+        <h3>Kleine Community, hohe soziale Reibung</h3>
+        <p>Wenn Ex-Partnerinnen, Freundeskreis und Szene stark überlappen, wird Abstand schwerer.</p>
+        <h3>Identitätsbezogene Verunsicherung</h3>
+        <p>Internalisierte Homophobie oder Minderheitenstress können toxische Dynamiken verschärfen – dann wird auch die eigene queere Selbstwahrnehmung zum Angriffspunkt.</p>
+        <h2>Was du praktisch tun kannst</h2>
+        <ol>
+            <li><strong>Muster dokumentieren</strong> – nicht Gefühle bewerten, sondern Situationen notieren.</li>
+            <li><strong>Außenperspektive suchen</strong> – mit einer vertrauenswürdigen Person oder therapeutischen Fachkraft sprechen.</li>
+            <li><strong>Trigger erkennen</strong> – Welche Situationen führen regelmäßig zu Verunsicherung oder Panik?</li>
+            <li><strong>Grenzen konkret formulieren</strong> – kurz, klar, wiederholbar.</li>
+            <li><strong>Sicherheit vor Klärung stellen</strong> – vor allem bei massiver Kontrolle, Einschüchterung oder Gewalt.</li>
+        </ol>
+        <h2>Fazit</h2>
+        <p>Der entscheidende Unterschied zwischen konflikthaften und toxischen Beziehungen liegt nicht in Intensität, sondern in <strong>Musterhaftigkeit</strong>. Wenn du dich dauerhaft kleiner, unsicherer oder erschöpfter fühlst, ist das kein romantisches Missverständnis, sondern ein ernstes Signal.</p>
+        <p class="article-disclaimer">Dieser Artikel dient der psychoedukativen Einordnung und ersetzt keine medizinische, psychotherapeutische oder juristische Beratung im Einzelfall.</p>
+    </article>
+
+    <div class="article-cta">
+        <h3>Bereit für den nächsten Schritt?</h3>
+        <p>Der UNBOND ToxiCometer analysiert das Muster deiner Beziehung in 2 Minuten – kostenlos, anonym, wissenschaftlich fundiert.</p>
+        <a href="../index.html#ToxiCometer">Jetzt ToxiCometer starten →</a>
+    </div>
+</main>
+
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
+</body>
+</html>

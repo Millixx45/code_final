@@ -1,0 +1,49 @@
+UNBOND – UPLOAD ANLEITUNG FÜR HOSTINGER
+=========================================
+
+SCHRITT 1: Bei Hostinger einloggen
+→ hpanel.hostinger.com
+→ Hosting → Verwalten → Datei-Manager
+
+SCHRITT 2: Folgende Ordnerstruktur anlegen
+Gehe in den Ordner: public_html/
+
+Lege diese Ordner an:
+  public_html/lesen/
+  public_html/lesen/core/
+  public_html/lesen/complete/
+
+SCHRITT 3: Dateien hochladen
+
+In public_html/ (Hauptverzeichnis):
+  ✅ index.html              ← deine Landingpage (umbenennen von landingpage_v3_fixed.html)
+  ✅ .htaccess               ← die Datei aus diesem Paket (htaccess_root.txt → umbenennen zu .htaccess)
+  ✅ [alle Bild-Dateien der Landingpage: .jpg, .png, .webp etc.]
+
+In public_html/lesen/core/:
+  ✅ UNBOND_Final.html       ← Core E-Book
+  ✅ [Ordner ebook_assets/]  ← alle Bilder des E-Books
+
+In public_html/lesen/complete/:
+  ✅ UNBOND_Complete.html    ← Complete E-Book
+  ✅ [Ordner ebook_assets/]  ← alle Bilder des E-Books (gleicher Ordner, kopieren)
+
+SCHRITT 4: URLs in Copecart eintragen
+
+Core-Produkt Bestätigungs-E-Mail:
+  "Dein UNBOND Ebook: https://unbond.de/lesen/core/UNBOND_Final.html"
+
+Complete-Produkt Bestätigungs-E-Mail:
+  "Dein UNBOND Ebook: https://unbond.de/lesen/complete/UNBOND_Complete.html"
+
+Bundle-Produkt Bestätigungs-E-Mail:
+  Code: UNBOND-COMPLETE-2025
+  Link: https://unbond.de/lesen/core/UNBOND_Final.html
+  (Bundle-Käuferin hat Core bereits – gibt Code im Ebook ein)
+
+SCHRITT 5: Testen
+→ https://unbond.de öffnen → Landingpage sichtbar?
+→ https://unbond.de/lesen/core/UNBOND_Final.html → Ebook lädt?
+→ https://unbond.de/lesen/complete/UNBOND_Complete.html → Complete lädt?
+
+FERTIG. Keine weitere Programmierung nötig.

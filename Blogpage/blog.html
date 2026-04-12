@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNBOND Blog – Toxische Beziehungen, Gaslighting & Heilung für lesbische Frauen</title>
+    <meta name="description" content="Fundierte Artikel zu toxischen Beziehungen, Gaslighting, Trauma Bonding und Heilung – speziell für lesbische Frauen und WLW. Wissenschaftlich basiert, empathisch geschrieben.">
+    <meta name="keywords" content="toxische Beziehung Blog, Gaslighting erkennen, Trauma Bonding, lesbische Trennung, WLW Selbsthilfe, Narzissmus erkennen">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --sage-green: #7A9E8A;
+            --mauve: #9B7FA4;
+            --cream: #F4EDE4;
+            --graphite: #4A4E52;
+            --terracotta: #C4836E;
+            --bordeaux: #6B3E44;
+            --dark-green: #2D4F3C;
+            --warning: #D4A574;
+            --glass-bg: rgba(28, 52, 38, 0.30);
+            --glass-blur: blur(18px);
+            --glass-border: rgba(122, 158, 138, 0.20);
+            --glass-radius: 14px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('hero-bg.png') center top / cover no-repeat fixed;
+            background-color: #1a2420;
+            color: rgba(244, 237, 228, 0.95);
+            line-height: 1.7;
+            font-size: 16px;
+            overflow-x: hidden;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(160deg,
+                rgba(10, 22, 15, 0.15) 0%,
+                rgba(14, 26, 18, 0.10) 40%,
+                rgba(8, 18, 12, 0.18) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        section, footer, .container, .navbar { position: relative; z-index: 1; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(12, 24, 16, 0.0);
+            backdrop-filter: blur(0px);
+            transition: background 0.4s ease, backdrop-filter 0.4s ease;
+            padding: 22px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar.scrolled {
+            background: rgba(12, 24, 16, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 3px;
+        }
+        .nav-logo span { color: var(--sage-green); }
+        .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+        .nav-links a {
+            color: rgba(244,237,228,0.80);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #a8d4b8; }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--bordeaux), #8B3E44);
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.82rem !important;
+        }
+
+        /* ── HERO ── */
+        .blog-hero {
+            padding: 160px 20px 80px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .blog-hero-badge {
+            display: inline-block;
+            background: rgba(122,158,138,0.20);
+            border: 1px solid rgba(122,158,138,0.50);
+            color: #a8d4b8;
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .blog-hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--cream);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+        .blog-hero h1 span { color: var(--sage-green); }
+        .blog-hero p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: rgba(244,237,228,0.82);
+            max-width: 580px;
+            margin: 0 auto 36px;
+            line-height: 1.8;
+        }
+
+        /* ── FILTER TAGS ── */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+        .filter-tag {
+            background: rgba(28,52,38,0.40);
+            border: 1px solid rgba(122,158,138,0.30);
+            color: rgba(244,237,228,0.75);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-tag:hover, .filter-tag.active {
+            background: rgba(122,158,138,0.25);
+            border-color: var(--sage-green);
+            color: var(--cream);
+        }
+
+        /* ── BLOG GRID ── */
+        .blog-section { padding: 0 20px 80px; }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ── BLOG CARD ── */
+        .blog-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--glass-radius);
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+            border-color: rgba(122,158,138,0.45);
+        }
+        .blog-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, rgba(45,79,60,0.6), rgba(107,62,68,0.6));
+        }
+        /* Placeholder wenn kein Bild */
+        .blog-card-img-placeholder {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .blog-card-body { padding: 26px 24px 22px; flex: 1; display: flex; flex-direction: column; }
+        .blog-card-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--sage-green);
+            margin-bottom: 10px;
+        }
+        .blog-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--cream);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .blog-card p {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: rgba(244,237,228,0.75);
+            line-height: 1.7;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        .blog-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(122,158,138,0.15);
+            padding-top: 14px;
+            margin-top: auto;
+        }
+        .blog-card-meta {
+            font-size: 0.75rem;
+            color: rgba(244,237,228,0.45);
+            font-family: 'Poppins', sans-serif;
+        }
+        .blog-card-arrow {
+            color: var(--sage-green);
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        .blog-card:hover .blog-card-arrow { transform: translateX(5px); }
+
+        /* ── FEATURED CARD (erste Kachel größer) ── */
+        .blog-card.featured {
+            grid-column: 1 / -1;
+            flex-direction: row;
+        }
+        .blog-card.featured .blog-card-img-placeholder {
+            width: 380px;
+            min-width: 380px;
+            height: auto;
+            font-size: 5rem;
+        }
+        .blog-card.featured .blog-card-body { padding: 36px 32px; }
+        .blog-card.featured h2 { font-size: 1.4rem; margin-bottom: 14px; }
+        .blog-card.featured p { font-size: 0.95rem; }
+
+        /* ── COMING SOON KACHEL ── */
+        .blog-card.coming-soon {
+            opacity: 0.55;
+            cursor: default;
+            pointer-events: none;
+        }
+        .blog-card.coming-soon .blog-card-tag { color: var(--warning); }
+
+        /* ── NEWSLETTER CTA ── */
+        .blog-cta {
+            max-width: 700px;
+            margin: 0 auto 80px;
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--glass-radius);
+            padding: 44px 36px;
+        }
+        .blog-cta h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+        .blog-cta p {
+            font-size: 0.92rem;
+            color: rgba(244,237,228,0.75);
+            margin-bottom: 26px;
+            line-height: 1.7;
+        }
+        .blog-cta a {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--terracotta), var(--bordeaux));
+            color: white;
+            padding: 14px 36px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .blog-cta a:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(107,62,68,0.4); }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(122,158,138,0.12);
+        }
+        .footer-links { margin: 12px 0; }
+        .footer-links a {
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 0.8rem;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-disclaimer {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.30);
+            max-width: 600px;
+            margin: 12px auto 0;
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .blog-card.featured {
+                flex-direction: column;
+            }
+            .blog-card.featured .blog-card-img-placeholder {
+                width: 100%;
+                min-width: unset;
+                height: 200px;
+            }
+            .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+            .blog-hero { padding: 120px 16px 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">UN<span>BOND</span></a>
+    <ul class="nav-links">
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#ToxiCometer">ToxiCometer</a></li>
+        <li><a href="index.html#ebook">E-Book</a></li>
+        <li><a href="index.html#glossar">Glossar</a></li>
+        <li><a href="index.html#ebook" class="nav-cta">E-Book – 24 €</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+    <div class="blog-hero-badge">Wissen schützt · Für lesbische Frauen &amp; WLW</div>
+    <h1>Erkenne das Muster.<br><span>Verstehe die Dynamik.</span></h1>
+    <p>Fundierte Artikel zu toxischen Beziehungen, Gaslighting, Trauma Bonding und Heilung – wissenschaftlich basiert, empathisch geschrieben.</p>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+        <span class="filter-tag active" onclick="filterPosts('all', this)">Alle Artikel</span>
+        <span class="filter-tag" onclick="filterPosts('gaslighting', this)">Gaslighting</span>
+        <span class="filter-tag" onclick="filterPosts('trauma-bonding', this)">Trauma Bonding</span>
+        <span class="filter-tag" onclick="filterPosts('no-contact', this)">No Contact</span>
+        <span class="filter-tag" onclick="filterPosts('wlw', this)">WLW &amp; Lesbisch</span>
+        <span class="filter-tag" onclick="filterPosts('heilung', this)">Heilung</span>
+    </div>
+</div>
+
+<!-- BLOG GRID -->
+<section class="blog-section">
+    <div class="blog-grid" id="blogGrid">
+        <!-- ARTIKEL 1 – FEATURED -->
+        <a class="blog-card featured" href="blog/toxische-beziehung-warnsignale-wlw.html" data-tags="gaslighting wlw">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(107,62,68,0.55), rgba(45,79,60,0.55));">🚨</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">Erkennen · WLW · 10 Min</span>
+                <h2>Toxische Beziehung erkennen: 10 Warnsignale und WLW-spezifische Dynamiken</h2>
+                <p>Wie Gaslighting, Love Bombing, Triangulation und Community-Druck psychische Gesundheit und Autonomie untergraben – mit konkreten Handlungsschritten.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- ARTIKEL 2 -->
+        <a class="blog-card" href="blog/gaslighting-lesbische-beziehungen.html" data-tags="gaslighting wlw">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(155,127,164,0.45), rgba(107,62,68,0.45));">🪞</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">Erkennen · WLW · 11 Min</span>
+                <h2>Gaslighting in lesbischen Beziehungen: Wie du deine Realität zurückgewinnst</h2>
+                <p>8 typische Taktiken, WLW-spezifische Verstärker und konkrete Schritte zur Wiederherstellung innerer Klarheit.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- ARTIKEL 3 -->
+        <a class="blog-card" href="blog/liebeskummer-neurobiologie.html" data-tags="trauma-bonding heilung">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(45,79,60,0.5), rgba(212,165,116,0.35));">🧠</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">Neurobiologie · Heilung · 12 Min</span>
+                <h2>Liebeskummer überwinden: Die Neurobiologie der toxischen Beziehung</h2>
+                <p>Warum sich das Ende einer dysfunktionalen Partnerschaft wie Substanzentzug anfühlt – und warum Regulation beim Nervensystem beginnt, nicht bei Einsicht.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- ARTIKEL 4 -->
+        <a class="blog-card" href="blog/trauma-bonding-loesen.html" data-tags="trauma-bonding heilung wlw">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(107,62,68,0.45), rgba(155,127,164,0.45));">⛓️</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">Heilung · Neurobiologie · 13 Min</span>
+                <h2>Trauma Bonding lösen: Der wissenschaftlich fundierte Weg aus emotionaler Abhängigkeit</h2>
+                <p>Neurobiologie, WLW-Kontext und ein strukturierter 7-Schritte-Ansatz zur Unterbrechung toxischer Bindungsdynamiken.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- ARTIKEL 5 -->
+        <a class="blog-card" href="blog/queer-breakup-lesbischer-kontext.html" data-tags="wlw no-contact heilung">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(122,158,138,0.45), rgba(45,79,60,0.5));">🏳️‍🌈</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">WLW · Community · 12 Min</span>
+                <h2>Spezifische Dynamiken lesbischer Trennungen: Das Queer Breakup</h2>
+                <p>U-Hauling, toxische Fusion, internalisierte Homophobie und die Herausforderung kleiner LGBTQ+-Communities – was lesbische Trennungen besonders macht.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- ARTIKEL 6 -->
+        <a class="blog-card" href="blog/trennungsschmerzen-30-tage-plan.html" data-tags="heilung no-contact">
+            <div class="blog-card-img-placeholder" style="background: linear-gradient(135deg, rgba(122,158,138,0.4), rgba(212,165,116,0.35));">📅</div>
+            <div class="blog-card-body">
+                <span class="blog-card-tag">Heilung · Aktionsplan · 14 Min</span>
+                <h2>Trennungsschmerzen überwinden: Ein 30-Tage-Plan für den Neuanfang</h2>
+                <p>Vier Phasen – Stabilisierung, kognitive Umstrukturierung, Körperregulation, Zukunft setzen. Konkret, umsetzbar, wissenschaftlich fundiert.</p>
+                <div class="blog-card-footer">
+                    <span class="blog-card-meta">Milena Isailov-Schöchlin</span>
+                    <span class="blog-card-arrow">→</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section style="padding: 0 20px;">
+    <div class="blog-cta">
+        <h3>Neue Artikel direkt in dein Postfach</h3>
+        <p>Trag dich ein und erhalte neue Blogartikel sowie die 7-Tage-Begleit-Mails zu Trauma Bonding, No-Contact und Heilung – kostenlos, jederzeit abmeldbar.</p>
+        <a href="index.html#ToxiCometer">Zuerst den ToxiCometer machen → kostenlosen Report erhalten</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-links">
+        <a href="index.html">← Zurück zur Startseite</a>
+        <a href="index.html#ToxiCometer">ToxiCometer</a>
+        <a href="index.html#ebook">E-Book</a>
+        <a href="index.html#glossar">Glossar</a>
+    </div>
+    <p class="footer-disclaimer">© 2026 UNBOND · MedifySolution+ · Milena Isailov-Schöchlin · Freiburg<br>
+    Alle Inhalte dienen der Selbstreflexion und ersetzen keine professionelle Beratung.</p>
+</footer>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Filter
+function filterPosts(tag, el) {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+
+    document.querySelectorAll('.blog-card').forEach(card => {
+        if (tag === 'all') {
+            card.style.display = '';
+        } else {
+            const tags = card.dataset.tags || '';
+            card.style.display = tags.includes(tag) ? '' : 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>

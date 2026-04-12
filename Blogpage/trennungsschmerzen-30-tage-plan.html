@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trennungsschmerzen überwinden: Ein 30-Tage-Plan für den Neuanfang | UNBOND Blog</title>
+<meta name="description" content="Ein strukturierter Heilungsplan mit Stabilisierung, kognitiver Umstrukturierung, Körperregulation und neuer Zukunftsorientierung">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+:root {
+    --sage-green: #7A9E8A;
+    --cream: #F4EDE4;
+    --bordeaux: #6B3E44;
+    --terracotta: #C4836E;
+    --dark-green: #2D4F3C;
+    --glass-bg: rgba(28, 52, 38, 0.30);
+    --glass-border: rgba(122, 158, 138, 0.20);
+    --glass-radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('../hero-bg.png') center top / cover no-repeat fixed;
+    background-color: #1a2420;
+    color: rgba(244, 237, 228, 0.95);
+    line-height: 1.75;
+    font-size: 16px;
+    overflow-x: hidden;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(10,22,15,0.15) 0%, rgba(14,26,18,0.10) 40%, rgba(8,18,12,0.18) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+section, nav, header, footer, main { position: relative; z-index: 1; }
+
+/* NAVBAR */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(12,24,16,0.0);
+    backdrop-filter: blur(0px);
+    transition: background 0.4s, backdrop-filter 0.4s;
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.navbar.scrolled {
+    background: rgba(12,24,16,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+.nav-logo {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--cream); text-decoration: none; letter-spacing: 3px;
+}
+.nav-logo span { color: var(--sage-green); }
+.nav-back {
+    color: rgba(244,237,228,0.70); text-decoration: none;
+    font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+}
+.nav-back:hover { color: #a8d4b8; }
+.nav-cta {
+    background: linear-gradient(135deg, var(--bordeaux), #8B3E44);
+    color: white; padding: 9px 20px; border-radius: 6px;
+    font-weight: 600; font-size: 0.82rem; text-decoration: none;
+}
+
+/* ARTICLE LAYOUT */
+.article-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 130px 20px 80px;
+}
+
+/* HEADER */
+.article-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 42px 44px 36px;
+    margin-bottom: 28px;
+}
+.article-tag {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--sage-green);
+    border: 1px solid rgba(122,158,138,0.45);
+    padding: 5px 14px; border-radius: 4px;
+    margin-bottom: 18px;
+}
+.article-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 14px;
+}
+.article-header .subtitle {
+    font-size: 1rem; font-weight: 300;
+    color: rgba(244,237,228,0.78);
+    line-height: 1.7; margin-bottom: 20px;
+}
+.article-meta {
+    display: flex; flex-wrap: wrap; gap: 6px 20px;
+    font-size: 0.82rem; color: rgba(244,237,228,0.52);
+    font-family: 'Poppins', sans-serif;
+    border-top: 1px solid rgba(122,158,138,0.15);
+    padding-top: 16px; margin-top: 16px;
+}
+.article-meta span strong { color: rgba(244,237,228,0.80); }
+.btn-pdf {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--terracotta), var(--bordeaux));
+    color: white; padding: 11px 22px; border-radius: 8px;
+    font-family: 'Poppins', sans-serif; font-weight: 600;
+    font-size: 0.85rem; text-decoration: none;
+    transition: all 0.25s;
+}
+.btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,62,68,0.4); }
+
+/* ARTICLE BODY */
+.article-body {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 44px;
+}
+.abstract-box {
+    background: rgba(122,158,138,0.10);
+    border: 1px solid rgba(122,158,138,0.25);
+    border-left: 3px solid var(--sage-green);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+}
+.abstract-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--sage-green); margin-bottom: 8px;
+}
+.abstract-box p {
+    font-size: 0.9rem; color: rgba(244,237,228,0.80);
+    line-height: 1.7; margin: 0;
+}
+
+/* TYPOGRAPHY in article */
+.article-body h2 {
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 1.35rem; color: var(--cream);
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(122,158,138,0.18);
+}
+.article-body h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 600;
+    font-size: 1.05rem; color: #a8d4b8;
+    margin: 24px 0 10px;
+}
+.article-body p {
+    color: rgba(244,237,228,0.88);
+    font-size: 0.97rem; line-height: 1.82;
+    margin-bottom: 16px;
+}
+.article-body p strong { color: var(--cream); font-weight: 600; }
+.article-body ul, .article-body ol {
+    padding-left: 1.4rem; margin-bottom: 18px;
+}
+.article-body li {
+    color: rgba(244,237,228,0.85);
+    font-size: 0.96rem; line-height: 1.75;
+    margin-bottom: 6px;
+}
+.article-body blockquote {
+    border-left: 3px solid var(--terracotta);
+    background: rgba(196,131,110,0.10);
+    padding: 14px 20px; margin: 22px 0;
+    border-radius: 0 8px 8px 0;
+    color: rgba(244,237,228,0.82);
+    font-style: italic;
+}
+.article-body table {
+    width: 100%; border-collapse: collapse;
+    margin: 20px 0 28px; font-size: 0.88rem;
+}
+.article-body th {
+    background: rgba(122,158,138,0.18);
+    color: var(--cream); font-weight: 600;
+    padding: 10px 14px; text-align: left;
+    border: 1px solid rgba(122,158,138,0.25);
+}
+.article-body td {
+    padding: 9px 14px;
+    border: 1px solid rgba(122,158,138,0.15);
+    color: rgba(244,237,228,0.82);
+    vertical-align: top;
+}
+.article-body tr:nth-child(even) td {
+    background: rgba(122,158,138,0.06);
+}
+.article-body hr {
+    border: none;
+    border-top: 1px solid rgba(122,158,138,0.18);
+    margin: 28px 0;
+}
+
+/* DISCLAIMER */
+.article-disclaimer {
+    font-size: 0.78rem;
+    color: rgba(244,237,228,0.40);
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(122,158,138,0.15);
+    font-style: italic;
+}
+
+/* CTA BOX */
+.article-cta {
+    margin-top: 28px;
+    background: rgba(107,62,68,0.20);
+    border: 1px solid rgba(107,62,68,0.40);
+    border-radius: var(--glass-radius);
+    padding: 30px 32px;
+    text-align: center;
+}
+.article-cta h3 {
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 1.15rem; color: var(--cream); margin-bottom: 10px;
+}
+.article-cta p {
+    font-size: 0.88rem; color: rgba(244,237,228,0.72);
+    margin-bottom: 18px; line-height: 1.65;
+}
+.article-cta a {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--terracotta), var(--bordeaux));
+    color: white; padding: 12px 30px; border-radius: 8px;
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    font-size: 0.9rem; text-decoration: none;
+    transition: all 0.25s;
+}
+.article-cta a:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,62,68,0.4); }
+
+/* MOBILE */
+@media (max-width: 640px) {
+    .article-header { padding: 28px 22px; }
+    .article-body { padding: 28px 20px; }
+    .article-wrap { padding: 110px 14px 60px; }
+}
+</style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-logo">UN<span>BOND</span></a>
+    <a href="../blog.html" class="nav-back">← Zurück zum Blog</a>
+    <a href="../index.html#ebook" class="nav-cta">E-Book – 24 €</a>
+</nav>
+
+<main class="article-wrap">
+    <header class="article-header">
+        <div class="article-tag">Heilung · Aktionsplan</div>
+        <h1>Trennungsschmerzen überwinden: Ein 30-Tage-Plan für den Neuanfang</h1>
+        <p class="subtitle">Ein strukturierter Heilungsplan mit Stabilisierung, kognitiver Umstrukturierung, Körperregulation und neuer Zukunftsorientierung</p>
+        <div class="article-meta">
+            <span><strong>Autorin:</strong> Milena Isailov-Schöchlin</span>
+            <span><strong>Lesedauer:</strong> 14 Minuten</span>
+        </div>
+        <a class="btn-pdf" href="trennungsschmerzen-30-tage-plan-final-v2.pdf" download>↓ PDF herunterladen</a>
+    </header>
+
+    <article class="article-body">
+        <div class="abstract-box">
+            <div class="abstract-label">Abstract</div>
+            <p>Statt Begriffsarbeit steht hier ein klarer 30-Tage-Fahrplan im Vordergrund – ein starkes Format für alle, die konkrete Schritte brauchen.</p>
+        </div>
+        <h2>Warum ein 30-Tage-Plan sinnvoll ist</h2>
+        <p>Nach einer Trennung fehlt vielen Menschen nicht nur die Person, sondern auch Struktur, Reizregulation und Orientierung. 30 Tage sind ein praktikabler Zeitraum, um erste Routinen zu stabilisieren und den Alltag wieder zu strukturieren.</p>
+        <h2>Phase 1 – Tage 1 bis 7: Akute Stabilisierung</h2>
+        <h3>Ziel</h3><p>Nicht tiefe Erkenntnis, sondern Überleben, Entlastung und Schadensbegrenzung.</p>
+        <h3>Kernaufgaben</h3>
+        <ol>
+            <li>Kontakt-Inventur: alle relevanten Kommunikationswege prüfen und reduzieren.</li>
+            <li>Trigger entfernen: Fotos, Geschenke, Playlists, alte Chats aus dem direkten Zugriff nehmen.</li>
+            <li>Notfallroutine festlegen: kaltes Wasser, Atemregulation, kurze Bewegung, Kontaktperson.</li>
+            <li>Tagesanker setzen: Aufstehen, essen, duschen, schlafen – banal, aber zentral.</li>
+        </ol>
+        <h2>Phase 2 – Tage 8 bis 14: Kognitive Umstrukturierung</h2>
+        <h3>Ziel</h3><p>Die Idealisierung schwächen und automatische Gedankenschleifen unterbrechen.</p>
+        <h3>Methoden</h3>
+        <ul>
+            <li><strong>ABC-Analyse</strong>: Auslöser, Bewertung, Konsequenz.</li>
+            <li><strong>Timeline der Fakten</strong>: Was ist tatsächlich passiert?</li>
+            <li><strong>Aussage-Handlungs-Abgleich</strong>: Was wurde versprochen, was wurde getan?</li>
+        </ul>
+        <h2>Phase 3 – Tage 15 bis 21: Körperliche Regulation</h2>
+        <h3>Ziel</h3><p>Das Nervensystem aus Daueranspannung lösen.</p>
+        <ul>
+            <li>Tägliche Bewegung ohne Leistungsdruck</li>
+            <li>Verlängerte Ausatmung</li>
+            <li>Schlafhygiene</li>
+            <li>Regelmäßige Mahlzeiten</li>
+            <li>Weniger Reizüberflutung am Abend</li>
+        </ul>
+        <h2>Phase 4 – Tage 22 bis 30: Zukunft setzen</h2>
+        <h3>Ziel</h3><p>Nicht nur Abstand von der Vergangenheit, sondern erste Bindung an eine neue Richtung.</p>
+        <ol>
+            <li><strong>Werte-Inventur</strong> – Welche fünf Werte sollen dein nächstes Kapitel tragen?</li>
+            <li><strong>Projektplan Light</strong> – Drei kleine Projekte, je mit erstem machbaren Schritt.</li>
+            <li><strong>Rollen im Unterstützungsnetz</strong> – eine Person für Wärme, eine für Fakten.</li>
+            <li><strong>Rückfall-Ampel</strong> – grün, gelb, rot: Woran merkst du, wo du gerade stehst?</li>
+        </ol>
+        <h2>Häufige Stolpersteine</h2>
+        <h3>„Ich will nur kurz nachsehen"</h3><p>Auch kurzer digitaler Kontakt kann den Kreislauf neu anwerfen.</p>
+        <h3>„Wir können doch Freunde bleiben"</h3><p>Zu frühe Freundschaft ist oft nur eine weichere Form von Nicht-Loslassen.</p>
+        <h3>„Zeit heilt alles"</h3><p>Zeit allein heilt wenig. Entscheidend ist, was du in dieser Zeit regelmäßig tust.</p>
+        <h2>Fazit</h2>
+        <p>Ein 30-Tage-Plan ersetzt keine tiefere Verarbeitung, aber er schafft etwas, das in Krisen oft fehlt: einen Rahmen. Wer jeden Tag nur ein paar konkrete Schritte wiederholt, baut langsam das zurück auf, was toxische Trennungen am stärksten beschädigen – innere Verlässlichkeit.</p>
+        <p class="article-disclaimer">Dieser Artikel dient der psychoedukativen Einordnung und ersetzt keine medizinische, psychotherapeutische oder juristische Beratung im Einzelfall.</p>
+    </article>
+
+    <div class="article-cta">
+        <h3>Bereit für den nächsten Schritt?</h3>
+        <p>Der UNBOND ToxiCometer analysiert das Muster deiner Beziehung in 2 Minuten – kostenlos, anonym, wissenschaftlich fundiert.</p>
+        <a href="../index.html#ToxiCometer">Jetzt ToxiCometer starten →</a>
+    </div>
+</main>
+
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
+</body>
+</html>
