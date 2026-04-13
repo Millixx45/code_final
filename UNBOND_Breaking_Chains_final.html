@@ -710,6 +710,104 @@ blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; opacity: 
   @media (max-width: 480px) {
     .meditation-box { flex-direction: column; text-align: center; gap: 14px; padding: 18px; }
   }
+
+  /* === BONUS LOCK OVERLAY === */
+  .bonus-lock-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(244,237,228,0.97);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    backdrop-filter: blur(4px);
+  }
+  .bonus-lock-overlay.hidden { display: none !important; }
+  .lock-box {
+    background: white;
+    border-radius: 18px;
+    padding: 40px 48px;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+    border: 2px solid rgba(155,127,164,0.25);
+  }
+  .lock-box .lock-icon { font-size: 2.8rem; margin-bottom: 16px; }
+  .lock-box h3 { font-family:'Montserrat',sans-serif; font-size:1.25rem; color:var(--bordeaux); margin:0 0 8px; }
+  .lock-box p { font-size:0.9rem; color:var(--graphite); opacity:0.75; margin:0 0 24px; line-height:1.65; }
+  .lock-btn-row { display:flex; flex-direction:column; gap:12px; align-items:center; }
+  .lock-btn-code {
+    background: var(--mauve); color: white; border: none; cursor: pointer;
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.9rem;
+    padding: 13px 32px; border-radius: 10px; width: 100%; max-width: 300px;
+    transition: opacity 0.2s;
+  }
+  .lock-btn-code:hover { opacity: 0.85; }
+  .lock-btn-buy {
+    display: inline-block; text-decoration: none;
+    background: transparent; color: var(--bordeaux);
+    border: 2px solid var(--bordeaux);
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.85rem;
+    padding: 11px 28px; border-radius: 10px; width: 100%; max-width: 300px;
+    box-sizing: border-box; text-align: center; transition: background 0.2s, color 0.2s;
+  }
+  .lock-btn-buy:hover { background: var(--bordeaux); color: white; }
+  /* === FREISCHALT MODAL === */
+  #unlockModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0,0,0,0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #unlockModal.open { display: flex; }
+  .unlock-modal-box {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 40px 44px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 72px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .unlock-modal-box h3 { font-family:'Montserrat',sans-serif; font-size:1.3rem; color:var(--bordeaux); margin:0 0 10px; }
+  .unlock-modal-box p { font-size:0.88rem; color:var(--graphite); opacity:0.72; margin:0 0 22px; line-height:1.6; }
+  #unlockCodeInput {
+    width: 100%; box-sizing: border-box;
+    border: 2px solid rgba(155,127,164,0.4); border-radius: 10px;
+    padding: 13px 16px; font-size:1rem; font-family:inherit;
+    background: white; color: var(--graphite);
+    margin-bottom: 10px; outline: none; text-align:center; letter-spacing:2px;
+  }
+  #unlockCodeInput:focus { border-color: var(--mauve); }
+  #unlockError {
+    color: var(--bordeaux); font-size:0.82rem; min-height:20px;
+    margin-bottom:12px; font-weight:600;
+  }
+  #unlockSubmitBtn {
+    background: var(--mauve); color: white; border: none; cursor: pointer;
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.95rem;
+    padding: 13px 36px; border-radius: 10px; width:100%; transition: opacity 0.2s;
+    margin-bottom: 10px;
+  }
+  #unlockSubmitBtn:hover { opacity: 0.85; }
+  .modal-close-btn {
+    position: absolute; top:14px; right:18px;
+    background: none; border: none; font-size:1.4rem; cursor:pointer;
+    color: var(--graphite); opacity:0.5; line-height:1;
+  }
+  .modal-close-btn:hover { opacity:1; }
+  @media (max-width:480px) {
+    .lock-box { padding: 28px 20px; }
+    .unlock-modal-box { padding: 32px 20px; }
+  }
   </style>
 </head>
 <body>
@@ -5134,9 +5232,314 @@ Ich habe dich so lange festgehalten, weil..." rows="6" oninput="saveToLocal('m3_
 
 
 1
+<div class="section-page" id="section-glossar">
+<div class="container">
+<div class="content-box">
+
+  <div class="module-header">
+    <span class="module-badge" style="background:linear-gradient(135deg,var(--bordeaux),var(--graphite));">📖 Anhang</span>
+    <h1 style="font-size:2rem;margin-top:14px;">Wörterbuch des Grauens</h1>
+    <p style="text-align:center;max-width:600px;margin:12px auto 0;opacity:0.82;">Fachbegriffe, die in diesem Programm verwendet werden – klar erklärt, ohne Beschönigung. Alle unterstrichenen Begriffe im Fließtext verweisen auf diese Einträge.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Trauma-Bonding</div>
+    <p>Eine neurobiologisch bedingte emotionale Bindung, die durch intermittierende Verstärkung entsteht – also durch den unvorhersehbaren Wechsel aus Nähe und Rückzug. Das Gehirn konditioniert sich auf die Belohnungsmomente und entwickelt eine suchtähnliche Abhängigkeit von der Person, die gleichzeitig Schmerz und Erleichterung erzeugt.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Lovebombing</div>
+    <p>Eine Manipulationstaktik zu Beginn einer Beziehung, bei der eine Person mit überschwänglicher Zuneigung, Komplimenten, Versprechen und Aufmerksamkeit überhäuft wird – oft mit dem (bewussten oder unbewussten) Ziel, emotionale Abhängigkeit zu erzeugen, bevor das eigentliche Muster sichtbar wird.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Gaslighting</div>
+    <p>Eine Form psychologischer Manipulation, bei der die Wahrnehmung, das Gedächtnis oder das Urteilsvermögen einer Person systematisch in Frage gestellt wird. Ziel ist es, die Betroffene an ihrer eigenen Realität zweifeln zu lassen. Der Begriff stammt vom Theaterstück „Gas Light" (1938).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Intermittierende Verstärkung</div>
+    <p>Ein Lernprinzip aus der Verhaltenspsychologie (Skinner): Belohnungen werden unregelmäßig und unvorhersehbar gegeben. Dies erzeugt die stärkste und hartnäckigste Konditionierung – stärker als konstante Belohnung. In toxischen Beziehungen entspricht dies dem Wechsel aus Wärme und Rückzug.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Polyvagal-Theorie</div>
+    <p>Ein neurobiologisches Modell von Stephen Porges (2011), das erklärt, wie das autonome Nervensystem auf Sicherheit, Gefahr und lebensbedrohliche Situationen reagiert. Es beschreibt drei Zustände: sozialer Kontakt (ventral vagal), Kampf/Flucht (sympathisch) und Erstarrung (dorsal vagal). Trauma-Bonding hält das System dauerhaft in Alarmbereitschaft.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Anxious-Avoidant-Tanz</div>
+    <p>Ein Bindungsmuster, bei dem eine ängstlich-bindungsorientierte Person (Anxious) und eine vermeidend-bindungsscheue Person (Avoidant) sich gegenseitig in ihren Mustern verstärken: Je mehr die eine Nähe sucht, desto mehr zieht sich die andere zurück – und umgekehrt. Ein Kreislauf, der sich ohne Intervention nicht selbst auflöst.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Kognitive Dissonanz</div>
+    <p>Der psychologische Zustand, der entsteht, wenn zwei widersprüchliche Überzeugungen oder Wahrnehmungen gleichzeitig existieren – z.B. „Ich weiß, dass diese Beziehung mir schadet" und „Ich kann ohne sie nicht leben". Das Gehirn versucht, diesen Widerspruch aufzulösen, oft durch Rationalisierung oder Verleugnung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Negative Reappraisal (Negative Neubewertung)</div>
+    <p>Eine Technik aus der kognitiven Emotionsregulation (Langeslag et al., 2016): Die bewusste Fokussierung auf negative Aspekte einer Person oder Beziehung, um Liebesgefühle aktiv zu reduzieren. Neurobiologisch messbar durch verringerte Amygdala-Aktivierung. Kein Hass – sondern Realitätsprüfung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Urge Surfing</div>
+    <p>Eine Technik aus der ACT und DBT: Das Beobachten eines intensiven Impulses (z.B. den Drang, die Ex zu kontaktieren) wie eine Welle – ohne ihm nachzugeben. Die Welle steigt, erreicht ihren Höhepunkt und fällt wieder ab. Ziel ist nicht die Unterdrückung des Impulses, sondern das Aushalten ohne Handlung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Hoovering</div>
+    <p>Benannt nach dem Staubsauger-Hersteller: Das Verhalten einer Person, die eine Beziehung beendet hat (oder aus der man sich gelöst hat), die Betroffene wieder „aufzusaugen" – durch plötzliche Kontaktaufnahme, Liebesbekundungen, Entschuldigungen oder Krisen, sobald die andere Person beginnt, sich zu lösen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Minority Stress</div>
+    <p>Das erhöhte psychische Stressniveau, das Angehörige marginalisierter Gruppen (z.B. queere Menschen) durch gesellschaftliche Diskriminierung, Stigmatisierung und das Verbergen der eigenen Identität erfahren (Meyer, 2003). In lesbischen Beziehungen kann Minority Stress toxische Dynamiken verstärken und das Verlassen einer Beziehung zusätzlich erschweren.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">WLW (Women Loving Women)</div>
+    <p>Sammelbegriff für lesbische, bisexuelle, queere und andere Frauen, die romantische oder sexuelle Beziehungen zu Frauen führen. In diesem Programm verwendet, um die spezifischen Dynamiken und Herausforderungen dieser Beziehungsform anzuerkennen, ohne sie zu pathologisieren.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Detached Mindfulness (Losgelöste Achtsamkeit)</div>
+    <p>Ein Konzept aus der Metakognitiven Therapie (Wells, 2009): Die bewusste Wahrnehmung eigener Gedanken und Gefühle aus einer beobachtenden Distanz heraus – ohne sich mit ihnen zu identifizieren oder auf sie zu reagieren. „Ich habe den Gedanken, dass ich sie vermisse" statt „Ich vermisse sie."</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">TIPP-Protokoll (DBT)</div>
+    <p>Ein Notfall-Skill aus der Dialektisch-Behavioralen Therapie (Linehan, 1993) zur sofortigen Reduktion extremer emotionaler Anspannung: <strong>T</strong>emperature (kaltes Wasser ins Gesicht), <strong>I</strong>ntense Exercise (intensive Bewegung), <strong>P</strong>aced Breathing (verlangsamtes Atmen), <strong>P</strong>rogressive Relaxation (Muskelentspannung).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Kintsugi</div>
+    <p>Japanische Kunstform, bei der zerbrochene Keramik mit Gold repariert wird – die Bruchstellen werden sichtbar gemacht, nicht versteckt. Als Metapher in UNBOND: Die Narben deiner Geschichte sind kein Makel, sondern Teil deiner Stärke. Heilung bedeutet nicht, so zu werden wie vorher, sondern etwas Neues, Stärkeres zu werden.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Reactive Abuse</div>
+    <p>Eine Reaktion auf anhaltenden emotionalen Missbrauch, bei der die betroffene Person irgendwann selbst laut, wütend oder hysterisch wird – und sich danach dafür schaemt. Es ist keine Aggression, sondern eine biologische Stressreaktion. Die Betroffene wurde so lange in die Ecke gedrängt, bis sie explodiert ist. Der/Die Manipulative nutzt diese Reaktion dann als Beweis, dass die Betroffene das eigentliche Problem sei.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Extinction Burst</div>
+    <p>Aus der Suchtforschung: Wenn eine gelernte Belohnung ausbleibt, verstärkt das Gehirn zunächst das Verhalten, das früher zur Belohnung führte. In der Praxis: Nach 2-3 Wochen No-Contact kann ein fast unwiderstehlicher Drang auftreten, die Ex zu kontaktieren. Das ist kein Rückfall – es ist das Sterben der Sucht. Wer diesen Moment überlebt, hat den Durchbruch geschafft.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Grey Rock Methode</div>
+    <p>Eine Schutztechnik für unvermeidbare Begegnungen mit manipulativen Personen: Man macht sich emotional so grau, langweilig und undurchdringlich wie ein Stein. Kurze Antworten, keine Emotionalitaet, kein Engagement. Ziel: Der toxischen Person keine emotionale Nahrung liefern.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Flying Monkeys</div>
+    <p>Aus dem Wizard of Oz: Dritte Personen, die (oft unbewusst) von der manipulativen Person instrumentalisiert werden, um Informationen zu übermitteln, Druck auszuüben oder das Narrativ zu kontrollieren. Häufig in kleinen Communities und Freundeskreisen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Breadcrumbing</div>
+    <p>Das strategische Streuen minimaler Aufmerksamkeit (ein Like, ein Emoji, ein vages &bdquo;Hey&ldquo;) ohne Absicht auf echten Kontakt. Dient dazu, die emotionale Verfuegbarkeit der Betroffenen aufrechtzuerhalten und den Dopamin-Kreislauf am Laufen zu halten.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Triangulierung</div>
+    <p>Das Einbeziehen einer dritten Person in eine Zweierbeziehung mit dem Ziel, Eifersucht, Unsicherheit oder Wettbewerb zu erzeugen. In toxischen Beziehungen eine gängige Taktik, um die Kontrolle aufrechtzuerhalten.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">U-Hauling</div>
+    <p>Umgangssprachlicher Begriff in der lesbischen Community für das Phänomen, extrem schnell zusammenzuziehen oder die Beziehung zu intensivieren. Kann ein Zeichen von echter Verbundenheit sein, aber auch von ungesunder Fusion und beschleunigtem Love Bombing.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Somatische Marker</div>
+    <p>Nach Antonio Damasio: Körperliche Signale (Bauchgefühl, Klossgefühl, Herzrasen), die unbewusst auf frühere emotionale Erfahrungen zurückgehen und als Frühwarnsystem für Entscheidungen dienen. In toxischen Beziehungen wurden diese Signale oft systematisch unterdrückt oder uminterpretiert.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Post-Traumatic Growth (PTG)</div>
+    <p>Das Phänomen, dass Menschen nach Krisen und traumatischen Erfahrungen nicht nur zum Ausgangszustand zurückkehren, sondern darüber hinauswachsen – mit erhöhter Empathie, klareren Werten und größerer Resilienz. Beschrieben von Tedeschi &amp; Calhoun (2004).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Entitlement</div>
+    <p>Die tiefe, oft unbewusste Überzeugung einer Person, dass ihr bestimmte Rechte über andere zustehen – über ihre Zeit, Entscheidungen, Körper oder Gefühle. Lundy Bancroft (2002) beschreibt Entitlement als den Kern von missbräuchlichem Verhalten: nicht Kontrollverlust, sondern die Überzeugung, Kontrolle zu verdienen. In queeren Beziehungen kann Entitlement hinter einem Fassade aus Verletzlichkeit oder politischem Diskurs verborgen sein.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Weaponized Diagnosis (Diagnostik als Waffe)</div>
+    <p>Das Missbrauchen von psychologischen Diagnosen oder Therapieinhalten als Manipulationsmittel. Beispiel: Die eigene ADHS oder Depression wird eingesetzt, um Verantwortung abzulehnen – oder die Diagnose der Partnerin wird genutzt, um ihre Wahrnehmung zu delegitimieren (<em>„Du bist ja selbst nicht stabil"</em>). Oft kombiniert mit Gaslighting; macht es der Betroffenen schwerer, ihrer eigenen Realitätseinschätzung zu vertrauen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Love Avoidant</div>
+    <p>Das Gegenstück zum Love Addict im Beziehungstango nach Pia Mellody (1992): eine Person, die Intimität flieht, sobald sie real und tief wird – oft durch emotionalen Rückzug, Kontrollbedürfnis oder Ablenkung. Der Love Avoidant hat oft gelernt, dass Nähe gefährlich oder erdrückend ist. Das Paradoxe: Er/Sie sucht zunächst intensive Verbindung (Lovebombing), zieht sich aber zurück, sobald die andere Person sich öffnet.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Disenfranchised Grief (Nicht-anerkannter Schmerz)</div>
+    <p>Trauer, die von der Gesellschaft nicht als legitim anerkannt oder benannt wird – etwa das Trauern um eine Beziehung, die andere nicht ernst nahmen, um eine queere Partnerschaft, die niemand sehen durfte, oder um eine toxische Bindung, bei der Außenstehende sagen: <em>„Du solltest doch froh sein, dass sie weg ist."</em> Beschrieben von Kenneth Doka (1989). Das Fehlen sozialer Anerkennung verlängert und vertieft den Schmerz.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Exiles / Manager / Firefighters (IFS-Anteile)</div>
+    <p>Die drei Anteil-Typen in der Internal Family Systems Therapie (Richard Schwartz, 1995): <strong>Exiles</strong> sind verletzte, junge Anteile, die Scham, Angst oder Trauer tragen – sie wurden „verbannt", weil ihre Gefühle zu überwältigend waren. <strong>Manager</strong> sind kontrollierende Anteile, die verhindern, dass die Exiles aktiviert werden (Perfektionismus, Überarbeiten, Rückzug). <strong>Firefighters</strong> greifen ein, wenn ein Exile trotzdem durchbricht – oft mit impulsivem Verhalten (Kontaktaufnahme, Substanzen, Dissoziation). Ziel der IFS-Arbeit: das mitfühlende Selbst (Self) in Kontakt mit den Exiles zu bringen.</p>
+  </div>
+
+</div>
+</div>
+</div>
+
 
 <!-- ============================================================ -->
+<!--  BOTTOM NAV                                                   -->
+<!-- ============================================================ -->
+<!-- ============================================================ -->
+<div class="section-page" id="section-finale">
+<div class="container">
+<div class="content-box">
+
+  <div class="module-header">
+    <span class="module-badge" style="background:linear-gradient(135deg,var(--sage-green),var(--mauve));">✦ Abschluss</span>
+    <h1 style="font-size:2rem;margin-top:14px;">Kintsugi &ndash; Du bist nicht kaputt, du bist erfahren</h1>
+  </div>
+
+  <!-- Vase-Bild -->
+  <div style="text-align:center;margin:32px auto;max-width:440px;">
+    <figure style="margin:0;border-radius:14px;overflow:hidden;box-shadow:0 10px 36px rgba(0,0,0,0.2);">
+      <img src="ebook_assets/kintsugi_vase.jpg" alt="Kintsugi &ndash; Die Kunst der goldenen Reparatur" style="width:100%;display:block;">
+    </figure>
+  </div>
+
+  <blockquote style="margin:28px auto;max-width:640px;">
+    In Japan gibt es die Kunst des Kintsugi: Zerbrochene Keramik wird mit Gold repariert. Die Bruchstellen werden nicht versteckt, sondern sichtbar gemacht &ndash; als Zeichen daf&uuml;r, dass etwas Gebrochenes sch&ouml;ner sein kann als etwas, das nie zerbrochen war.<br><br>
+    <strong>Deine Narben sind dein Gold. Du bist nicht kaputt &ndash; du bist erfahren.</strong>
+    <cite>&ndash; Japanische Philosophie</cite>
+  </blockquote>
+
+  <!-- Wachstum-Bild -->
+  <div style="text-align:center;margin:32px auto;max-width:500px;">
+    <figure style="margin:0;border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,0.15);">
+      <img src="ebook_assets/Wachstum_ende.jpg" alt="Wachstum &ndash; Dein Weg nach vorn" style="width:100%;display:block;">
+    </figure>
+  </div>
+
+  <!-- VOM SCHMERZ ZUR FREIHEIT Infografik -->
+  <figure style="margin:32px auto;text-align:center;display:block;max-width:820px;">
+    <img src="ebook_assets/wegeaustoxischebindung.png" alt="Vom Schmerz zur Freiheit – Der Weg aus dem Trauma Bonding" style="max-width:100%;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+  </figure>
+  </div>
+
+  <!-- Ausblick & WebApps -->
+  <div style="background:linear-gradient(135deg,rgba(45,79,60,0.85),rgba(122,158,138,0.85));padding:40px;border-radius:14px;margin:36px 0;text-align:center;">
+    <h3 style="color:var(--cream);font-size:1.6rem;margin-bottom:18px;">Dein Weg geht hier nicht zu Ende</h3>
+    <p style="color:rgba(244,237,228,0.93);max-width:640px;margin:0 auto;line-height:1.85;font-size:1.02rem;">Dieses Programm markiert einen massiven Wendepunkt, aber es ist noch nicht der finale Abschluss deines Heilungsweges. Es wird immer wieder schwierige Momente, schmerzhafte Trigger und R&uuml;ckschl&auml;ge geben &ndash; und das ist v&ouml;llig normal. Dein System heilt in Schleifen, nicht in geraden Linien.</p>
+    <p style="color:rgba(244,237,228,0.93);max-width:640px;margin:16px auto 0;line-height:1.85;font-size:1.02rem;">Um dich auch in diesen Momenten weiter zu st&uuml;tzen, arbeiten wir an fortf&uuml;hrenden Vertiefungsinhalten. Du darfst dich auf eine kommende Plattform freuen: Eine neue Webseite mit einer Vielzahl digitaler, KI-gest&uuml;tzter interaktiver Mini-Tools, die dir in akuten Krisen als intelligente Erste-Hilfe-Instrumente direkt zur Seite stehen werden.</p>
+    <p style="color:var(--cream);font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;margin-top:32px;letter-spacing:3px;">UNBOND &ndash; BREAKING CHAINS</p>
+    <p style="color:rgba(244,237,228,0.5);font-size:0.82rem;margin-top:8px;">unbond.de &nbsp;&bull;&nbsp; <a href="#" data-goto="section-impressum" style="color:rgba(244,237,228,0.5);text-decoration:underline;">Impressum</a> &nbsp;&bull;&nbsp; <a href="#" data-goto="section-datenschutz" style="color:rgba(244,237,228,0.5);text-decoration:underline;">Datenschutz</a></p>
+  </div>
+  <!-- === BONUS CTA (für Käuferinnen des Core) === -->
+  <div style="margin:48px 0 20px;">
+
+    <!-- Heading -->
+    <div style="text-align:center;margin-bottom:32px;">
+      <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--mauve);">Du hast das Fundament gelegt</span>
+      <h2 style="font-size:1.6rem;color:var(--bordeaux);margin-top:10px;margin-bottom:10px;">Bereit f&uuml;r die n&auml;chste Tiefe?</h2>
+      <p style="font-size:0.97rem;color:var(--graphite);opacity:0.75;max-width:580px;margin:0 auto;line-height:1.7;">Die drei Bonus-Kapitel gehen dorthin, wo das Kernprogramm aufh&ouml;rt &ndash; rechtlich, emotional, existenziell. Jedes ist einzeln erh&auml;ltlich oder zusammen als Paket.</p>
+    </div>
+
+    <!-- 3 Bonus Cards mit Einzelpreisen -->
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
+
+      <!-- Bonus D -->
+      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(107,62,68,0.2);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
+        <div style="flex-shrink:0;text-align:center;min-width:72px;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--bordeaux);line-height:1;">9&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
+          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 15&nbsp;&euro;</div>
+          <button onclick="openUnlockModal()" style="display:block;margin-top:6px;background:var(--bordeaux);color:white;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:7px 10px;border-radius:7px;white-space:nowrap;width:100%;">🔓 Code</button>
+          <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener" style="display:block;margin-top:5px;background:transparent;color:var(--bordeaux);border:1.5px solid var(--bordeaux);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:6px 8px;border-radius:7px;white-space:nowrap;text-align:center;">Kaufen</a>
+        </div>
+        <div style="flex:1;">
+          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--bordeaux);">Bonus D</span>
+          <h3 style="font-size:1rem;color:var(--bordeaux);margin:4px 0 8px;">Beh&ouml;rden als Waffe</h3>
+          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Wenn sie Polizei, Jugendamt oder Institutionen gegen dich einsetzt. Mit Dokumentationsleitfaden, Musterbriefen und queerspezifischem Kontext bei homophoben Beh&ouml;rden.</p>
+        </div>
+      </div>
+
+      <!-- Bonus F -->
+      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(155,127,164,0.3);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
+        <div style="flex-shrink:0;text-align:center;min-width:72px;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--mauve);line-height:1;">12&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
+          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 19&nbsp;&euro;</div>
+          <button onclick="openUnlockModal()" style="display:block;margin-top:6px;background:var(--mauve);color:white;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:7px 10px;border-radius:7px;white-space:nowrap;width:100%;">🔓 Code</button>
+          <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener" style="display:block;margin-top:5px;background:transparent;color:var(--mauve);border:1.5px solid var(--mauve);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:6px 8px;border-radius:7px;white-space:nowrap;text-align:center;">Kaufen</a>
+        </div>
+        <div style="flex:1;">
+          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);">Bonus F</span>
+          <h3 style="font-size:1rem;color:var(--mauve);margin:4px 0 8px;">Ankommen in der Trauer</h3>
+          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Das Kapitel f&uuml;r alle, die das Programm abgeschlossen haben und trotzdem noch trauern. Disenfranchised Grief, die 5 Verlustebenen, Rituale, Brief an die Beziehung.</p>
+        </div>
+      </div>
+
+      <!-- Bonus E -->
+      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(196,131,110,0.25);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
+        <div style="flex-shrink:0;text-align:center;min-width:72px;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--terracotta);line-height:1;">15&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
+          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 24&nbsp;&euro;</div>
+          <button onclick="openUnlockModal()" style="display:block;margin-top:6px;background:var(--terracotta);color:white;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:7px 10px;border-radius:7px;white-space:nowrap;width:100%;">🔓 Code</button>
+          <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener" style="display:block;margin-top:5px;background:transparent;color:var(--terracotta);border:1.5px solid var(--terracotta);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.7rem;padding:6px 8px;border-radius:7px;white-space:nowrap;text-align:center;">Kaufen</a>
+        </div>
+        <div style="flex:1;">
+          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--terracotta);">Bonus E &middot; Meistgekauft</span>
+          <h3 style="font-size:1rem;color:var(--terracotta);margin:4px 0 8px;">Das Warum hinter dem Warum</h3>
+          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Warum ziehe ich immer dieselbe Dynamik an? Schema-Therapie, IFS, Reparenting und Brief ans Innere Kind &ndash; die Antwort liegt in deiner Geschichte.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle Box -->
+    <div style="background:linear-gradient(135deg,rgba(155,127,164,0.14),rgba(107,62,68,0.08));border:2px solid var(--mauve);border-radius:14px;padding:24px;text-align:center;position:relative;margin-bottom:20px;">
+      <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--mauve);color:white;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.68rem;letter-spacing:1px;padding:4px 16px;border-radius:20px;white-space:nowrap;">ALLE DREI &ndash; BEST VALUE</div>
+      <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;color:var(--graphite);opacity:0.6;margin:8px 0 4px;">Bonus D + E + F zusammen</p>
+      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:2.2rem;color:var(--mauve);margin:0;line-height:1.1;">19&nbsp;<span style="font-size:1.1rem;">&euro;</span></p>
+      <p style="font-size:0.75rem;color:var(--graphite);opacity:0.5;margin:4px 0 4px;">Early Bird &middot; regulär 29&nbsp;&euro;</p>
+      <p style="font-size:0.8rem;color:var(--graphite);opacity:0.5;margin:0 0 16px;">Statt 36&nbsp;&euro; einzeln &mdash; du sparst 17&nbsp;&euro; Early Bird</p>
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+        <button onclick="openUnlockModal()" style="background:var(--mauve);color:white;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.9rem;padding:12px 28px;border-radius:10px;width:100%;max-width:320px;">🔓 Code eingeben</button>
+        <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener" style="display:inline-block;background:transparent;color:var(--mauve);border:2px solid var(--mauve);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.9rem;padding:11px 28px;border-radius:10px;width:100%;max-width:316px;box-sizing:border-box;text-align:center;">Alle drei kaufen &rarr; 19&nbsp;&euro;</a>
+      </div>
+    </div>
+
+    <!-- Reassurance -->
+    <p style="text-align:center;font-size:0.8rem;color:var(--graphite);opacity:0.45;">Kein Abo &middot; Einmalzahlung &middot; Sofortiger Zugang &middot; DSGVO-konform</p>
+
+    <!-- WebApps teaser -->
+    <div style="margin-top:28px;padding:18px 22px;background:rgba(122,158,138,0.08);border-radius:10px;border-left:4px solid var(--sage-green);">
+      <p style="margin:0;font-size:0.88rem;color:var(--graphite);line-height:1.7;"><strong style="color:var(--dark-green);">&#x1F4F1; Coming soon:</strong> Interaktive KI-gest&uuml;tzte Mini-Tools als Webapps &ndash; f&uuml;r akute Krisen, Trigger-Momente und deinen Alltag nach dem Buch. Mehr auf unbond.de.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!--  BONUS D: BEHÖRDEN ALS WAFFE                                 -->
+<!-- ============================================================ -->
 <div class="section-page" id="section-bonusD">
+<!-- LOCK OVERLAY BONUS D -->
+<div class="bonus-lock-overlay" id="lock-bonusD">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h3>Bonus D – Behörden als Waffe</h3>
+    <p>Dieses Kapitel ist im <strong>Complete Bundle</strong> enthalten. Gib deinen Code ein oder kaufe das Bundle.</p>
+    <div class="lock-btn-row">
+      <button class="lock-btn-code" onclick="openUnlockModal()">Code eingeben</button>
+      <a class="lock-btn-buy" href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener">Kaufen &ndash; 19&nbsp;&euro; Early Bird</a>
+    </div>
+  </div>
+</div>
 <div class="container">
 <div class="content-box">
 
@@ -5347,136 +5750,19 @@ Ich habe dich so lange festgehalten, weil..." rows="6" oninput="saveToLocal('m3_
 <!-- ============================================================ -->
 <!--  FINALE: KINTSUGI & AUSBLICK                                 -->
 <!-- ============================================================ -->
-<div class="section-page" id="section-finale">
-<div class="container">
-<div class="content-box">
-
-  <div class="module-header">
-    <span class="module-badge" style="background:linear-gradient(135deg,var(--sage-green),var(--mauve));">✦ Abschluss</span>
-    <h1 style="font-size:2rem;margin-top:14px;">Kintsugi &ndash; Du bist nicht kaputt, du bist erfahren</h1>
-  </div>
-
-  <!-- Vase-Bild -->
-  <div style="text-align:center;margin:32px auto;max-width:440px;">
-    <figure style="margin:0;border-radius:14px;overflow:hidden;box-shadow:0 10px 36px rgba(0,0,0,0.2);">
-      <img src="ebook_assets/kintsugi_vase.jpg" alt="Kintsugi &ndash; Die Kunst der goldenen Reparatur" style="width:100%;display:block;">
-    </figure>
-  </div>
-
-  <blockquote style="margin:28px auto;max-width:640px;">
-    In Japan gibt es die Kunst des Kintsugi: Zerbrochene Keramik wird mit Gold repariert. Die Bruchstellen werden nicht versteckt, sondern sichtbar gemacht &ndash; als Zeichen daf&uuml;r, dass etwas Gebrochenes sch&ouml;ner sein kann als etwas, das nie zerbrochen war.<br><br>
-    <strong>Deine Narben sind dein Gold. Du bist nicht kaputt &ndash; du bist erfahren.</strong>
-    <cite>&ndash; Japanische Philosophie</cite>
-  </blockquote>
-
-  <!-- Wachstum-Bild -->
-  <div style="text-align:center;margin:32px auto;max-width:500px;">
-    <figure style="margin:0;border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,0.15);">
-      <img src="ebook_assets/Wachstum_ende.jpg" alt="Wachstum &ndash; Dein Weg nach vorn" style="width:100%;display:block;">
-    </figure>
-  </div>
-
-  <!-- VOM SCHMERZ ZUR FREIHEIT Infografik -->
-  <figure style="margin:32px auto;text-align:center;display:block;max-width:820px;">
-    <img src="ebook_assets/wegeaustoxischebindung.png" alt="Vom Schmerz zur Freiheit – Der Weg aus dem Trauma Bonding" style="max-width:100%;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.18);">
-  </figure>
-  </div>
-
-  <!-- Ausblick & WebApps -->
-  <div style="background:linear-gradient(135deg,rgba(45,79,60,0.85),rgba(122,158,138,0.85));padding:40px;border-radius:14px;margin:36px 0;text-align:center;">
-    <h3 style="color:var(--cream);font-size:1.6rem;margin-bottom:18px;">Dein Weg geht hier nicht zu Ende</h3>
-    <p style="color:rgba(244,237,228,0.93);max-width:640px;margin:0 auto;line-height:1.85;font-size:1.02rem;">Dieses Programm markiert einen massiven Wendepunkt, aber es ist noch nicht der finale Abschluss deines Heilungsweges. Es wird immer wieder schwierige Momente, schmerzhafte Trigger und R&uuml;ckschl&auml;ge geben &ndash; und das ist v&ouml;llig normal. Dein System heilt in Schleifen, nicht in geraden Linien.</p>
-    <p style="color:rgba(244,237,228,0.93);max-width:640px;margin:16px auto 0;line-height:1.85;font-size:1.02rem;">Um dich auch in diesen Momenten weiter zu st&uuml;tzen, arbeiten wir an fortf&uuml;hrenden Vertiefungsinhalten. Du darfst dich auf eine kommende Plattform freuen: Eine neue Webseite mit einer Vielzahl digitaler, KI-gest&uuml;tzter interaktiver Mini-Tools, die dir in akuten Krisen als intelligente Erste-Hilfe-Instrumente direkt zur Seite stehen werden.</p>
-    <p style="color:var(--cream);font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;margin-top:32px;letter-spacing:3px;">UNBOND &ndash; BREAKING CHAINS</p>
-    <p style="color:rgba(244,237,228,0.5);font-size:0.82rem;margin-top:8px;">unbond.de &nbsp;&bull;&nbsp; <a href="#" data-goto="section-impressum" style="color:rgba(244,237,228,0.5);text-decoration:underline;">Impressum</a> &nbsp;&bull;&nbsp; <a href="#" data-goto="section-datenschutz" style="color:rgba(244,237,228,0.5);text-decoration:underline;">Datenschutz</a></p>
-  </div>
-  <!-- === BONUS CTA (für Käuferinnen des Core) === -->
-  <div style="margin:48px 0 20px;">
-
-    <!-- Heading -->
-    <div style="text-align:center;margin-bottom:32px;">
-      <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--mauve);">Du hast das Fundament gelegt</span>
-      <h2 style="font-size:1.6rem;color:var(--bordeaux);margin-top:10px;margin-bottom:10px;">Bereit f&uuml;r die n&auml;chste Tiefe?</h2>
-      <p style="font-size:0.97rem;color:var(--graphite);opacity:0.75;max-width:580px;margin:0 auto;line-height:1.7;">Die drei Bonus-Kapitel gehen dorthin, wo das Kernprogramm aufh&ouml;rt &ndash; rechtlich, emotional, existenziell. Jedes ist einzeln erh&auml;ltlich oder zusammen als Paket.</p>
-    </div>
-
-    <!-- 3 Bonus Cards mit Einzelpreisen -->
-    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
-
-      <!-- Bonus D -->
-      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(107,62,68,0.2);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
-        <div style="flex-shrink:0;text-align:center;min-width:72px;">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--bordeaux);line-height:1;">9&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
-          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 15&nbsp;&euro;</div>
-          <a href="https://unbond.de" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--bordeaux);color:white;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.75rem;padding:7px 12px;border-radius:7px;white-space:nowrap;">Kaufen</a>
-        </div>
-        <div style="flex:1;">
-          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--bordeaux);">Bonus D</span>
-          <h3 style="font-size:1rem;color:var(--bordeaux);margin:4px 0 8px;">Beh&ouml;rden als Waffe</h3>
-          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Wenn sie Polizei, Jugendamt oder Institutionen gegen dich einsetzt. Mit Dokumentationsleitfaden, Musterbriefen und queerspezifischem Kontext bei homophoben Beh&ouml;rden.</p>
-        </div>
-      </div>
-
-      <!-- Bonus F -->
-      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(155,127,164,0.3);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
-        <div style="flex-shrink:0;text-align:center;min-width:72px;">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--mauve);line-height:1;">12&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
-          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 19&nbsp;&euro;</div>
-          <a href="https://unbond.de" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--mauve);color:white;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.75rem;padding:7px 12px;border-radius:7px;white-space:nowrap;">Kaufen</a>
-        </div>
-        <div style="flex:1;">
-          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);">Bonus F</span>
-          <h3 style="font-size:1rem;color:var(--mauve);margin:4px 0 8px;">Ankommen in der Trauer</h3>
-          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Das Kapitel f&uuml;r alle, die das Programm abgeschlossen haben und trotzdem noch trauern. Disenfranchised Grief, die 5 Verlustebenen, Rituale, Brief an die Beziehung.</p>
-        </div>
-      </div>
-
-      <!-- Bonus E -->
-      <div style="background:rgba(255,255,255,0.75);border:2px solid rgba(196,131,110,0.25);border-radius:14px;padding:22px;display:flex;align-items:flex-start;gap:20px;">
-        <div style="flex-shrink:0;text-align:center;min-width:72px;">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--terracotta);line-height:1;">15&nbsp;<span style="font-size:0.9rem;">&euro;</span></div>
-          <div style="font-size:0.68rem;color:var(--graphite);opacity:0.5;margin-top:2px;">EB &middot; reg. 24&nbsp;&euro;</div>
-          <a href="https://unbond.de" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--terracotta);color:white;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.75rem;padding:7px 12px;border-radius:7px;white-space:nowrap;">Kaufen</a>
-        </div>
-        <div style="flex:1;">
-          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--terracotta);">Bonus E &middot; Meistgekauft</span>
-          <h3 style="font-size:1rem;color:var(--terracotta);margin:4px 0 8px;">Das Warum hinter dem Warum</h3>
-          <p style="font-size:0.87rem;color:var(--graphite);line-height:1.65;margin:0;">Warum ziehe ich immer dieselbe Dynamik an? Schema-Therapie, IFS, Reparenting und Brief ans Innere Kind &ndash; die Antwort liegt in deiner Geschichte.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bundle Box -->
-    <div style="background:linear-gradient(135deg,rgba(155,127,164,0.14),rgba(107,62,68,0.08));border:2px solid var(--mauve);border-radius:14px;padding:24px;text-align:center;position:relative;margin-bottom:20px;">
-      <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--mauve);color:white;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.68rem;letter-spacing:1px;padding:4px 16px;border-radius:20px;white-space:nowrap;">ALLE DREI &ndash; BEST VALUE</div>
-      <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;color:var(--graphite);opacity:0.6;margin:8px 0 4px;">Bonus D + E + F zusammen</p>
-      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:2.2rem;color:var(--mauve);margin:0;line-height:1.1;">29&nbsp;<span style="font-size:1.1rem;">&euro;</span></p>
-      <p style="font-size:0.75rem;color:var(--graphite);opacity:0.5;margin:4px 0 4px;">Early Bird &middot; regulär 49&nbsp;&euro;</p>
-      <p style="font-size:0.8rem;color:var(--graphite);opacity:0.5;margin:0 0 16px;">Statt 36&nbsp;&euro; einzeln &mdash; du sparst 7&nbsp;&euro; Early Bird</p>
-      <a href="https://unbond.de" target="_blank" rel="noopener" style="display:inline-block;background:var(--mauve);color:white;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;padding:13px 32px;border-radius:10px;">Alle drei Bonus-Kapitel kaufen &rarr;</a>
-    </div>
-
-    <!-- Reassurance -->
-    <p style="text-align:center;font-size:0.8rem;color:var(--graphite);opacity:0.45;">Kein Abo &middot; Einmalzahlung &middot; Sofortiger Zugang &middot; DSGVO-konform</p>
-
-    <!-- WebApps teaser -->
-    <div style="margin-top:28px;padding:18px 22px;background:rgba(122,158,138,0.08);border-radius:10px;border-left:4px solid var(--sage-green);">
-      <p style="margin:0;font-size:0.88rem;color:var(--graphite);line-height:1.7;"><strong style="color:var(--dark-green);">&#x1F4F1; Coming soon:</strong> Interaktive KI-gest&uuml;tzte Mini-Tools als Webapps &ndash; f&uuml;r akute Krisen, Trigger-Momente und deinen Alltag nach dem Buch. Mehr auf unbond.de.</p>
-    </div>
-  </div>
-
-  <blockquote style="margin:28px auto;max-width:640px;">
-    <strong>Terminologie</strong>
-    <cite>Schau dir zuletzt noch wichtige Begriffe und deren Definitionen auf der folgenden Seite an!</cite>
-  </blockquote>
-</div>
-</div>
-</div>
-
-<!-- ============================================================ -->
-<!--  BONUS F: ANKOMMEN IN DER TRAUER                             -->
-<!-- ============================================================ -->
 <div class="section-page" id="section-bonusF">
+<!-- LOCK OVERLAY BONUS F -->
+<div class="bonus-lock-overlay" id="lock-bonusF">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h3>Bonus F – Ankommen in der Trauer</h3>
+    <p>Dieses Kapitel ist im <strong>Complete Bundle</strong> enthalten. Gib deinen Code ein oder kaufe das Bundle.</p>
+    <div class="lock-btn-row">
+      <button class="lock-btn-code" onclick="openUnlockModal()">Code eingeben</button>
+      <a class="lock-btn-buy" href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener">Kaufen &ndash; 19&nbsp;&euro; Early Bird</a>
+    </div>
+  </div>
+</div>
 <div class="container">
 <div class="content-box">
 
@@ -5683,6 +5969,18 @@ Ich habe dich so lange festgehalten, weil..." rows="6" oninput="saveToLocal('m3_
 <!--  BONUS E: DAS WARUM HINTER DEM WARUM                        -->
 <!-- ============================================================ -->
 <div class="section-page" id="section-bonusE">
+<!-- LOCK OVERLAY BONUS E -->
+<div class="bonus-lock-overlay" id="lock-bonusE">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h3>Bonus E – Das Warum hinter dem Warum</h3>
+    <p>Dieses Kapitel ist im <strong>Complete Bundle</strong> enthalten. Gib deinen Code ein oder kaufe das Bundle.</p>
+    <div class="lock-btn-row">
+      <button class="lock-btn-code" onclick="openUnlockModal()">Code eingeben</button>
+      <a class="lock-btn-buy" href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener">Kaufen &ndash; 19&nbsp;&euro; Early Bird</a>
+    </div>
+  </div>
+</div>
 <div class="container">
 <div class="content-box">
 
@@ -5941,169 +6239,7 @@ Ich habe dich so lange festgehalten, weil..." rows="6" oninput="saveToLocal('m3_
 </div>
 </div>
 
-<div class="section-page" id="section-glossar">
-<div class="container">
-<div class="content-box">
 
-  <div class="module-header">
-    <span class="module-badge" style="background:linear-gradient(135deg,var(--bordeaux),var(--graphite));">📖 Anhang</span>
-    <h1 style="font-size:2rem;margin-top:14px;">Wörterbuch des Grauens</h1>
-    <p style="text-align:center;max-width:600px;margin:12px auto 0;opacity:0.82;">Fachbegriffe, die in diesem Programm verwendet werden – klar erklärt, ohne Beschönigung. Alle unterstrichenen Begriffe im Fließtext verweisen auf diese Einträge.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Trauma-Bonding</div>
-    <p>Eine neurobiologisch bedingte emotionale Bindung, die durch intermittierende Verstärkung entsteht – also durch den unvorhersehbaren Wechsel aus Nähe und Rückzug. Das Gehirn konditioniert sich auf die Belohnungsmomente und entwickelt eine suchtähnliche Abhängigkeit von der Person, die gleichzeitig Schmerz und Erleichterung erzeugt.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Lovebombing</div>
-    <p>Eine Manipulationstaktik zu Beginn einer Beziehung, bei der eine Person mit überschwänglicher Zuneigung, Komplimenten, Versprechen und Aufmerksamkeit überhäuft wird – oft mit dem (bewussten oder unbewussten) Ziel, emotionale Abhängigkeit zu erzeugen, bevor das eigentliche Muster sichtbar wird.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Gaslighting</div>
-    <p>Eine Form psychologischer Manipulation, bei der die Wahrnehmung, das Gedächtnis oder das Urteilsvermögen einer Person systematisch in Frage gestellt wird. Ziel ist es, die Betroffene an ihrer eigenen Realität zweifeln zu lassen. Der Begriff stammt vom Theaterstück „Gas Light" (1938).</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Intermittierende Verstärkung</div>
-    <p>Ein Lernprinzip aus der Verhaltenspsychologie (Skinner): Belohnungen werden unregelmäßig und unvorhersehbar gegeben. Dies erzeugt die stärkste und hartnäckigste Konditionierung – stärker als konstante Belohnung. In toxischen Beziehungen entspricht dies dem Wechsel aus Wärme und Rückzug.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Polyvagal-Theorie</div>
-    <p>Ein neurobiologisches Modell von Stephen Porges (2011), das erklärt, wie das autonome Nervensystem auf Sicherheit, Gefahr und lebensbedrohliche Situationen reagiert. Es beschreibt drei Zustände: sozialer Kontakt (ventral vagal), Kampf/Flucht (sympathisch) und Erstarrung (dorsal vagal). Trauma-Bonding hält das System dauerhaft in Alarmbereitschaft.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Anxious-Avoidant-Tanz</div>
-    <p>Ein Bindungsmuster, bei dem eine ängstlich-bindungsorientierte Person (Anxious) und eine vermeidend-bindungsscheue Person (Avoidant) sich gegenseitig in ihren Mustern verstärken: Je mehr die eine Nähe sucht, desto mehr zieht sich die andere zurück – und umgekehrt. Ein Kreislauf, der sich ohne Intervention nicht selbst auflöst.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Kognitive Dissonanz</div>
-    <p>Der psychologische Zustand, der entsteht, wenn zwei widersprüchliche Überzeugungen oder Wahrnehmungen gleichzeitig existieren – z.B. „Ich weiß, dass diese Beziehung mir schadet" und „Ich kann ohne sie nicht leben". Das Gehirn versucht, diesen Widerspruch aufzulösen, oft durch Rationalisierung oder Verleugnung.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Negative Reappraisal (Negative Neubewertung)</div>
-    <p>Eine Technik aus der kognitiven Emotionsregulation (Langeslag et al., 2016): Die bewusste Fokussierung auf negative Aspekte einer Person oder Beziehung, um Liebesgefühle aktiv zu reduzieren. Neurobiologisch messbar durch verringerte Amygdala-Aktivierung. Kein Hass – sondern Realitätsprüfung.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Urge Surfing</div>
-    <p>Eine Technik aus der ACT und DBT: Das Beobachten eines intensiven Impulses (z.B. den Drang, die Ex zu kontaktieren) wie eine Welle – ohne ihm nachzugeben. Die Welle steigt, erreicht ihren Höhepunkt und fällt wieder ab. Ziel ist nicht die Unterdrückung des Impulses, sondern das Aushalten ohne Handlung.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Hoovering</div>
-    <p>Benannt nach dem Staubsauger-Hersteller: Das Verhalten einer Person, die eine Beziehung beendet hat (oder aus der man sich gelöst hat), die Betroffene wieder „aufzusaugen" – durch plötzliche Kontaktaufnahme, Liebesbekundungen, Entschuldigungen oder Krisen, sobald die andere Person beginnt, sich zu lösen.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Minority Stress</div>
-    <p>Das erhöhte psychische Stressniveau, das Angehörige marginalisierter Gruppen (z.B. queere Menschen) durch gesellschaftliche Diskriminierung, Stigmatisierung und das Verbergen der eigenen Identität erfahren (Meyer, 2003). In lesbischen Beziehungen kann Minority Stress toxische Dynamiken verstärken und das Verlassen einer Beziehung zusätzlich erschweren.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">WLW (Women Loving Women)</div>
-    <p>Sammelbegriff für lesbische, bisexuelle, queere und andere Frauen, die romantische oder sexuelle Beziehungen zu Frauen führen. In diesem Programm verwendet, um die spezifischen Dynamiken und Herausforderungen dieser Beziehungsform anzuerkennen, ohne sie zu pathologisieren.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Detached Mindfulness (Losgelöste Achtsamkeit)</div>
-    <p>Ein Konzept aus der Metakognitiven Therapie (Wells, 2009): Die bewusste Wahrnehmung eigener Gedanken und Gefühle aus einer beobachtenden Distanz heraus – ohne sich mit ihnen zu identifizieren oder auf sie zu reagieren. „Ich habe den Gedanken, dass ich sie vermisse" statt „Ich vermisse sie."</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">TIPP-Protokoll (DBT)</div>
-    <p>Ein Notfall-Skill aus der Dialektisch-Behavioralen Therapie (Linehan, 1993) zur sofortigen Reduktion extremer emotionaler Anspannung: <strong>T</strong>emperature (kaltes Wasser ins Gesicht), <strong>I</strong>ntense Exercise (intensive Bewegung), <strong>P</strong>aced Breathing (verlangsamtes Atmen), <strong>P</strong>rogressive Relaxation (Muskelentspannung).</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Kintsugi</div>
-    <p>Japanische Kunstform, bei der zerbrochene Keramik mit Gold repariert wird – die Bruchstellen werden sichtbar gemacht, nicht versteckt. Als Metapher in UNBOND: Die Narben deiner Geschichte sind kein Makel, sondern Teil deiner Stärke. Heilung bedeutet nicht, so zu werden wie vorher, sondern etwas Neues, Stärkeres zu werden.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Reactive Abuse</div>
-    <p>Eine Reaktion auf anhaltenden emotionalen Missbrauch, bei der die betroffene Person irgendwann selbst laut, wütend oder hysterisch wird – und sich danach dafür schaemt. Es ist keine Aggression, sondern eine biologische Stressreaktion. Die Betroffene wurde so lange in die Ecke gedrängt, bis sie explodiert ist. Der/Die Manipulative nutzt diese Reaktion dann als Beweis, dass die Betroffene das eigentliche Problem sei.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Extinction Burst</div>
-    <p>Aus der Suchtforschung: Wenn eine gelernte Belohnung ausbleibt, verstärkt das Gehirn zunächst das Verhalten, das früher zur Belohnung führte. In der Praxis: Nach 2-3 Wochen No-Contact kann ein fast unwiderstehlicher Drang auftreten, die Ex zu kontaktieren. Das ist kein Rückfall – es ist das Sterben der Sucht. Wer diesen Moment überlebt, hat den Durchbruch geschafft.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Grey Rock Methode</div>
-    <p>Eine Schutztechnik für unvermeidbare Begegnungen mit manipulativen Personen: Man macht sich emotional so grau, langweilig und undurchdringlich wie ein Stein. Kurze Antworten, keine Emotionalitaet, kein Engagement. Ziel: Der toxischen Person keine emotionale Nahrung liefern.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Flying Monkeys</div>
-    <p>Aus dem Wizard of Oz: Dritte Personen, die (oft unbewusst) von der manipulativen Person instrumentalisiert werden, um Informationen zu übermitteln, Druck auszuüben oder das Narrativ zu kontrollieren. Häufig in kleinen Communities und Freundeskreisen.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Breadcrumbing</div>
-    <p>Das strategische Streuen minimaler Aufmerksamkeit (ein Like, ein Emoji, ein vages &bdquo;Hey&ldquo;) ohne Absicht auf echten Kontakt. Dient dazu, die emotionale Verfuegbarkeit der Betroffenen aufrechtzuerhalten und den Dopamin-Kreislauf am Laufen zu halten.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Triangulierung</div>
-    <p>Das Einbeziehen einer dritten Person in eine Zweierbeziehung mit dem Ziel, Eifersucht, Unsicherheit oder Wettbewerb zu erzeugen. In toxischen Beziehungen eine gängige Taktik, um die Kontrolle aufrechtzuerhalten.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">U-Hauling</div>
-    <p>Umgangssprachlicher Begriff in der lesbischen Community für das Phänomen, extrem schnell zusammenzuziehen oder die Beziehung zu intensivieren. Kann ein Zeichen von echter Verbundenheit sein, aber auch von ungesunder Fusion und beschleunigtem Love Bombing.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Somatische Marker</div>
-    <p>Nach Antonio Damasio: Körperliche Signale (Bauchgefühl, Klossgefühl, Herzrasen), die unbewusst auf frühere emotionale Erfahrungen zurückgehen und als Frühwarnsystem für Entscheidungen dienen. In toxischen Beziehungen wurden diese Signale oft systematisch unterdrückt oder uminterpretiert.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Post-Traumatic Growth (PTG)</div>
-    <p>Das Phänomen, dass Menschen nach Krisen und traumatischen Erfahrungen nicht nur zum Ausgangszustand zurückkehren, sondern darüber hinauswachsen – mit erhöhter Empathie, klareren Werten und größerer Resilienz. Beschrieben von Tedeschi &amp; Calhoun (2004).</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Entitlement</div>
-    <p>Die tiefe, oft unbewusste Überzeugung einer Person, dass ihr bestimmte Rechte über andere zustehen – über ihre Zeit, Entscheidungen, Körper oder Gefühle. Lundy Bancroft (2002) beschreibt Entitlement als den Kern von missbräuchlichem Verhalten: nicht Kontrollverlust, sondern die Überzeugung, Kontrolle zu verdienen. In queeren Beziehungen kann Entitlement hinter einem Fassade aus Verletzlichkeit oder politischem Diskurs verborgen sein.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Weaponized Diagnosis (Diagnostik als Waffe)</div>
-    <p>Das Missbrauchen von psychologischen Diagnosen oder Therapieinhalten als Manipulationsmittel. Beispiel: Die eigene ADHS oder Depression wird eingesetzt, um Verantwortung abzulehnen – oder die Diagnose der Partnerin wird genutzt, um ihre Wahrnehmung zu delegitimieren (<em>„Du bist ja selbst nicht stabil"</em>). Oft kombiniert mit Gaslighting; macht es der Betroffenen schwerer, ihrer eigenen Realitätseinschätzung zu vertrauen.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Love Avoidant</div>
-    <p>Das Gegenstück zum Love Addict im Beziehungstango nach Pia Mellody (1992): eine Person, die Intimität flieht, sobald sie real und tief wird – oft durch emotionalen Rückzug, Kontrollbedürfnis oder Ablenkung. Der Love Avoidant hat oft gelernt, dass Nähe gefährlich oder erdrückend ist. Das Paradoxe: Er/Sie sucht zunächst intensive Verbindung (Lovebombing), zieht sich aber zurück, sobald die andere Person sich öffnet.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Disenfranchised Grief (Nicht-anerkannter Schmerz)</div>
-    <p>Trauer, die von der Gesellschaft nicht als legitim anerkannt oder benannt wird – etwa das Trauern um eine Beziehung, die andere nicht ernst nahmen, um eine queere Partnerschaft, die niemand sehen durfte, oder um eine toxische Bindung, bei der Außenstehende sagen: <em>„Du solltest doch froh sein, dass sie weg ist."</em> Beschrieben von Kenneth Doka (1989). Das Fehlen sozialer Anerkennung verlängert und vertieft den Schmerz.</p>
-  </div>
-
-  <div class="glossar-entry">
-    <div class="glossar-term-title">Exiles / Manager / Firefighters (IFS-Anteile)</div>
-    <p>Die drei Anteil-Typen in der Internal Family Systems Therapie (Richard Schwartz, 1995): <strong>Exiles</strong> sind verletzte, junge Anteile, die Scham, Angst oder Trauer tragen – sie wurden „verbannt", weil ihre Gefühle zu überwältigend waren. <strong>Manager</strong> sind kontrollierende Anteile, die verhindern, dass die Exiles aktiviert werden (Perfektionismus, Überarbeiten, Rückzug). <strong>Firefighters</strong> greifen ein, wenn ein Exile trotzdem durchbricht – oft mit impulsivem Verhalten (Kontaktaufnahme, Substanzen, Dissoziation). Ziel der IFS-Arbeit: das mitfühlende Selbst (Self) in Kontakt mit den Exiles zu bringen.</p>
-  </div>
-
-</div>
-</div>
-</div>
-
-
-<!-- ============================================================ -->
-<!--  BOTTOM NAV                                                   -->
-<!-- ============================================================ -->
 <div class="bottom-nav">
   <button class="bottom-nav-btn prev-btn" id="prevBtn" onclick="navigate(-1)">Zurück</button>
   <span class="bottom-nav-current" id="navCurrentLabel">Titelseite</span>
@@ -6618,6 +6754,62 @@ if (savedSection && savedSection !== 'section-cover' && document.getElementById(
 // KAPITEL 0 – ERWEITERTE FUNKTIONEN (Modul_0)
 // ====
 
+// ====
+// BONUS FREISCHALT-SYSTEM
+// ====
+var UNLOCK_CODE = 'UNBOND-COMPLETE-2025';
+var UNLOCK_KEY  = 'unbond_bonus_unlocked';
+var BONUS_IDS   = ['bonusD', 'bonusF', 'bonusE'];
+
+function applyUnlock() {
+  BONUS_IDS.forEach(function(id) {
+    var overlay = document.getElementById('lock-' + id);
+    if (overlay) overlay.classList.add('hidden');
+  });
+}
+
+function openUnlockModal() {
+  var modal = document.getElementById('unlockModal');
+  if (modal) {
+    modal.classList.add('open');
+    var input = document.getElementById('unlockCodeInput');
+    if (input) { input.value = ''; input.focus(); }
+    var err = document.getElementById('unlockError');
+    if (err) err.textContent = '';
+  }
+}
+
+function closeUnlockModal() {
+  var modal = document.getElementById('unlockModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function submitUnlockCode() {
+  var input = document.getElementById('unlockCodeInput');
+  var err   = document.getElementById('unlockError');
+  if (!input) return;
+  var val = input.value.trim().toUpperCase();
+  if (val === UNLOCK_CODE) {
+    try { localStorage.setItem(UNLOCK_KEY, '1'); } catch(e) {}
+    applyUnlock();
+    closeUnlockModal();
+  } else {
+    if (err) err.textContent = 'Ungültiger Code. Bitte erneut versuchen.';
+    input.focus();
+  }
+}
+
+// ESC closes modal
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeUnlockModal();
+});
+
+// Auto-unlock on load if code was previously entered
+(function() {
+  try {
+    if (localStorage.getItem(UNLOCK_KEY) === '1') applyUnlock();
+  } catch(e) {}
+})();
 
 </script>
 
@@ -8170,5 +8362,22 @@ function printWorkbook() {
 </div>
 </div>
 </div>
+
+<!-- ============================================================ -->
+<!--  FREISCHALT-MODAL                                            -->
+<!-- ============================================================ -->
+<div id="unlockModal" role="dialog" aria-modal="true" aria-labelledby="unlockModalTitle">
+  <div class="unlock-modal-box">
+    <button class="modal-close-btn" onclick="closeUnlockModal()" aria-label="Schließen">&times;</button>
+    <div style="font-size:2rem;margin-bottom:12px;">🔓</div>
+    <h3 id="unlockModalTitle">Bonus-Kapitel freischalten</h3>
+    <p>Gib deinen Freischalt-Code ein, um alle drei Bonus-Kapitel sofort zu öffnen.</p>
+    <input type="text" id="unlockCodeInput" placeholder="Code eingeben …" autocomplete="off" spellcheck="false">
+    <div id="unlockError"></div>
+    <button id="unlockSubmitBtn" onclick="submitUnlockCode()">Freischalten →</button>
+    <p style="font-size:0.75rem;color:var(--graphite);opacity:0.45;margin:0;">Kein Code? <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener" style="color:var(--mauve);">Hier kaufen →</a></p>
+  </div>
+</div>
+
 </body>
 </html>

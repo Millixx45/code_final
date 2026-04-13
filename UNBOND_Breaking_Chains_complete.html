@@ -751,8 +751,8 @@ body { padding-top: 52px !important; }
     <a href="#" data-section="section-modul9"><span class="nav-num">09</span> Bindungsmuster</a>
     <a href="#" data-section="section-modul10"><span class="nav-num">10</span> Identität & Abschluss</a>
     <a href="#" data-section="section-bonusD"><span class="nav-num">D</span> Behörden als Waffe</a>
-    <a href="#" data-section="section-bonusE"><span class="nav-num">E</span> Das Warum hinter dem Warum</a>
     <a href="#" data-section="section-bonusF"><span class="nav-num">F</span> Ankommen in der Trauer</a>
+    <a href="#" data-section="section-bonusE"><span class="nav-num">E</span> Das Warum hinter dem Warum</a>
     <a href="#" data-section="section-finale"><span class="nav-num">✦</span> Abschluss &amp; Kintsugi</a>
     <div class="nav-group">Anhang</div>
     <a href="#" data-section="section-glossar"><span class="nav-num">📖</span> Wörterbuch des Grauens</a>
@@ -1041,16 +1041,16 @@ body { padding-top: 52px !important; }
       <div class="toc-sub">Litigation Abuse · DARVO · Dokumentation · Rechtliche Vorsorge · Notfall-Netzwerk</div>
     </a>
 
-    <a class="toc-item" href="#" data-goto="section-bonusE">
-      <span class="toc-num">Bonus E</span>
-      <div class="toc-title">Das Warum hinter dem Warum</div>
-      <div class="toc-sub">Schemata · IFS · Parts Work · fr&uuml;he Verletzungen · Bindungsmuster vertiefen</div>
-    </a>
-
     <a class="toc-item" href="#" data-goto="section-bonusF">
       <span class="toc-num">Bonus F</span>
       <div class="toc-title">Ankommen in der Trauer</div>
       <div class="toc-sub">Disenfranchised Grief · Die 5 Phasen · Trauer ohne Schuldgef&uuml;hle · Loslassen als Akt der Liebe</div>
+    </a>
+
+    <a class="toc-item" href="#" data-goto="section-bonusE">
+      <span class="toc-num">Bonus E</span>
+      <div class="toc-title">Das Warum hinter dem Warum</div>
+      <div class="toc-sub">Schemata · IFS · Parts Work · fr&uuml;he Verletzungen · Bindungsmuster vertiefen</div>
     </a>
 
     <a class="toc-item" href="#" data-goto="section-finale">
@@ -5902,11 +5902,11 @@ const SECTIONS = [
   { id: 'section-modul8',       label: 'Schritt 08 – WLW-Dynamiken' },
   { id: 'section-modul9',       label: 'Schritt 09 – Bindungsmuster' },
   { id: 'section-modul10',      label: 'Schritt 10 – Identitaet und Abschluss' },
-  { id: 'section-glossar',      label: 'Woerterbuch des Grauens' },
   { id: 'section-bonusD',        label: 'Bonus D – Behoerden als Waffe' },
   { id: 'section-bonusF',        label: 'Bonus F – Ankommen in der Trauer' },
   { id: 'section-bonusE',        label: 'Bonus E – Das Warum hinter dem Warum' },
   { id: 'section-finale',        label: 'Abschluss – Kintsugi' },
+  { id: 'section-glossar',      label: 'Woerterbuch des Grauens' },
   { id: 'section-datenschutz',    label: 'Datenschutz' },
   { id: 'section-impressum',      label: 'Impressum' },
 ];
@@ -7001,7 +7001,7 @@ WICHTIG:
       'section-toxicometer','section-routing',
       'section-kapitel0','section-modul1','section-modul2','section-modul3',
       'section-modul4','section-modul5','section-modul6','section-modul7',
-      'section-modul8','section-modul9','section-modul10','section-glossar','section-bonusD','section-bonusF','section-bonusE','section-finale','section-datenschutz','section-impressum'
+      'section-modul8','section-modul9','section-modul10','section-bonusD','section-bonusF','section-bonusE','section-finale','section-glossar','section-datenschutz','section-impressum'
     ];
     const PH_LABELS = {
       'section-cover':        'Titelseite',
@@ -7837,6 +7837,166 @@ function printWorkbook() {
   <p id="lb-caption" style="display:none;color:#fff;text-align:center;font-size:0.9rem;max-width:700px;line-height:1.6;margin:0;padding:0 16px;font-family:'Montserrat',sans-serif;opacity:0.85;"></p>
 </div>
 
+
+
+<div class="section-page" id="section-glossar">
+<div class="container">
+<div class="content-box">
+
+  <div class="module-header">
+    <span class="module-badge" style="background:linear-gradient(135deg,var(--bordeaux),var(--graphite));">📖 Anhang</span>
+    <h1 style="font-size:2rem;margin-top:14px;">Wörterbuch des Grauens</h1>
+    <p style="text-align:center;max-width:600px;margin:12px auto 0;opacity:0.82;">Fachbegriffe, die in diesem Programm verwendet werden – klar erklärt, ohne Beschönigung. Alle unterstrichenen Begriffe im Fließtext verweisen auf diese Einträge.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Trauma-Bonding</div>
+    <p>Eine neurobiologisch bedingte emotionale Bindung, die durch intermittierende Verstärkung entsteht – also durch den unvorhersehbaren Wechsel aus Nähe und Rückzug. Das Gehirn konditioniert sich auf die Belohnungsmomente und entwickelt eine suchtähnliche Abhängigkeit von der Person, die gleichzeitig Schmerz und Erleichterung erzeugt.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Lovebombing</div>
+    <p>Eine Manipulationstaktik zu Beginn einer Beziehung, bei der eine Person mit überschwänglicher Zuneigung, Komplimenten, Versprechen und Aufmerksamkeit überhäuft wird – oft mit dem (bewussten oder unbewussten) Ziel, emotionale Abhängigkeit zu erzeugen, bevor das eigentliche Muster sichtbar wird.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Gaslighting</div>
+    <p>Eine Form psychologischer Manipulation, bei der die Wahrnehmung, das Gedächtnis oder das Urteilsvermögen einer Person systematisch in Frage gestellt wird. Ziel ist es, die Betroffene an ihrer eigenen Realität zweifeln zu lassen. Der Begriff stammt vom Theaterstück „Gas Light" (1938).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Intermittierende Verstärkung</div>
+    <p>Ein Lernprinzip aus der Verhaltenspsychologie (Skinner): Belohnungen werden unregelmäßig und unvorhersehbar gegeben. Dies erzeugt die stärkste und hartnäckigste Konditionierung – stärker als konstante Belohnung. In toxischen Beziehungen entspricht dies dem Wechsel aus Wärme und Rückzug.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Polyvagal-Theorie</div>
+    <p>Ein neurobiologisches Modell von Stephen Porges (2011), das erklärt, wie das autonome Nervensystem auf Sicherheit, Gefahr und lebensbedrohliche Situationen reagiert. Es beschreibt drei Zustände: sozialer Kontakt (ventral vagal), Kampf/Flucht (sympathisch) und Erstarrung (dorsal vagal). Trauma-Bonding hält das System dauerhaft in Alarmbereitschaft.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Anxious-Avoidant-Tanz</div>
+    <p>Ein Bindungsmuster, bei dem eine ängstlich-bindungsorientierte Person (Anxious) und eine vermeidend-bindungsscheue Person (Avoidant) sich gegenseitig in ihren Mustern verstärken: Je mehr die eine Nähe sucht, desto mehr zieht sich die andere zurück – und umgekehrt. Ein Kreislauf, der sich ohne Intervention nicht selbst auflöst.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Kognitive Dissonanz</div>
+    <p>Der psychologische Zustand, der entsteht, wenn zwei widersprüchliche Überzeugungen oder Wahrnehmungen gleichzeitig existieren – z.B. „Ich weiß, dass diese Beziehung mir schadet" und „Ich kann ohne sie nicht leben". Das Gehirn versucht, diesen Widerspruch aufzulösen, oft durch Rationalisierung oder Verleugnung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Negative Reappraisal (Negative Neubewertung)</div>
+    <p>Eine Technik aus der kognitiven Emotionsregulation (Langeslag et al., 2016): Die bewusste Fokussierung auf negative Aspekte einer Person oder Beziehung, um Liebesgefühle aktiv zu reduzieren. Neurobiologisch messbar durch verringerte Amygdala-Aktivierung. Kein Hass – sondern Realitätsprüfung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Urge Surfing</div>
+    <p>Eine Technik aus der ACT und DBT: Das Beobachten eines intensiven Impulses (z.B. den Drang, die Ex zu kontaktieren) wie eine Welle – ohne ihm nachzugeben. Die Welle steigt, erreicht ihren Höhepunkt und fällt wieder ab. Ziel ist nicht die Unterdrückung des Impulses, sondern das Aushalten ohne Handlung.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Hoovering</div>
+    <p>Benannt nach dem Staubsauger-Hersteller: Das Verhalten einer Person, die eine Beziehung beendet hat (oder aus der man sich gelöst hat), die Betroffene wieder „aufzusaugen" – durch plötzliche Kontaktaufnahme, Liebesbekundungen, Entschuldigungen oder Krisen, sobald die andere Person beginnt, sich zu lösen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Minority Stress</div>
+    <p>Das erhöhte psychische Stressniveau, das Angehörige marginalisierter Gruppen (z.B. queere Menschen) durch gesellschaftliche Diskriminierung, Stigmatisierung und das Verbergen der eigenen Identität erfahren (Meyer, 2003). In lesbischen Beziehungen kann Minority Stress toxische Dynamiken verstärken und das Verlassen einer Beziehung zusätzlich erschweren.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">WLW (Women Loving Women)</div>
+    <p>Sammelbegriff für lesbische, bisexuelle, queere und andere Frauen, die romantische oder sexuelle Beziehungen zu Frauen führen. In diesem Programm verwendet, um die spezifischen Dynamiken und Herausforderungen dieser Beziehungsform anzuerkennen, ohne sie zu pathologisieren.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Detached Mindfulness (Losgelöste Achtsamkeit)</div>
+    <p>Ein Konzept aus der Metakognitiven Therapie (Wells, 2009): Die bewusste Wahrnehmung eigener Gedanken und Gefühle aus einer beobachtenden Distanz heraus – ohne sich mit ihnen zu identifizieren oder auf sie zu reagieren. „Ich habe den Gedanken, dass ich sie vermisse" statt „Ich vermisse sie."</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">TIPP-Protokoll (DBT)</div>
+    <p>Ein Notfall-Skill aus der Dialektisch-Behavioralen Therapie (Linehan, 1993) zur sofortigen Reduktion extremer emotionaler Anspannung: <strong>T</strong>emperature (kaltes Wasser ins Gesicht), <strong>I</strong>ntense Exercise (intensive Bewegung), <strong>P</strong>aced Breathing (verlangsamtes Atmen), <strong>P</strong>rogressive Relaxation (Muskelentspannung).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Kintsugi</div>
+    <p>Japanische Kunstform, bei der zerbrochene Keramik mit Gold repariert wird – die Bruchstellen werden sichtbar gemacht, nicht versteckt. Als Metapher in UNBOND: Die Narben deiner Geschichte sind kein Makel, sondern Teil deiner Stärke. Heilung bedeutet nicht, so zu werden wie vorher, sondern etwas Neues, Stärkeres zu werden.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Reactive Abuse</div>
+    <p>Eine Reaktion auf anhaltenden emotionalen Missbrauch, bei der die betroffene Person irgendwann selbst laut, wütend oder hysterisch wird – und sich danach dafür schaemt. Es ist keine Aggression, sondern eine biologische Stressreaktion. Die Betroffene wurde so lange in die Ecke gedrängt, bis sie explodiert ist. Der/Die Manipulative nutzt diese Reaktion dann als Beweis, dass die Betroffene das eigentliche Problem sei.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Extinction Burst</div>
+    <p>Aus der Suchtforschung: Wenn eine gelernte Belohnung ausbleibt, verstärkt das Gehirn zunächst das Verhalten, das früher zur Belohnung führte. In der Praxis: Nach 2-3 Wochen No-Contact kann ein fast unwiderstehlicher Drang auftreten, die Ex zu kontaktieren. Das ist kein Rückfall – es ist das Sterben der Sucht. Wer diesen Moment überlebt, hat den Durchbruch geschafft.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Grey Rock Methode</div>
+    <p>Eine Schutztechnik für unvermeidbare Begegnungen mit manipulativen Personen: Man macht sich emotional so grau, langweilig und undurchdringlich wie ein Stein. Kurze Antworten, keine Emotionalitaet, kein Engagement. Ziel: Der toxischen Person keine emotionale Nahrung liefern.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Flying Monkeys</div>
+    <p>Aus dem Wizard of Oz: Dritte Personen, die (oft unbewusst) von der manipulativen Person instrumentalisiert werden, um Informationen zu übermitteln, Druck auszuüben oder das Narrativ zu kontrollieren. Häufig in kleinen Communities und Freundeskreisen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Breadcrumbing</div>
+    <p>Das strategische Streuen minimaler Aufmerksamkeit (ein Like, ein Emoji, ein vages &bdquo;Hey&ldquo;) ohne Absicht auf echten Kontakt. Dient dazu, die emotionale Verfuegbarkeit der Betroffenen aufrechtzuerhalten und den Dopamin-Kreislauf am Laufen zu halten.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Triangulierung</div>
+    <p>Das Einbeziehen einer dritten Person in eine Zweierbeziehung mit dem Ziel, Eifersucht, Unsicherheit oder Wettbewerb zu erzeugen. In toxischen Beziehungen eine gängige Taktik, um die Kontrolle aufrechtzuerhalten.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">U-Hauling</div>
+    <p>Umgangssprachlicher Begriff in der lesbischen Community für das Phänomen, extrem schnell zusammenzuziehen oder die Beziehung zu intensivieren. Kann ein Zeichen von echter Verbundenheit sein, aber auch von ungesunder Fusion und beschleunigtem Love Bombing.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Somatische Marker</div>
+    <p>Nach Antonio Damasio: Körperliche Signale (Bauchgefühl, Klossgefühl, Herzrasen), die unbewusst auf frühere emotionale Erfahrungen zurückgehen und als Frühwarnsystem für Entscheidungen dienen. In toxischen Beziehungen wurden diese Signale oft systematisch unterdrückt oder uminterpretiert.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Post-Traumatic Growth (PTG)</div>
+    <p>Das Phänomen, dass Menschen nach Krisen und traumatischen Erfahrungen nicht nur zum Ausgangszustand zurückkehren, sondern darüber hinauswachsen – mit erhöhter Empathie, klareren Werten und größerer Resilienz. Beschrieben von Tedeschi &amp; Calhoun (2004).</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Entitlement</div>
+    <p>Die tiefe, oft unbewusste Überzeugung einer Person, dass ihr bestimmte Rechte über andere zustehen – über ihre Zeit, Entscheidungen, Körper oder Gefühle. Lundy Bancroft (2002) beschreibt Entitlement als den Kern von missbräuchlichem Verhalten: nicht Kontrollverlust, sondern die Überzeugung, Kontrolle zu verdienen. In queeren Beziehungen kann Entitlement hinter einem Fassade aus Verletzlichkeit oder politischem Diskurs verborgen sein.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Weaponized Diagnosis (Diagnostik als Waffe)</div>
+    <p>Das Missbrauchen von psychologischen Diagnosen oder Therapieinhalten als Manipulationsmittel. Beispiel: Die eigene ADHS oder Depression wird eingesetzt, um Verantwortung abzulehnen – oder die Diagnose der Partnerin wird genutzt, um ihre Wahrnehmung zu delegitimieren (<em>„Du bist ja selbst nicht stabil"</em>). Oft kombiniert mit Gaslighting; macht es der Betroffenen schwerer, ihrer eigenen Realitätseinschätzung zu vertrauen.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Love Avoidant</div>
+    <p>Das Gegenstück zum Love Addict im Beziehungstango nach Pia Mellody (1992): eine Person, die Intimität flieht, sobald sie real und tief wird – oft durch emotionalen Rückzug, Kontrollbedürfnis oder Ablenkung. Der Love Avoidant hat oft gelernt, dass Nähe gefährlich oder erdrückend ist. Das Paradoxe: Er/Sie sucht zunächst intensive Verbindung (Lovebombing), zieht sich aber zurück, sobald die andere Person sich öffnet.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Disenfranchised Grief (Nicht-anerkannter Schmerz)</div>
+    <p>Trauer, die von der Gesellschaft nicht als legitim anerkannt oder benannt wird – etwa das Trauern um eine Beziehung, die andere nicht ernst nahmen, um eine queere Partnerschaft, die niemand sehen durfte, oder um eine toxische Bindung, bei der Außenstehende sagen: <em>„Du solltest doch froh sein, dass sie weg ist."</em> Beschrieben von Kenneth Doka (1989). Das Fehlen sozialer Anerkennung verlängert und vertieft den Schmerz.</p>
+  </div>
+
+  <div class="glossar-entry">
+    <div class="glossar-term-title">Exiles / Manager / Firefighters (IFS-Anteile)</div>
+    <p>Die drei Anteil-Typen in der Internal Family Systems Therapie (Richard Schwartz, 1995): <strong>Exiles</strong> sind verletzte, junge Anteile, die Scham, Angst oder Trauer tragen – sie wurden „verbannt", weil ihre Gefühle zu überwältigend waren. <strong>Manager</strong> sind kontrollierende Anteile, die verhindern, dass die Exiles aktiviert werden (Perfektionismus, Überarbeiten, Rückzug). <strong>Firefighters</strong> greifen ein, wenn ein Exile trotzdem durchbricht – oft mit impulsivem Verhalten (Kontaktaufnahme, Substanzen, Dissoziation). Ziel der IFS-Arbeit: das mitfühlende Selbst (Self) in Kontakt mit den Exiles zu bringen.</p>
+  </div>
+
+</div>
+</div>
+</div>
 
 <!-- ============================================================ -->
 <!--  DATENSCHUTZ                                                  -->
