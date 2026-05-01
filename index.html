@@ -117,11 +117,41 @@
         body {
             font-family: 'Poppins', 'Lato', sans-serif;
             background: url('hero-bg.png') center top / cover no-repeat fixed;
-            background-color: #1a2420;
+            background-color: #0d1a14;
             color: rgba(244, 237, 228, 0.95);
             line-height: 1.7;
             font-size: 16px;
             overflow-x: hidden;
+        }
+
+        /* WebGL Nebel-Canvas über dem Foto */
+        #webgl-bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            opacity: 0.82;
+        }
+
+        /* Partikel-Layer */
+        #particles-js {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none; /* Klicks gehen durch zum Seiteninhalt */
+        }
+
+        /* Alle Sektionen über dem WebGL-Canvas und Partikel */
+        section, footer, .hero-content, .container, .teaser-box,
+        .ToxiCometer-container, .ebook-box, .result-modal-overlay,
+        .navbar, #cookieBanner, .legal-modal-overlay, .zugang-modal-overlay {
+            position: relative;
+            z-index: 2;
         }
 
         /* ============================
@@ -492,18 +522,18 @@
         }
 
         .flip-card:nth-child(1) .flip-card-back {
-            background: linear-gradient(135deg, rgba(107, 62, 68, 0.75), rgba(139, 62, 68, 0.70));
+            background: linear-gradient(135deg, rgba(107, 62, 68, 0.88), rgba(139, 50, 58, 0.82));
             border-top: 4px solid var(--bordeaux);
         }
 
         .flip-card:nth-child(2) .flip-card-back {
-            background: linear-gradient(135deg, rgba(74, 78, 82, 0.75), rgba(55, 58, 62, 0.70));
-            border-top: 4px solid var(--graphite);
+            background: linear-gradient(135deg, rgba(107, 62, 68, 0.88), rgba(139, 50, 58, 0.82));
+            border-top: 4px solid var(--bordeaux);
         }
 
         .flip-card:nth-child(3) .flip-card-back {
-            background: linear-gradient(135deg, rgba(20, 25, 55, 0.75), rgba(122, 158, 138, 0.70));
-            border-top: 4px solid var(--sage-green);
+            background: linear-gradient(135deg, rgba(107, 62, 68, 0.88), rgba(139, 50, 58, 0.82));
+            border-top: 4px solid var(--bordeaux);
         }
 
         .flip-card-back h3 {
@@ -953,7 +983,7 @@
             background: rgba(0, 0, 0, 0.85);
             z-index: 9990;
             overflow-y: auto;
-            padding: 30px 20px;
+            padding: 16px;
             animation: fadeIn 0.3s ease;
         }
         .result-modal-overlay.active { display: block; }
@@ -963,6 +993,7 @@
             border: 2px solid rgba(196,131,110,0.35);
             border-radius: 16px;
             max-width: 780px;
+            width: 100%;
             margin: 0 auto;
             padding: 0;
             overflow: hidden;
@@ -991,7 +1022,7 @@
         .result-modal-close:hover { background: rgba(196,131,110,0.3); color: white; }
 
         .result-modal-body {
-            padding: 40px 50px 50px;
+            padding: 30px 36px 40px;
             clear: both;
         }
 
@@ -1148,23 +1179,23 @@
             border: 1px solid rgba(196,131,110,0.22);
             border-radius: var(--glass-radius);
             box-shadow: var(--glass-shadow);
-            padding: 50px;
+            padding: 32px 24px;
             text-align: center;
             color: var(--cream);
-            margin: 40px 0;
+            margin: 30px 0;
         }
 
         .optin-box h2 {
             color: white;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            margin-bottom: 12px;
         }
 
         .optin-box p {
             color: rgba(255,255,255,0.9);
-            max-width: 500px;
-            margin: 0 auto 30px;
-            font-size: 1.05rem;
+            max-width: 100%;
+            margin: 0 auto 24px;
+            font-size: 1rem;
         }
 
         /* ── GABELUNGSPUNKT im Ergebnisfenster ── */
@@ -1242,6 +1273,7 @@
         /* E-Mail Formular – nach Tile-Auswahl */
         .optin-form {
             max-width: 420px;
+            width: 100%;
             margin: 0 auto;
         }
 
@@ -1307,8 +1339,18 @@
         .gabel-error-msg.visible { display: block; }
 
         @media (max-width: 560px) {
-            .optin-box { padding: 30px 20px; }
-            .gabel-tile { padding: 14px 16px; }
+            .optin-box { padding: 22px 16px; }
+            .gabel-tile { padding: 12px 14px; }
+            .result-modal-body { padding: 20px 16px 28px; }
+            .result-modal-overlay { padding: 8px; }
+            .result-modal-inner { border-radius: 12px; }
+            .profile-header { padding: 20px 16px; }
+            .profile-section { padding: 16px 14px; }
+            .profile-header h2 { font-size: 1.1rem; }
+            .profile-type { font-size: 1.1rem; }
+            .optin-submit { font-size: 0.95rem; padding: 14px; }
+            .gabel-tile h3 { font-size: 0.78rem; }
+            .gabel-tile p { font-size: 0.8rem; }
         }
 
         .optin-submit:hover {
@@ -1725,6 +1767,11 @@
             color: rgba(255,255,255,0.4);
             max-width: 600px;
             margin: 15px auto 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.75); }
         }
 
         /* ============================
@@ -2551,10 +2598,220 @@
             display: none;
         }
 
-        </style>
+        
+/* Logo replacement for former brain symbol */
+.logo-symbol{display:inline-block;width:1.25em;height:1.25em;object-fit:contain;vertical-align:-0.25em;margin-right:0.28em}
+.logo-symbol-heading{width:1.15em;height:1.15em;vertical-align:-0.18em}
+.logo-symbol-button{width:1.05em;height:1.05em;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25))}
+.ebook-feature-icon img.logo-symbol{width:2.2rem;height:2.2rem;margin-right:0;vertical-align:middle}
+.profile-header .logo-symbol{width:1.2em;height:1.2em;vertical-align:-0.22em}
+.flip-hint,.flip-back-hint{justify-content:center;text-align:center}
+
+    
+/* ============================
+   FINAL VISUAL PATCH: current user file
+   ============================ */
+.hero-cta-group{gap:5px!important;}
+.hero-subtext{margin-top:0!important;}
+.profile-badges{gap:10px!important;}
+.profile-badge{border-radius:10px!important;padding:10px 16px!important;min-height:42px!important;justify-content:center!important;line-height:1.25!important;background:rgba(244,237,228,0.075)!important;border:1px solid rgba(244,237,228,0.24)!important;}
+.profile-badge:hover{background:rgba(122,158,138,0.16)!important;border-color:rgba(122,158,138,0.46)!important;}
+.profile-badge.active{background:rgba(196,131,110,0.30)!important;border-color:rgba(196,131,110,0.62)!important;}
+.toximeter-section-logo{display:block;width:200px;height:200px;object-fit:contain;margin:0 auto 18px;}
+.ebook-box{background:linear-gradient(140deg,rgba(45,79,60,0.58) 0%,rgba(15,20,45,0.48) 45%,rgba(107,62,68,0.50) 100%)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;border-top:1px solid rgba(122,158,138,0.24)!important;border-bottom:1px solid rgba(122,158,138,0.18)!important;box-shadow:0 10px 50px rgba(0,0,0,0.32)!important;}
+.ebook-box::before{background:radial-gradient(circle,rgba(122,158,138,0.13) 0%,transparent 70%)!important;}
+.ebook-feature{background:rgba(244,237,228,0.045)!important;border:1px solid rgba(122,158,138,0.22)!important;box-shadow:0 8px 30px rgba(0,0,0,0.18)!important;}
+.ebook-feature-icon{font-size:0!important;margin-bottom:12px!important;}
+.cta-feature-icon{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto;}
+@media(max-width:768px){.profile-badge{font-size:0.78rem!important;padding:9px 13px!important;border-radius:9px!important;}.toximeter-section-logo{width:160px;height:160px;margin-bottom:14px;}.cta-feature-icon{width:58px;height:58px;}}
+
+</style>
   <link rel="canonical" href="https://www.unbond.de/">
 </head>
 <body>
+
+<!-- ============================
+     WEBGL HINTERGRUND
+     ============================ -->
+<canvas id="webgl-bg"></canvas>
+
+<!-- ============================
+     PARTIKEL-EFFEKT
+     ============================ -->
+<div id="particles-js"></div>
+<script>
+(function() {
+    // ── UNBOND Salbeigrün-Palette (20 Stufen) ──────────────────
+    // Von fast-schwarz-grün bis helles Salbei/Cream
+    const seaColors = [
+        [0.04, 0.09, 0.07],   // 0 – fast schwarz-grün
+        [0.05, 0.11, 0.09],
+        [0.06, 0.13, 0.10],
+        [0.07, 0.16, 0.12],
+        [0.08, 0.19, 0.14],
+        [0.09, 0.22, 0.16],
+        [0.10, 0.26, 0.19],
+        [0.11, 0.30, 0.22],
+        [0.13, 0.34, 0.26],
+        [0.15, 0.38, 0.29],   // 9 – Dunkelgrün
+        [0.18, 0.43, 0.33],
+        [0.22, 0.48, 0.38],
+        [0.27, 0.52, 0.42],
+        [0.32, 0.57, 0.46],
+        [0.38, 0.61, 0.50],   // 14 – Mittel-Salbei
+        [0.45, 0.66, 0.55],
+        [0.52, 0.70, 0.59],
+        [0.60, 0.75, 0.64],
+        [0.70, 0.82, 0.72],
+        [0.82, 0.90, 0.82],   // 19 – helles Salbei/Cream-Grün
+    ];
+
+    const colorArrayGLSL = seaColors
+        .map(c => `vec3(${c[0].toFixed(3)}, ${c[1].toFixed(3)}, ${c[2].toFixed(3)})`)
+        .join(',\n  ');
+
+    const vertexSrc = `#version 300 es
+precision mediump float;
+in vec2 aPosition;
+void main() { gl_Position = vec4(aPosition, 0.0, 1.0); }`;
+
+    const fragSrc = `#version 300 es
+precision highp float;
+out vec4 outColor;
+uniform vec2 uResolution;
+uniform float uTime;
+
+#define NUM_COLORS 20
+vec3 seaColors[NUM_COLORS] = vec3[](
+  ${colorArrayGLSL}
+);
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x,289.0); }
+
+float noise2D(vec2 v){
+  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i=floor(v+dot(v,C.yy));
+  vec2 x0=v-i+dot(i,C.xx);
+  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+  vec4 x12=x0.xyxy+C.xxzz;
+  x12.xy-=i1;
+  i=mod(i,289.0);
+  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
+  m=m*m; m=m*m;
+  vec3 x=2.0*fract(p*C.www)-1.0;
+  vec3 h=abs(x)-0.5;
+  vec3 ox=floor(x+0.5);
+  vec3 a0=x-ox;
+  m*=1.792843-0.853734*(a0*a0+h*h);
+  vec3 g;
+  g.x=a0.x*x0.x+h.x*x0.y;
+  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+  return 130.0*dot(m,g);
+}
+
+float fbm(vec2 st){
+  float v=0.0,a=0.5,f=1.0;
+  for(int i=0;i<8;i++){ v+=a*noise2D(st*f); f*=2.0; a*=0.5; }
+  return v;
+}
+
+void main(){
+  vec2 uv=(gl_FragCoord.xy/uResolution.xy)*2.0-1.0;
+  uv.x*=uResolution.x/uResolution.y;
+  uv*=0.35; // Zoom
+
+  float t=uTime*0.18; // langsam & hypnotisch
+
+  // Wellen-Domain-Warp
+  float waveAmp=0.20+0.12*noise2D(vec2(t,27.7));
+  uv.x+=waveAmp*sin(uv.y*3.8+t);
+  uv.y+=waveAmp*sin(uv.x*3.8-t);
+
+  // Swirleffekt
+  float r=length(uv);
+  float angle=atan(uv.y,uv.x);
+  float swirl=1.1*(1.0-smoothstep(0.0,1.0,r));
+  angle+=swirl*sin(uTime*0.7+r*4.5);
+  uv=vec2(cos(angle),sin(angle))*r;
+
+  float n=fbm(uv);
+  n+=0.18*sin(t+n*3.0);
+  float noiseVal=0.5*(n+1.0);
+
+  float idx=clamp(noiseVal,0.0,1.0)*float(NUM_COLORS-1);
+  int iLow=int(floor(idx));
+  int iHigh=int(min(float(iLow+1),float(NUM_COLORS-1)));
+  float f=fract(idx);
+  vec3 color=mix(seaColors[iLow],seaColors[iHigh],f);
+
+  // Alpha: dunkelste Töne fast unsichtbar, hellere Töne als Nebel sichtbar
+  float alpha = smoothstep(0.0, float(NUM_COLORS-1), idx) * 0.92;
+  outColor=vec4(color, alpha);
+}`;
+
+    const canvas = document.getElementById('webgl-bg');
+    const gl = canvas.getContext('webgl2', {alpha: true});
+    if (!gl) { console.warn('WebGL2 nicht unterstützt'); return; }
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
+
+    function makeShader(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.error(gl.getShaderInfoLog(s)); return null;
+        }
+        return s;
+    }
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, makeShader(gl.VERTEX_SHADER, vertexSrc));
+    gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, fragSrc));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error(gl.getProgramInfoLog(prog)); return;
+    }
+    gl.useProgram(prog);
+
+    const vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    const vbo = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(prog, 'aPosition');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes  = gl.getUniformLocation(prog, 'uResolution');
+    const uTime = gl.getUniformLocation(prog, 'uTime');
+    const t0 = performance.now();
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render() {
+        const elapsed = (performance.now() - t0) * 0.001;
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(prog);
+        gl.bindVertexArray(vao);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, elapsed);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        requestAnimationFrame(render);
+    }
+    render();
+})();
+</script>
+
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
@@ -2563,9 +2820,8 @@
         <li><a href="blog.html">Das Problem</a></li>
         <li><a href="#ToxiCometer">ToxiCometer</a></li>
         <li><a href="#ebook">E-Book</a></li>
-        <li><a href="#glossar">Glossar</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('impressumModal')" style="color:rgba(255,255,255,0.4);font-size:0.72rem;">Impressum</a></li>
-        <li><a href="https://copecart.com/products/56b047e4/checkout" class="nav-cta" target="_blank" aria-label="E-Book: Trauma Bonding lösen – UNBOND Breaking Chains">E-Book – 29 € →</a></li>
+        <li><a href="DEIN_COPECART_LINK_CORE" target="_blank" rel="noopener" class="nav-cta">✦ Jetzt kaufen – 29 €</a></li>
     </ul>
     <div class="nav-hamburger" onclick="document.getElementById('mobileNav').classList.add('open')">
         <span></span><span></span><span></span>
@@ -2578,7 +2834,7 @@
     <a href="blog.html" onclick="document.getElementById('mobileNav').classList.remove('open')">Das Problem</a>
     <a href="#ToxiCometer" onclick="document.getElementById('mobileNav').classList.remove('open')">ToxiCometer</a>
     <a href="#ebook" onclick="document.getElementById('mobileNav').classList.remove('open')">E-Book</a>
-    <a href="https://copecart.com/products/56b047e4/checkout" class="cta-btn" style="font-size:1rem;" target="_blank">E-Book sichern – 29 €</a>
+    <a href="DEIN_COPECART_LINK_CORE" target="_blank" rel="noopener" class="cta-btn" style="font-size:1rem;">✦ Jetzt kaufen – 29 €</a>
     <a href="javascript:void(0)" onclick="openModal('impressumModal');document.getElementById('mobileNav').classList.remove('open')" style="font-size:0.8rem;opacity:0.5;">Impressum & Datenschutz</a>
 </div>
 
@@ -2614,9 +2870,7 @@
      ============================ -->
 <section class="hero" id="top">
     <div class="hero-content">
-        <div class="hero-badge">TOXISCHE BEZIEHUNG RETTEN? 
-		</br>
-Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Beziehung hat</p></div>
+<div class="hero-badge">UNBOND: Breaking Chains – Jetzt verfügbar</div>
        <h1 style="margin-bottom:0;">Toxische Beziehung WLW</h1>
 <h3 style="margin-bottom: 0;">Gaslighting, emotionaler Missbrauch und Trauma Bonding</h3>
 
@@ -2736,7 +2990,7 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
     <div style="max-width: 600px; margin: 0 auto;">
         <p style="color: var(--white); font-size: 1.45rem; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-weight: 700;">Du erkennst dich wieder?</p>
         <p style="color: rgba(255,255,255,0.60); font-size: 0.98rem; margin-bottom: 26px; font-family: 'Poppins', sans-serif; font-weight: 300; line-height: 1.8;">UNBOND ist das einzige Programm, das toxische Beziehungen zwischen Frauen direkt adressiert – die kleine Community, <br>die Ex im Freundeskreis, das U-Hauling, die queere Isolation.<br>Trauma Bonding lösen. Liebeskummer überwinden. Wieder du selbst werden.</p>
-        <a href="#ebook" style="display: inline-block; background: linear-gradient(135deg, var(--terracotta) 0%, var(--bordeaux) 100%); color: white; padding: 16px 42px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; box-shadow: 0 8px 28px rgba(107,62,68,0.35); transition: all 0.3s;">Zum E-Book →</a>
+        <a href="DEIN_COPECART_LINK_CORE" target="_blank" rel="noopener" style="display: inline-block; background: linear-gradient(135deg, var(--terracotta) 0%, var(--bordeaux) 100%); color: white; padding: 16px 42px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; box-shadow: 0 8px 28px rgba(107,62,68,0.35); transition: all 0.3s;">Jetzt E-Book kaufen – 29 € →</a>
     </div>
 </div>
 
@@ -2752,13 +3006,13 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
 
                     <p style="font-weight:600; font-size:0.9rem; color:var(--cream); margin-bottom:12px;">Klicke auf ein Profil:</p>
                     <div class="profile-badges">
-                        <span class="profile-badge" onclick="showTeaserProfile('covert')" data-profile="covert">🎭 Verdeckte Narzisstin</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('grandiose')" data-profile="grandiose">👑 Grandiose Narzisstin</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('borderline')" data-profile="borderline">🌪️ Borderline-Dynamik</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('malignant')" data-profile="malignant">⚠️ Maligner Narzissmus</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('histrionic')" data-profile="histrionic">🎪 Histrionische Züge</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('psychopathic')" data-profile="psychopathic">🧊 Psychopathische Züge</span>
-                        <span class="profile-badge" onclick="showTeaserProfile('cluster_b')" data-profile="cluster_b">🎭 Cluster-B Mix</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('covert')" data-profile="covert">Verdeckte Narzisstin</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('grandiose')" data-profile="grandiose">Grandiose Narzisstin</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('borderline')" data-profile="borderline">Borderline-Dynamik</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('malignant')" data-profile="malignant">Maligner Narzissmus</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('histrionic')" data-profile="histrionic">Histrionische Züge</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('psychopathic')" data-profile="psychopathic">Psychopathische Züge</span>
+                        <span class="profile-badge" onclick="showTeaserProfile('cluster_b')" data-profile="cluster_b">Cluster-B Mix</span>
                     </div>
 
                     <!-- Verhaltens-Signatur (dynamisch) -->
@@ -2798,7 +3052,8 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
 <section class="test-section" id="ToxiCometer">
     <div class="container">
         <div class="section-header">
-            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 700; color: var(--cream);">🧠 Narzissmus erkennen: Der UNBOND ToxiCometer</h2>
+            <img src="unbond-logo-main.png" alt="UNBOND Logo" class="toximeter-section-logo">
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 700; color: var(--cream);">Narzissmus erkennen: Der UNBOND ToxiCometer</h2>
             <p style="font-family: 'Poppins', sans-serif; font-size: 1.05rem; color: rgba(244,237,228,0.82); font-weight: 300; margin-top: 10px;">15 Fragen · ca. 2 Minuten · Wähle 0 = trifft nicht zu bis 5 = trifft voll zu</p>
         </div>
 
@@ -2835,7 +3090,8 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
                     <!-- Fertig-State -->
                     <div class="tox-complete" id="toxComplete" style="display:none;">
                         <p class="tox-complete-msg">✓ Alle Fragen beantwortet</p>
-                        <button class="analyze-btn" onclick="generateProfile()">🧠 Mein Profil anzeigen</button>
+                        <button class="analyze-btn" onclick="generateProfile()">Mein Profil anzeigen</button>
+                        <button onclick="resetTox()" style="background:none;border:none;color:rgba(244,237,228,0.35);font-family:'Poppins',sans-serif;font-size:0.75rem;cursor:pointer;margin-top:10px;text-decoration:underline;display:block;width:100%;text-align:center;">Test zurücksetzen</button>
                     </div>
                 </div>
 
@@ -2861,8 +3117,53 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
 </section>
 
 <!-- ============================
-     7. E-BOOK CTA
+     REPORT OPT-IN (direkt nach Test)
      ============================ -->
+<section style="padding: 0 20px 60px; position: relative; z-index: 1;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <div style="background: rgba(28,52,38,0.40); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(122,158,138,0.25); border-radius: 16px; padding: 36px 36px 28px; text-align: center;">
+
+            <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage-green);margin-bottom:14px;">KOSTENLOSER REPORT</p>
+            <h3 style="font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;color:var(--cream);margin-bottom:10px;line-height:1.35;">Dein persönliches Ergebnis<br>sofort per E-Mail</h3>
+            <p style="font-family:'Poppins',sans-serif;font-size:0.9rem;font-weight:300;color:rgba(244,237,228,0.72);line-height:1.7;margin-bottom:24px;">Mach den Test oben – dann bekommst du deinen psychologischen Report mit konkreten Schritten zu Trauma Bonding, No-Contact und Heilung.</p>
+
+            <div id="inlineOptinWrap">
+                <input type="text" id="inlineVorname"
+                    placeholder="Dein Vorname (optional)"
+                    style="width:100%;padding:13px 18px;background:rgba(255,255,255,0.08);border:1px solid rgba(122,158,138,0.30);border-radius:9px;color:white;font-family:'Poppins',sans-serif;font-size:0.95rem;outline:none;margin-bottom:10px;box-sizing:border-box;"
+                    onfocus="this.style.borderColor='rgba(122,158,138,0.70)'"
+                    onblur="this.style.borderColor='rgba(122,158,138,0.30)'">
+                <input type="email" id="inlineEmail"
+                    placeholder="Deine E-Mail-Adresse *"
+                    style="width:100%;padding:13px 18px;background:rgba(255,255,255,0.08);border:1px solid rgba(122,158,138,0.30);border-radius:9px;color:white;font-family:'Poppins',sans-serif;font-size:0.95rem;outline:none;margin-bottom:14px;box-sizing:border-box;"
+                    onfocus="this.style.borderColor='rgba(122,158,138,0.70)'"
+                    onblur="this.style.borderColor='rgba(122,158,138,0.30)'"
+                    onkeydown="if(event.key==='Enter') handleInlineOptIn()">
+
+                <!-- DSGVO -->
+                <label style="display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;cursor:pointer;text-align:left;">
+                    <input type="checkbox" id="inlineDsgvo" style="width:17px;height:17px;min-width:17px;margin-top:2px;accent-color:#7A9E8A;">
+                    <span style="font-family:'Poppins',sans-serif;font-size:0.75rem;color:rgba(244,237,228,0.55);line-height:1.55;">Ich habe die <a href="javascript:void(0)" onclick="openModal('datenschutzModal')" style="color:#a8d4b8;text-decoration:underline;">Datenschutzerklärung</a> gelesen und akzeptiere die Verarbeitung meiner E-Mail-Adresse.</span>
+                </label>
+
+                <button onclick="handleInlineOptIn()"
+                    style="width:100%;background:linear-gradient(135deg,var(--dark-green),#3d6b52);color:white;border:none;border-radius:9px;padding:15px;font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'"
+                    onmouseout="this.style.transform='none'">
+                    Kostenlosen Report erhalten →
+                </button>
+                <div id="inlineOptinMsg" style="display:none;margin-top:12px;padding:11px 16px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.85rem;"></div>
+                <p style="font-family:'Poppins',sans-serif;font-size:0.73rem;color:rgba(244,237,228,0.35);margin-top:12px;margin-bottom:0;">Kein Spam · Jederzeit abmeldbar · Daten nicht weitergegeben</p>
+            </div>
+
+            <div id="inlineOptinSuccess" style="display:none;padding:10px 0;">
+                <div style="font-size:2.2rem;margin-bottom:10px;">✓</div>
+                <p style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;color:white;margin-bottom:6px;">Report ist unterwegs!</p>
+                <p style="font-family:'Poppins',sans-serif;font-size:0.85rem;color:rgba(244,237,228,0.65);">Schau auch in den Spam-Ordner.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!-- ============================
@@ -2895,140 +3196,184 @@ Ermittle das psychologische Profil deiner Ex & erfahre welche Chancen deine Bezi
     </div>
 </section>
 
+<!-- ⑤ EBOOK SECTION -->
 <section class="ebook-section" id="ebook">
-    <div class="ebook-box">
-        <span class="subtitle">Das erste Selbsthilfeprogramm speziell für lesbische Frauen &amp; WLW</span>
-        <h2>UNBOND: Breaking Chains</h2>
-        <p style="max-width:560px; margin:0 auto 10px; color:rgba(244,237,228,0.75); font-family:'Poppins',sans-serif; font-weight:300; font-size:1.05rem; line-height:1.8;">
-            Trauma Bonding in lesbischen Beziehungen lösen, das Nervensystem regulieren, die Ex loslassen –<br>
-            10 Schritte, wissenschaftlich fundiert. Kein hetero-zentrischer Ratgeber. Endlich für dich.
-        </p>
-
-        <div class="ebook-features">
-            <div class="ebook-feature">
-                <div class="ebook-feature-icon">🆘</div>
-                <p><strong>Liebeskummer Hilfe – SOS</strong><br>TIPP-Protokoll & Trennungsschmerz akut lindern</p>
-            </div>
-            <div class="ebook-feature">
-                <div class="ebook-feature-icon">🧠</div>
-                <p><strong>Nervensystem regulieren</strong><br>Trauma Bonding lösen – neurobiologisch fundiert</p>
-            </div>
-            <div class="ebook-feature">
-                <div class="ebook-feature-icon">🛡️</div>
-                <p><strong>Ex loslassen & Kontaktabbruch</strong><br>No-Contact als medizinische Notwendigkeit</p>
-            </div>
-        </div>
-
-        <div class="price-display">
-           
-            <span class="price-new">29,–&nbsp;€</span>
-            <span class="price-label"><strong>Early Bird bis 29. April – danach 49 €<strong></span>
-
-<!-- Early Bird Countdown -->
-<div id="eb-countdown" style="text-align:center;margin:8px 0 16px;font-family:'Poppins',sans-serif;">
-  <span style="font-size:0.82rem;color:rgba(244,237,228,0.6);">Early Bird endet in: </span>
-  <span id="eb-timer" style="font-size:0.95rem;font-weight:700;color:var(--terracotta,#C4836E);letter-spacing:1px;">--:--:--</span>
-</div>
-
-			   <span class="price-label">Einmalzahlung · Kein Abo · Sofortiger Zugang im Browser</span>
-			
-        </div>
-
-        <a href="https://copecart.com/products/56b047e4/checkout" class="ebook-cta-btn" target="_blank" rel="noopener">
-            Jetzt UNBOND sichern →
-        </a>
-        <span class="ebook-cta-sub"></span>
+  <div class="ebook-box">
+    <span class="subtitle">✦ Jetzt verfügbar – Sofortiger Zugang</span>
+    <h2>UNBOND: Breaking Chains</h2>
+    <p style="max-width:560px;margin:0 auto 10px;color:rgba(244,237,228,0.75);font-weight:300;font-size:1.05rem;line-height:1.8">
+      Trauma Bonding in lesbischen Beziehungen lösen, das Nervensystem regulieren, die Ex loslassen –<br>
+      10 Schritte, wissenschaftlich fundiert. Kein hetero-zentrischer Ratgeber. Endlich für dich.
+    </p>
+    <div class="ebook-features">
+      <div class="ebook-feature"><div class="ebook-feature-icon"><img src="cta-icon-sos.png" alt="SOS Symbol" class="cta-feature-icon"></div><p><strong>Liebeskummer Hilfe – SOS</strong><br>TIPP-Protokoll & Trennungsschmerz akut lindern</p></div>
+      <div class="ebook-feature"><div class="ebook-feature-icon"><img src="cta-icon-brain.png" alt="Nervensystem Symbol" class="cta-feature-icon"></div><p><strong>Nervensystem regulieren</strong><br>Trauma Bonding lösen – neurobiologisch fundiert</p></div>
+      <div class="ebook-feature"><div class="ebook-feature-icon"><img src="cta-icon-chain.png" alt="Kontaktabbruch Symbol" class="cta-feature-icon"></div><p><strong>Ex loslassen & Kontaktabbruch</strong><br>No-Contact als medizinische Notwendigkeit</p></div>
     </div>
+    <div class="price-display">
+      <span class="price-new">29,–&nbsp;€</span>
+      <span class="price-label"><strong>Sofortiger Zugang · regulär 49 € · Einmalzahlung</strong></span>
+    </div>
+
+    <!-- JETZT VERFÜGBAR BLOCK -->
+    <div style="max-width:580px;margin:0 auto 10px;text-align:center">
+      <div style="display:inline-flex;align-items:center;gap:8px;
+        background:rgba(45,79,60,0.30);border:1px solid rgba(122,158,138,0.55);
+        border-radius:6px;padding:7px 18px;margin-bottom:22px">
+        <span style="width:8px;height:8px;border-radius:50%;background:#7A9E8A;display:inline-block"></span>
+        <span style="font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:800;
+          letter-spacing:2.5px;text-transform:uppercase;color:#a8d4b8">JETZT VERFÜGBAR</span>
+      </div>
+      <h3 style="font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:600;
+        color:var(--cream);margin-bottom:10px;line-height:1.4">Sofortiger Zugang nach dem Kauf</h3>
+      <p style="font-family:'Poppins',sans-serif;font-size:0.9rem;font-weight:300;
+        color:rgba(244,237,228,0.72);line-height:1.7;margin-bottom:28px">
+        Einmalzahlung. Kein Abo. Du erhältst nach dem Kauf sofort Zugang zum vollständigen 10-Schritte-Programm – inklusive aller Journaling-Übungen und dem integrierten ToxiCometer.
+      </p>
+      <div style="background:rgba(28,52,38,0.40);backdrop-filter:blur(16px);
+        border:1px solid rgba(122,158,138,0.28);border-radius:14px;
+        padding:28px 28px 22px;text-align:left;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:16px;background:rgba(122,158,138,0.12);
+          border:1px solid rgba(122,158,138,0.25);border-radius:10px;padding:16px 18px;margin-bottom:20px">
+          <div style="font-size:2rem;flex-shrink:0">📖</div>
+          <div>
+            <p style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;
+              letter-spacing:2px;text-transform:uppercase;color:var(--sage-green);margin-bottom:4px">KOSTENLOS DAZU</p>
+            <p style="font-family:'Poppins',sans-serif;font-size:0.95rem;font-weight:600;color:var(--cream);margin:0 0 2px">Das UNBOND Booklet</p>
+            <p style="font-family:'Poppins',sans-serif;font-size:0.78rem;font-weight:300;color:rgba(244,237,228,0.62);margin:0">Die wichtigsten Erkenntnisse kompakt – sofort als Download.</p>
+          </div>
+        </div>
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;
+          letter-spacing:2px;text-transform:uppercase;color:var(--sage-green);
+          margin-bottom:14px;text-align:center">✦ JETZT KAUFEN</p>
+        <a href="DEIN_COPECART_LINK_CORE" target="_blank" rel="noopener"
+          style="display:block;background:linear-gradient(135deg,var(--bordeaux),#8B3E44);
+            color:white;border:none;border-radius:9px;padding:16px 22px;
+            font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;
+            cursor:pointer;text-decoration:none;text-align:center;transition:all 0.2s">
+          Jetzt kaufen – 29 € →
+        </a>
+        <p style="font-family:'Poppins',sans-serif;font-size:0.72rem;
+          color:rgba(244,237,228,0.35);margin-top:12px;margin-bottom:0;text-align:center">
+          Sofortiger Zugang · Einmalzahlung · 14 Tage Rückgaberecht
+        </p>
+      </div>
+    </div>
+    <span class="ebook-cta-sub">Sofortiger Zugang · Einmalzahlung · Kein Abo · 14 Tage Rückgaberecht</span>
+  </div>
 </section>
 
 <!-- ============================
      PRICING SEKTION
      ============================ -->
-<section id="pricing" style="padding: 80px 20px; position: relative; z-index: 1;">
-  <div style="max-width: 860px; margin: 0 auto;">
-
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 56px;">
-      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sage-green); margin-bottom: 14px;">FRÜHER DRAN · BESSER GESCHÜTZT</p>
-      <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.2rem); color: var(--cream); margin-bottom: 16px; line-height: 1.25;">Wähle deinen Weg</h2>
-      <p style="font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 1rem; color: rgba(244,237,228,0.75); max-width: 520px; margin: 0 auto; line-height: 1.75;">Early Bird – nur 14 Tage. Danach gelten die regulären Preise.</p>
+<!-- ⑥ PRICING -->
+<section id="pricing" style="padding:80px 20px;position:relative;z-index:1">
+  <div style="max-width:860px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <p style="font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:700;
+        letter-spacing:2.5px;text-transform:uppercase;color:var(--sage-green);margin-bottom:14px">
+        ✦ JETZT VERFÜGBAR – SOFORTIGER ZUGANG
+      </p>
+      <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.6rem,4vw,2.2rem);
+        color:var(--cream);margin-bottom:16px;line-height:1.25">Wähle dein Paket</h2>
+      <p style="font-family:'Poppins',sans-serif;font-weight:300;font-size:1rem;
+        color:rgba(244,237,228,0.75);max-width:520px;margin:0 auto;line-height:1.75">
+        Wähle dein Paket und erhalte sofortigen Zugang. Einmalzahlung, kein Abo, 14 Tage Rückgaberecht.
+      </p>
     </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:32px;align-items:start">
 
-    <!-- 3 Pricing Cards -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 32px; align-items: start;">
-
-      <!-- CARD 1: Core -->
-      <div style="background: rgba(15, 20, 45, 0.35); backdrop-filter: blur(16px); border: 1px solid rgba(122,158,138,0.22); border-radius: 16px; padding: 32px 24px; text-align: center;">
-        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sage-green); margin-bottom: 16px;">UNBOND CORE</p>
-        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 20px; line-height: 1.4;">Das 10-Schritte-Programm</h3>
-        <div style="margin-bottom: 6px;">
-          <span style="font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--cream);">29 €</span>
+      <!-- CARD 1: CORE -->
+      <div style="background:rgba(15,20,45,0.35);backdrop-filter:blur(16px);
+        border:1px solid rgba(122,158,138,0.22);border-radius:16px;padding:32px 24px;text-align:center">
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;
+          letter-spacing:2.5px;text-transform:uppercase;color:var(--sage-green);margin-bottom:8px">UNBOND CORE</p>
+        <h3 style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;
+          color:var(--cream);margin-bottom:20px;line-height:1.4">Das 10-Schritte-Programm</h3>
+        <div style="margin-bottom:6px">
+          <span style="font-family:'Poppins',sans-serif;font-size:2.4rem;font-weight:800;color:var(--cream)">29 €</span>
         </div>
-        <div style="font-family: 'Poppins', sans-serif; font-size: 0.75rem; color: rgba(244,237,228,0.4); text-decoration: line-through; margin-bottom: 20px;">regulär 49 €</div>
-        <ul style="list-style: none; padding: 0; margin: 0 0 24px; text-align: left; font-family: 'Poppins', sans-serif; font-size: 0.83rem; color: rgba(244,237,228,0.75); line-height: 1.9;">
+        <div style="font-family:'Poppins',sans-serif;font-size:0.75rem;color:rgba(244,237,228,0.4);
+          text-decoration:line-through;margin-bottom:20px">regulär 49 €</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;text-align:left;
+          font-family:'Poppins',sans-serif;font-size:0.83rem;color:rgba(244,237,228,0.75);line-height:1.9">
           <li>✓ 10 vollständige Schritte</li>
           <li>✓ Alle Journaling-Übungen</li>
-          <li>✓ Toxikometer integriert</li>
+          <li>✓ ToxiCometer integriert</li>
           <li>✓ Sofort im Browser</li>
         </ul>
-        <a href="https://copecart.com/products/56b047e4/checkout" target="_blank" rel="noopener"
-           style="display: block; background: linear-gradient(135deg, var(--sage-green), #5a8a6e); color: white; padding: 13px 20px; border-radius: 9px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s;">
-          Jetzt sichern →
+        <a href="DEIN_COPECART_LINK_CORE" target="_blank" rel="noopener"
+          style="display:block;background:linear-gradient(135deg,var(--sage-green),#5a8a6f);
+            color:white;padding:13px 20px;border-radius:9px;text-decoration:none;
+            font-family:'Poppins',sans-serif;font-weight:700;font-size:0.85rem;text-align:center">
+          Jetzt kaufen – 29 € →
         </a>
       </div>
 
-      <!-- CARD 2: Complete (highlighted) -->
-      <div style="background: linear-gradient(135deg, rgba(107,62,68,0.45), rgba(155,127,164,0.35)); backdrop-filter: blur(18px); border: 2px solid rgba(155,127,164,0.55); border-radius: 16px; padding: 32px 24px; text-align: center; position: relative; transform: scale(1.04);">
-        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--mauve), #7B5EA7); color: white; font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; white-space: nowrap;">EMPFOHLEN</div>
-        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #c9b5d8; margin-bottom: 16px;">UNBOND COMPLETE</p>
-        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 20px; line-height: 1.4;">Core + alle 3 Bonus-Kapitel</h3>
-        <div style="margin-bottom: 6px;">
-          <span style="font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--cream);">49 €</span>
+      <!-- CARD 2: COMPLETE -->
+      <div style="background:linear-gradient(135deg,rgba(107,62,68,0.45),rgba(155,127,164,0.35));
+        backdrop-filter:blur(18px);border:2px solid rgba(155,127,164,0.55);
+        border-radius:16px;padding:32px 24px;text-align:center;position:relative;transform:scale(1.04)">
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+          background:linear-gradient(135deg,var(--mauve),#7B5EA7);color:white;
+          font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:800;
+          letter-spacing:2px;text-transform:uppercase;padding:5px 16px;
+          border-radius:20px;white-space:nowrap">EMPFOHLEN</div>
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;
+          letter-spacing:2.5px;text-transform:uppercase;color:#c9b5d8;margin-bottom:8px">UNBOND COMPLETE</p>
+        <h3 style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;
+          color:var(--cream);margin-bottom:20px;line-height:1.4">Core + alle 3 Bonus-Kapitel</h3>
+        <div style="margin-bottom:6px">
+          <span style="font-family:'Poppins',sans-serif;font-size:2.4rem;font-weight:800;color:var(--cream)">49 €</span>
         </div>
-        <div style="font-family: 'Poppins', sans-serif; font-size: 0.75rem; color: rgba(244,237,228,0.4); text-decoration: line-through; margin-bottom: 20px;">regulär 69 €</div>
-        <ul style="list-style: none; padding: 0; margin: 0 0 24px; text-align: left; font-family: 'Poppins', sans-serif; font-size: 0.83rem; color: rgba(244,237,228,0.75); line-height: 1.9;">
+        <div style="font-family:'Poppins',sans-serif;font-size:0.75rem;color:rgba(244,237,228,0.4);
+          text-decoration:line-through;margin-bottom:20px">regulär 69 €</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;text-align:left;
+          font-family:'Poppins',sans-serif;font-size:0.83rem;color:rgba(244,237,228,0.75);line-height:1.9">
           <li>✓ Alles aus UNBOND Core</li>
           <li>✓ Bonus D – Behörden als Waffe</li>
           <li>✓ Bonus E – Das Warum hinter dem Warum</li>
           <li>✓ Bonus F – Ankommen in der Trauer</li>
         </ul>
-        <a href="https://copecart.com/products/8135e2ac/checkout" target="_blank" rel="noopener"
-           style="display: block; background: linear-gradient(135deg, var(--mauve), #6B3E44); color: white; padding: 13px 20px; border-radius: 9px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; box-shadow: 0 6px 24px rgba(107,62,68,0.4);">
-          Jetzt komplett sichern →
+        <a href="DEIN_COPECART_LINK_COMPLETE" target="_blank" rel="noopener"
+          style="display:block;background:linear-gradient(135deg,var(--mauve),#7B5EA7);
+            color:white;padding:13px 20px;border-radius:9px;text-decoration:none;
+            font-family:'Poppins',sans-serif;font-weight:700;font-size:0.85rem;text-align:center">
+          Jetzt kaufen – 49 € →
         </a>
       </div>
 
-      <!-- CARD 3: Bundle only -->
-      <div style="background: rgba(15, 20, 45, 0.35); backdrop-filter: blur(16px); border: 1px solid rgba(122,158,138,0.22); border-radius: 16px; padding: 32px 24px; text-align: center;">
-        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #c9b5d8; margin-bottom: 16px;">BONUS-PAKET</p>
-        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 20px; line-height: 1.4;">Nur die 3 Bonus-Kapitel</h3>
-        <div style="margin-bottom: 6px;">
-          <span style="font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--cream);">19 €</span>
+      <!-- CARD 3: BONUS -->
+      <div style="background:rgba(15,20,45,0.35);backdrop-filter:blur(16px);
+        border:1px solid rgba(122,158,138,0.22);border-radius:16px;padding:32px 24px;text-align:center">
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;
+          letter-spacing:2.5px;text-transform:uppercase;color:#c9b5d8;margin-bottom:8px">BONUS-PAKET</p>
+        <h3 style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:600;
+          color:var(--cream);margin-bottom:20px;line-height:1.4">Nur die 3 Bonus-Kapitel</h3>
+        <div style="margin-bottom:6px">
+          <span style="font-family:'Poppins',sans-serif;font-size:2.4rem;font-weight:800;color:var(--cream)">19 €</span>
         </div>
-        <div style="font-family: 'Poppins', sans-serif; font-size: 0.75rem; color: rgba(244,237,228,0.4); text-decoration: line-through; margin-bottom: 20px;">regulär 29 €</div>
-        <ul style="list-style: none; padding: 0; margin: 0 0 24px; text-align: left; font-family: 'Poppins', sans-serif; font-size: 0.83rem; color: rgba(244,237,228,0.75); line-height: 1.9;">
+        <div style="font-family:'Poppins',sans-serif;font-size:0.75rem;color:rgba(244,237,228,0.4);
+          text-decoration:line-through;margin-bottom:20px">regulär 29 €</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;text-align:left;
+          font-family:'Poppins',sans-serif;font-size:0.83rem;color:rgba(244,237,228,0.75);line-height:1.9">
           <li>✓ Bonus D – Behörden als Waffe</li>
           <li>✓ Bonus E – Das Warum hinter dem Warum</li>
           <li>✓ Bonus F – Ankommen in der Trauer</li>
-          <li style="color: rgba(244,237,228,0.4);">✗ Core nicht enthalten</li>
+          <li style="color:rgba(244,237,228,0.4)">✗ Core nicht enthalten</li>
         </ul>
-        <a href="https://copecart.com/products/ad1d8a74/checkout" target="_blank" rel="noopener"
-           style="display: block; background: linear-gradient(135deg, rgba(155,127,164,0.6), rgba(107,62,68,0.6)); color: white; padding: 13px 20px; border-radius: 9px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s;">
-          Bonus-Paket sichern →
+        <a href="DEIN_COPECART_LINK_BONUS" target="_blank" rel="noopener"
+          style="display:block;background:linear-gradient(135deg,rgba(155,127,164,0.6),rgba(155,127,164,0.4));
+            color:white;padding:13px 20px;border-radius:9px;text-decoration:none;
+            font-family:'Poppins',sans-serif;font-weight:700;font-size:0.85rem;text-align:center">
+          Jetzt kaufen – 19 € →
         </a>
       </div>
-
     </div>
-
-    <!-- Responsive mobile stack -->
-    <style>
-      @media (max-width: 680px) {
-        #pricing .pricing-grid { grid-template-columns: 1fr !important; }
-      }
-    </style>
-
-    <p style="text-align: center; font-family: 'Poppins', sans-serif; font-size: 0.75rem; color: rgba(244,237,228,0.38); letter-spacing: 0.3px;">Kein Abo · Einmalzahlung · Sofortiger Zugang · DSGVO-konform · 14 Tage Rückgaberecht</p>
-
+    <p style="text-align:center;font-family:'Poppins',sans-serif;font-size:0.75rem;
+      color:rgba(244,237,228,0.38)">
+      Sofortiger Zugang · Einmalzahlung · Kein Abo · DSGVO-konform · 14 Tage Rückgaberecht
+    </p>
   </div>
 </section>
 
@@ -3288,6 +3633,7 @@ img { max-width: 100%; height: auto; }
             </div>
         </div>
 
+
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Auf welcher wissenschaftlichen Grundlage basiert UNBOND?</span>
@@ -3297,321 +3643,49 @@ img { max-width: 100%; height: auto; }
                 <div class="faq-answer-inner">UNBOND basiert auf Forschung von Helen Fisher (fMRI-Studien zu romantischer Liebe als Sucht), Sandra Langeslag (Love Regulation), Bessel van der Kolk (Trauma & Körper), Marsha Linehan (DBT), Stephen Porges (Polyvagaltheorie) und dem DSM-5 für Persönlichkeitsstörungen.</div>
             </div>
         </div>
-    </div>
-</section>
 
-<!-- ============================
-     GLOSSAR
-     ============================ -->
-<section class="glossar-section" id="glossar">
-    <div class="container">
-        <div class="glossar-header">
-            <h2>📖 Glossar: Gaslighting, Narzissmus &amp; toxische Muster erklärt</h2>
-            
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Was ist Gaslighting?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Gaslighting ist eine Form psychischer Manipulation, bei der deine Wahrnehmung, Erinnerung oder Einordnung systematisch infrage gestellt wird. Typische Sätze: „Das habe ich nie gesagt", „Du bist zu sensibel", „Du bildest dir das ein". Die Wiederholung führt dazu, dass du deiner eigenen Wahrnehmung nicht mehr vertraust.</div>
+            </div>
         </div>
-        <div class="glossar-grid" id="glossarGrid">
 
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Love Bombing</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Eine Phase intensiver Zuneigung, überwältigender Komplimente und großzügiger Gesten zu Beginn der Beziehung. Die Täterin überflutet dich mit Aufmerksamkeit, um schnell emotionale Abhängigkeit zu erzeugen – bevor du die ersten roten Flaggen wahrnehmen kannst.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Übertriebene Liebesbekundungen sehr früh</li>
-                        <li>Geschenke, ständige Nachrichten, exzessive gemeinsame Zeit</li>
-                        <li>Das Gefühl, die perfekte Partnerin gefunden zu haben</li>
-                        <li>Schnelle Versprechen von Exklusivität und gemeinsamer Zukunft</li>
-                    </ul>
-                </div></div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Was ist Trauma Bonding?</span>
+                <span class="faq-icon">+</span>
             </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Gaslighting</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Systematische Manipulation deiner Wahrnehmung, bis du an deinem eigenen Verstand zweifelst. Die Täterin leugnet Ereignisse, verdreht Tatsachen oder behauptet, du seist zu empfindlich. Ziel: deine Realität kontrollieren und dich von deinem eigenen Urteilsvermögen zu trennen.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>„Das habe ich nie gesagt/getan"</li>
-                        <li>„Du erinnerst dich falsch"</li>
-                        <li>„Du übertreibst / bist zu sensibel / dramatisierst"</li>
-                        <li>Du beginnst, an deiner eigenen Wahrnehmung zu zweifeln</li>
-                        <li>Du entschuldigst dich ständig für Dinge, die du nicht getan hast</li>
-                    </ul>
-                </div></div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Trauma Bonding beschreibt eine paradoxe Bindung an eine Person, die wiederholt verletzt oder destabilisiert. Die Bindung entsteht durch den Wechsel von Schmerz und Erleichterung – wenn dieselbe Person Stress auslöst und gleichzeitig als einzige Quelle der Linderung erlebt wird. Das ist keine Schwäche, das ist Neurobiologie.</div>
             </div>
+        </div>
 
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Trauma Bonding</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Eine starke emotionale Bindung, die durch wiederholte Zyklen von Missbrauch und Versöhnung entsteht. Das Gehirn verbindet die seltenen positiven Momente mit intensiver Erleichterung – neurobiologisch stärker als gesunde Bindungen, weil sie auf Überlebensmechanismen basiert.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Du verteidigst die Täterin trotz offensichtlichem Missbrauch</li>
-                        <li>Du kannst nicht gehen, obwohl du rational weißt, dass du solltest</li>
-                        <li>Die seltenen guten Momente fühlen sich intensiver an als in gesunden Beziehungen</li>
-                        <li>Du fühlst dich verantwortlich für ihr Wohlbefinden</li>
-                    </ul>
-                </div></div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Was ist Love Bombing?</span>
+                <span class="faq-icon">+</span>
             </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Intermittierende Verstärkung</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Belohnungen (Zuwendung, Liebe, Aufmerksamkeit) kommen unvorhersehbar und unregelmäßig – das schafft die stärkste Form der Verhaltenskonditionierung. Dein Gehirn wird süchtig nach den unvorhersehbaren positiven Momenten, ähnlich wie bei einem Spielautomaten.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Du weißt nie, welche Version von ihr du bekommst</li>
-                        <li>Zuckerbrot und Peitsche im ständigen Wechsel</li>
-                        <li>Du glaubst: wenn du dich richtig verhältst, kommt die liebevolle Version zurück</li>
-                        <li>Der Wechsel ist völlig unvorhersehbar</li>
-                    </ul>
-                </div></div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Love Bombing ist die Phase überwältigender Zuneigung zu Beginn einer Beziehung: ständige Nachrichten, Idealisierung, schnelle Zukunftspläne. Das klingt romantisch, ist aber oft eine Technik um künstliche Intimität herzustellen – bevor Kontroll- und Abwertungsmuster beginnen.</div>
             </div>
+        </div>
 
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Future Faking</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Das Versprechen einer gemeinsamen Zukunft (Haus, Kinder, Reisen), die niemals realisiert werden soll. Diese Versprechen dienen als „Karotte vor der Nase" – die Hoffnung auf diese Zukunft hält dich gebunden, während sich real nichts ändert.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Detaillierte Zukunftspläne, die nie konkret werden</li>
-                        <li>Ständiges Verschieben von versprochenen Meilensteinen</li>
-                        <li>Enthusiasmus beim Planen, aber keine tatsächlichen Schritte</li>
-                        <li>Die Versprechungen ändern sich oder werden einfach vergessen</li>
-                    </ul>
-                </div></div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Was ist intermittierende Verstärkung?</span>
+                <span class="faq-icon">+</span>
             </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Breadcrumbing</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Das Hinwerfen kleiner, unregelmäßiger Aufmerksamkeiten – gerade ausreichend, um dich bei der Stange zu halten, aber zu wenig für eine echte Beziehung. Du fühlst dich emotional verhungert, bekommst aber nie eine volle Mahlzeit.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Sporadische, unvorhersehbare Zuwendung</li>
-                        <li>Lange Phasen der Kälte, unterbrochen von kurzen intensiven Momenten</li>
-                        <li>Du lebst von diesen kleinen Momenten und wartest ständig auf mehr</li>
-                    </ul>
-                </div></div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">Intermittierende Verstärkung ist ein unvorhersehbarer Wechsel aus Zuwendung und Entzug – ein Tag voller Nähe, der nächste voller Kälte. Das Gehirn reagiert auf variable Belohnung besonders stark. Gerade weil Zuneigung unvorhersehbar kommt, wird sie intensiver gesucht. Das macht toxische Beziehungen oft „intensiver" als stabile.</div>
             </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Hoovering</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Der Versuch, dich nach einer Trennung wieder „einzusaugen" (benannt nach dem Staubsauger Hoover). Ziel: dich zurück in die toxische Dynamik zu ziehen, weil sie narzisstische Zufuhr braucht.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Plötzliche Kontaktaufnahme nach langem Schweigen</li>
-                        <li>„Ich habe an dich gedacht" / scheinbar harmlose Fragen</li>
-                        <li>Vorgeben, sich geändert zu haben</li>
-                        <li>Nostalgie über die „guten Zeiten"</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">DARVO</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Deny, Attack, Reverse Victim and Offender – Leugnen, Angreifen, Täter-Opfer-Umkehr. Die Täterin leugnet ihr Verhalten, greift dich an und stellt sich selbst als Opfer dar.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Deny: „Das ist nie passiert" / „Ich habe das nicht gemacht"</li>
-                        <li>Attack: „DU bist das Problem" / „DU bist manipulativ"</li>
-                        <li>Reverse: „ICH bin das eigentliche Opfer"</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Triangulation</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Das Hinzuziehen einer dritten Person in die Beziehungsdynamik, um Eifersucht, Unsicherheit und Konkurrenz zu erzeugen. Diese Taktik senkt deinen wahrgenommenen Wert, steigert ihren und hält dich durch Eifersucht unter Kontrolle.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Ständiges Erwähnen oder Vergleichen mit anderen Personen</li>
-                        <li>Die Ex ist emotional immer noch sehr präsent</li>
-                        <li>Du fühlst dich in einem ständigen Wettbewerb</li>
-                        <li>Mehrdeutige Beziehungen zu „nur Freundinnen"</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Flying Monkeys</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Dritte Personen, die wissentlich oder unwissentlich manipuliert werden, um dich zu kontrollieren, auszuspionieren oder unter Druck zu setzen. Sie glauben oft, zu helfen – unterstützen aber das Manipulationssystem der Täterin.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Gemeinsame Freunde, die plötzlich Partei ergreifen</li>
-                        <li>Personen, die dich zur Versöhnung drängen</li>
-                        <li>Menschen, die Informationen über dich sammeln und weitergeben</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Reactive Abuse</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Wenn du nach langem Missbrauch emotional explodierst und die Täterin genau diese Reaktion als Beweis für deine Instabilität nutzt. Deine normale menschliche Reaktion auf Missbrauch wird gegen dich verwendet.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Du hast die Kontrolle verloren nach monatelanger Provokation</li>
-                        <li>Die Täterin bleibt ruhig, während du emotional reagierst</li>
-                        <li>Deine Reaktion wird dokumentiert: „Siehst du? DU bist das Problem"</li>
-                        <li>Du schämst dich zutiefst für deine Reaktion</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Narzisstische Zufuhr (Supply)</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Die Aufmerksamkeit, Bewunderung oder emotionale Reaktion, die ein Narzisst zum psychischen Überleben braucht. Wichtig: Positive und negative Supply sind gleichwertig – deine Angst, Wut und Tränen nähren sie genauso wie deine Bewunderung.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Sie sucht Kontakt, auch nach der Trennung</li>
-                        <li>Provokationen, um Reaktionen zu bekommen</li>
-                        <li>Wechsel zwischen Idealisierung und Abwertung</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Grey Rock</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Eine Verteidigungsstrategie: Du wirst so langweilig und reaktionslos wie ein grauer Kieselstein. Du gibst keine Emotionen, keine persönlichen Informationen preis – und entziehst der Täterin so die Zufuhr, die sie braucht.</p>
-                    <p class="glossar-signs-label">Anwendung</p>
-                    <ul class="glossar-signs">
-                        <li>Kurze, sachliche Antworten ohne emotionalen Inhalt</li>
-                        <li>Keine persönlichen Details teilen</li>
-                        <li>Auf Provokationen nicht eingehen</li>
-                        <li>„Okay", „Verstanden" – statt ausführlicher Erklärungen</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Monkey Branching</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Die Täterin sichert sich die nächste Partnerin ab, bevor sie die aktuelle Beziehung beendet – wie ein Affe, der den alten Ast erst loslässt, wenn er den neuen bereits hält.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Sie hatte die Neue schon, während ihr noch „an der Beziehung arbeitet"</li>
-                        <li>Verdächtige „Freundschaften" während eurer Beziehung</li>
-                        <li>Sehr schneller Übergang zur nächsten Partnerin</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Discard</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Die abrupte, oft grausame Entwertung oder Beendigung nach der Idealisierungsphase. Du wirst „weggeworfen" wie ein kaputtes Spielzeug – oft ohne Erklärung, Empathie oder Abschluss.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Plötzlicher Stimmungsumschwung ohne erkennbaren Grund</li>
-                        <li>Von „du bist mein Ein und Alles" zu kompletter Gleichgültigkeit</li>
-                        <li>Emotionale Kälte, Blockieren, Funkstille</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Smear Campaign</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Die systematische Zerstörung deines Rufs durch gezielte Verbreitung von Lügen und verzerrten Darstellungen. Die Täterin positioniert sich als unschuldiges Opfer, während sie deinen Ruf in der Community zerstört.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Gemeinsame Freunde distanzieren sich plötzlich</li>
-                        <li>Gerüchte über dich kursieren, die nicht der Wahrheit entsprechen</li>
-                        <li>Du fühlst dich sozial isoliert und missverstanden</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">Limerenz</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Ein Zustand obsessiver, unkontrollierbarer Verliebtheit und emotionaler Abhängigkeit. Wird häufig mit echter Liebe verwechselt – ist aber eine Form der Besessenheit, die in toxischen Beziehungen durch intermittierende Verstärkung künstlich aufrechterhalten wird.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Ständiges, zwanghaftes Denken an die Person</li>
-                        <li>Körperliche Symptome: Herzrasen, Appetitlosigkeit, Schlaflosigkeit</li>
-                        <li>Extreme Stimmungsschwankungen abhängig von ihrer Aufmerksamkeit</li>
-                    </ul>
-                </div></div>
-            </div>
-
-            <div class="glossar-card" onclick="toggleGlossar(this)">
-                <div class="glossar-card-header">
-                    <span class="glossar-term">U-Hauling</span>
-                    <span class="glossar-toggle">+</span><span class="glossar-tap-hint">Klick</span>
-                </div>
-                <div class="glossar-body"><div class="glossar-body-inner">
-                    <p class="glossar-definition">Lesbischer Begriff für das extrem schnelle Zusammenziehen. In toxischen Beziehungen deckungsgleich mit der Love-Bombing-Phase – die Geschwindigkeit verhindert, dass du rote Flaggen rechtzeitig erkennst und dient der schnellen Kontrolle und Isolation.</p>
-                    <p class="glossar-signs-label">Erkennungsmerkmale</p>
-                    <ul class="glossar-signs">
-                        <li>Zusammenziehen nach wenigen Wochen oder Monaten</li>
-                        <li>Schnelle Verschmelzung der Identitäten</li>
-                        <li>„Wir gegen die Welt"-Mentalität von Anfang an</li>
-                    </ul>
-                </div></div>
-            </div>
-
         </div>
     </div>
 </section>
+
 
 <!-- ============================
      RESULT MODAL POPUP
@@ -3624,7 +3698,7 @@ img { max-width: 100%; height: auto; }
             <div class="post-result-cta" id="postResultCta">
                 <h3>🔓 Bereit, den Kreislauf zu durchbrechen?</h3>
                 <p>Das einzige Programm speziell für lesbische Frauen und WLW – Schritt für Schritt aus der toxischen Bindung raus.</p>
-                <a href="https://copecart.com/products/56b047e4/checkout" class="cta-btn" target="_blank" rel="noopener">E-Book sichern – nur 29 € →</a>
+                <a href="DEIN_COPECART_LINK_COMPLETE" target="_blank" rel="noopener" class="cta-btn">Jetzt kaufen – 49 € →</a>
             </div>
             <!-- GABELUNGSPUNKT + OPT-IN -->
             <div class="optin-section" id="optinSection" style="display:block;">
@@ -3685,7 +3759,7 @@ img { max-width: 100%; height: auto; }
      ============================ -->
 <footer class="footer">
     <div class="footer-emergency">
-        <strong>🆘 Akute Krise?</strong> Telefonseelsorge: <strong>0800 111 0 111</strong> (24/7, kostenlos) · Gewalt gegen Frauen: <strong>116 016</strong>
+        <strong>Akute Krise?</strong> Telefonseelsorge: <strong>0800 111 0 111</strong> (24/7, kostenlos) · Gewalt gegen Frauen: <strong>116 016</strong>
     </div>
     <div class="footer-links">
         <a href="javascript:void(0)" onclick="openModal('datenschutzModal')">Datenschutz</a>
@@ -3724,7 +3798,7 @@ const PROFILES = {
             <p><strong>Phase 1 – Love Bombing:</strong> Sie wirkte faszinierend, „out of your league". Du warst geschmeichelt. Intensive Aufmerksamkeit, große Gesten.</p>
             <p style="margin-top:15px"><strong>Phase 2 – Abwertung:</strong> Plötzliche Kritik. „Du bist zu sensibel." Deine Leistungen wurden relativiert.</p>
             <p style="margin-top:15px"><strong>Phase 3 – Discard:</strong> Emotionaler Rückzug. Du warst „Narcissistic Supply" – Energiequelle, keine Partnerin.</p></div>
-            <div class="warning-box"><h4>⚠️ DU WARST NICHT IHRE PARTNERIN</h4>
+            <div class="warning-box"><h4>DU WARST NICHT IHRE PARTNERIN</h4>
             <p>Du warst ein Spiegel für ihre Großartigkeit. Sie hat nicht dich geliebt – sie hat geliebt, wie du sie zum Fühlen gebracht hast.</p></div>
             <div class="reality-check"><h4>✅ DIE WAHRHEIT</h4>
             <p><strong>Prognose: NEIN.</strong> Sie wird sich nicht ändern. Mit der Nächsten: Dasselbe Skript. Love Bombing → Idealisierung → Abwertung → Discard.</p></div>`
@@ -3746,7 +3820,7 @@ const PROFILES = {
             <p><strong>Anfangsphase:</strong> Sie wirkte sensibel, tiefgründig. Du wolltest sie „retten". Warnsignal: ALLE ihre Exen waren „toxisch".</p>
             <p style="margin-top:15px"><strong>Mittlere Phase:</strong> Konstante emotionale Arbeit. Jede Kritik wurde zum Drama. Du lerntest, auf Eierschalen zu laufen.</p>
             <p style="margin-top:15px"><strong>Späte Phase:</strong> Emotionale Erschöpfung. „Ich bin einfach zu kompliziert für dich." Du fühltest dich nie genug.</p></div>
-            <div class="warning-box"><h4>⚠️ EMOTIONALE AUSBEUTUNG</h4>
+            <div class="warning-box"><h4>EMOTIONALE AUSBEUTUNG</h4>
             <p>Deine Rolle war: Cheerleaderin, Therapeutin, Validierungsmaschine. Das ist keine Liebe – das ist emotionale Ausbeutung im Gewand der Verletzlichkeit.</p></div>
             <div class="reality-check"><h4>✅ DIE WAHRHEIT</h4>
             <p>Ihre „Sensibilität" war Manipulation. Du hast nicht versagt – du warst in einer Einbahnstraße.</p></div>`
@@ -3768,7 +3842,7 @@ const PROFILES = {
             <p><strong>Intense Idealisierung:</strong> Extreme Nähe, U-Hauling. „Ich liebe dich" nach 2 Wochen. Wie in einem Film.</p>
             <p style="margin-top:15px"><strong>Splitting:</strong> Plötzliche Abwertung aus dem Nichts. Gestern perfekt, heute bist du „toxisch".</p>
             <p style="margin-top:15px"><strong>On-Off-Cycle:</strong> Trennung → Drama → Versöhnung → Honeymoon → Repeat. Emotionale Achterbahn.</p></div>
-            <div class="warning-box"><h4>⚠️ DAS WAR NICHT LEIDENSCHAFT</h4>
+            <div class="warning-box"><h4>DAS WAR NICHT LEIDENSCHAFT</h4>
             <p>Die Intensität kam nicht von Liebe, sondern von emotionaler Dysregulation. Du hast versucht, ihre innere Leere zu füllen – unmöglich.</p></div>
             <div class="reality-check"><h4>✅ DU WARST NICHT „ZU VIEL"</h4>
             <p>Borderline ist behandelbar (DBT), aber erfordert jahrelange Therapie. Deine „Hysterie" war eine normale Reaktion auf abnormales Verhalten.</p></div>`
@@ -3779,7 +3853,7 @@ const PROFILES = {
         triggers: { manipulation: [4, 5], disrespect: [4, 5], control: [4, 5], egoism: [4, 5], unpredictability: [3, 5] },
         description: `
             <div class="warning-box" style="border-color:#A33B3B;background:linear-gradient(135deg,rgba(163,59,59,0.15),rgba(107,62,68,0.15))">
-            <h4 style="color:#A33B3B">⚠️ WARNUNG: GEFÄHRLICHES PROFIL</h4>
+            <h4 style="color:#A33B3B">WARNUNG: GEFÄHRLICHES PROFIL</h4>
             <p style="font-weight:600">Wenn dieses Profil zutrifft, warst du möglicherweise psychologischer Gewalt ausgesetzt. Bitte erwäge professionelle Unterstützung.</p></div>
             <div class="profile-section"><h3>📋 VERHALTENS-SIGNATUR</h3>
             <ul>
@@ -3789,10 +3863,10 @@ const PROFILES = {
                 <li><strong>Pathologisches Lügen</strong> – Zur Machtkontrolle</li>
                 <li><strong>Systematische Isolation</strong> – Von Freunden & Familie getrennt</li>
             </ul></div>
-            <div class="warning-box"><h4>⚠️ DU BIST NICHT PARANOID</h4>
+            <div class="warning-box"><h4>DU BIST NICHT PARANOID</h4>
             <p>Das war Missbrauch. Punkt. Maligner Narzissmus ist nicht behandelbar.</p>
             <p style="margin-top:15px;font-weight:700">Geh. Bleib weg. Such dir professionelle Hilfe (Trauma-Therapie).</p></div>
-            <div class="reality-check"><h4>🆘 DU BRAUCHST UNTERSTÜTZUNG</h4>
+            <div class="reality-check"><h4>DU BRAUCHST UNTERSTÜTZUNG</h4>
             <p>Wenn dieses Profil passt, bist du möglicherweise traumatisiert (Complex PTSD). Empfohlen: EMDR, Somatic Experiencing, No-Contact als absolute Priorität.</p></div>`
     },
     histrionic: {
@@ -3808,7 +3882,7 @@ const PROFILES = {
                 <li><strong>Manipulation durch Emotionen</strong> – Tränen, Wut, dann plötzliche Fröhlichkeit</li>
                 <li><strong>Oberflächlich</strong> – Wirkt intensiv, ist aber oberflächlich</li>
             </ul></div>
-            <div class="warning-box"><h4>⚠️ DU WARST DAS PUBLIKUM</h4>
+            <div class="warning-box"><h4>DU WARST DAS PUBLIKUM</h4>
             <p>Deine Rolle: Applaudieren, reagieren, emotional verfügbar sein. Das ist keine Partnerschaft – das ist eine Ein-Frau-Show.</p></div>
             <div class="reality-check"><h4>✅ DIE WAHRHEIT</h4>
             <p>Du warst emotional erschöpft, weil du 24/7 „on" sein musstest. Das ist keine Liebe – das ist Performance-Kunst.</p></div>`
@@ -3818,7 +3892,7 @@ const PROFILES = {
         icon: "🧊",
         triggers: { manipulation: [4, 5], disrespect: [4, 5], control: [3, 5], egoism: [4, 5] },
         description: `
-            <div class="warning-box" style="border-color:#A33B3B"><h4 style="color:#A33B3B">⚠️ GEFÄHRLICHES PROFIL</h4>
+            <div class="warning-box" style="border-color:#A33B3B"><h4 style="color:#A33B3B">GEFÄHRLICHES PROFIL</h4>
             <p>Psychopathie ist selten, aber real. Du warst mit jemandem zusammen, der fundamental anders funktioniert.</p></div>
             <div class="profile-section"><h3>📋 VERHALTENS-SIGNATUR</h3>
             <ul>
@@ -3828,7 +3902,7 @@ const PROFILES = {
                 <li><strong>Keine emotionale Tiefe</strong> – Emotionen werden imitiert</li>
                 <li><strong>Manipulation als Standard</strong> – Menschen sind Schachfiguren</li>
             </ul></div>
-            <div class="warning-box"><h4>⚠️ DU WARST EINE SCHACHFIGUR</h4>
+            <div class="warning-box"><h4>DU WARST EINE SCHACHFIGUR</h4>
             <p>In einem Spiel, dessen Regeln nur sie kannte. Psychopathie ist neurobiologisch – nicht behandelbar.</p>
             <p style="margin-top:15px;font-weight:700">Geh. Bleib weg. Such Trauma-Therapie.</p></div>`
     },
@@ -3844,7 +3918,7 @@ const PROFILES = {
                 <li><strong>Unvorhersehbare Muster</strong> – Narzisstisch kalt, dann borderline-intensiv</li>
                 <li><strong>Maximale Verwirrung</strong> – Nie vorhersehbar, wer sie heute ist</li>
             </ul></div>
-            <div class="warning-box"><h4>⚠️ EMOTIONAL CHAOS</h4>
+            <div class="warning-box"><h4>EMOTIONAL CHAOS</h4>
             <p>Du hast versucht, ein System zu verstehen, das fundamental chaotisch ist. Bei multiplen Cluster-B Merkmalen ist Veränderung extrem unwahrscheinlich.</p></div>
             <div class="reality-check"><h4>✅ DU BIST NICHT VERRÜCKT</h4>
             <p>Es ist UNMÖGLICH, eine stabile Beziehung mit jemandem zu haben, der mehrere Persönlichkeitsstörungsmerkmale zeigt. Das Problem war das System, nicht du.</p></div>`
@@ -4041,14 +4115,38 @@ const TOX_QUESTIONS = [
 let toxCurrent  = 0;
 let toxScores   = new Array(15).fill(-1); // -1 = noch nicht beantwortet
 
+function resetTox() {
+    localStorage.removeItem('tox_step_scores');
+    localStorage.removeItem('tox_version');
+    toxScores  = new Array(15).fill(-1);
+    toxCurrent = 0;
+    toxRenderQuestion();
+    toxUpdateChart();
+    toxUpdateScore();
+}
+
 function toxInitQuiz() {
+    // Versionsprüfung – alten Test-Stand löschen wenn andere Version
+    const savedVersion = localStorage.getItem('tox_version');
+    if (savedVersion !== '15q') {
+        localStorage.removeItem('tox_step_scores');
+        localStorage.removeItem('tox_version');
+    }
+
     const saved = localStorage.getItem('tox_step_scores');
     if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === 15) {
-            toxScores = parsed;
-            const firstUnanswered = toxScores.findIndex(s => s === -1);
-            toxCurrent = firstUnanswered === -1 ? 14 : firstUnanswered;
+        try {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length === 15) {
+                toxScores = parsed;
+                const firstUnanswered = toxScores.findIndex(s => s === -1);
+                toxCurrent = firstUnanswered === -1 ? 14 : firstUnanswered;
+            } else {
+                // Ungültiges Format → Reset
+                localStorage.removeItem('tox_step_scores');
+            }
+        } catch(e) {
+            localStorage.removeItem('tox_step_scores');
         }
     }
     toxRenderQuestion();
@@ -4101,6 +4199,7 @@ function toxAnswer(value) {
 
     // Save to localStorage
     localStorage.setItem('tox_step_scores', JSON.stringify(toxScores));
+    localStorage.setItem('tox_version', '15q');
 
     toxUpdateChart();
     toxUpdateScore();
@@ -4184,7 +4283,7 @@ function generateProfile() {
         window._testCompleted = true; // Test abgeschlossen → Exit-Intent jetzt erlaubt
         const reportScore = Math.round(totalScore * 1.67); // 0-75 → 0-125 (wie im Report)
         const reportDiv = document.getElementById('profileReport');
-        reportDiv.innerHTML = `<div class="profile-header"><div class="profile-icon">${matchedProfile.icon}</div><h2>🧠 Psychologisches Profil</h2><div class="profile-type">${matchedProfile.name}</div><p style="color:rgba(244,237,228,0.50);font-size:0.88rem;margin-top:10px;font-family:'Poppins',sans-serif;font-weight:300;">Dein Score: ${reportScore} / 125</p></div>${matchedProfile.description}`;
+        reportDiv.innerHTML = `<div class="profile-header"><div class="profile-icon">${matchedProfile.icon}</div><h2><img src="unbond-logo.png" alt="UNBOND Logo" class="logo-symbol">Psychologisches Profil</h2><div class="profile-type">${matchedProfile.name}</div><p style="color:rgba(244,237,228,0.50);font-size:0.88rem;margin-top:10px;font-family:'Poppins',sans-serif;font-weight:300;">Dein Score: ${reportScore} / 125</p></div>${matchedProfile.description}`;
         reportDiv.style.display = 'block';
         document.getElementById('postResultCta').style.display = 'block';
         document.getElementById('optinSection').style.display  = 'block';
@@ -4536,5 +4635,208 @@ window.addEventListener('scroll', () => {
   setInterval(update, 1000);
 })();
 </script>
+
+<script>
+// ================================
+// INLINE REPORT OPT-IN (unter dem Test)
+// ================================
+async function handleInlineOptIn() {
+    const email   = (document.getElementById('inlineEmail')?.value || '').trim();
+    const vorname = (document.getElementById('inlineVorname')?.value || '').trim();
+    const nurture = document.getElementById('inlineNurture')?.value === 'true';
+    const dsgvo   = document.getElementById('inlineDsgvo')?.checked;
+    const msgEl   = document.getElementById('inlineOptinMsg');
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msgEl.style.display = 'block';
+        msgEl.style.background = 'rgba(196,131,110,0.15)';
+        msgEl.style.color = '#D4956E';
+        msgEl.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.';
+        return;
+    }
+    if (!dsgvo) {
+        msgEl.style.display = 'block';
+        msgEl.style.background = 'rgba(196,131,110,0.15)';
+        msgEl.style.color = '#D4956E';
+        msgEl.textContent = 'Bitte akzeptiere die Datenschutzerklärung.';
+        return;
+    }
+    msgEl.style.display = 'block';
+    msgEl.style.background = 'rgba(122,158,138,0.12)';
+    msgEl.style.color = '#a8d4b8';
+    msgEl.textContent = 'Wird gesendet…';
+
+    try {
+        const res = await fetch('send_to_brevo.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email, vorname,
+                zustand: _gabelZustand || 'unbekannt',
+                profil:  _matchedProfileKey || 'unbekannt',
+                score:   window._currentScore || 0,
+                nurture
+            })
+        });
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById('inlineOptinWrap').style.display = 'none';
+            document.getElementById('inlineOptinSuccess').style.display = 'block';
+            window.open('https://unbond.de/report/', '_blank');
+        } else {
+            msgEl.style.background = 'rgba(196,131,110,0.15)';
+            msgEl.style.color = '#D4956E';
+            msgEl.textContent = data.error || 'Fehler – bitte erneut versuchen.';
+        }
+    } catch(e) {
+        document.getElementById('inlineOptinWrap').style.display = 'none';
+        document.getElementById('inlineOptinSuccess').style.display = 'block';
+        window.open('https://unbond.de/report/', '_blank');
+    }
+}
+
+// ================================
+// WAITLIST OPT-IN (Coming Soon)
+// ================================
+async function handleWaitlist() {
+    const emailEl = document.getElementById('waitlistEmail');
+    const msgEl   = document.getElementById('waitlistMsg');
+    const email   = emailEl ? emailEl.value.trim() : '';
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msgEl.style.display = 'block';
+        msgEl.style.background = 'rgba(196,131,110,0.15)';
+        msgEl.style.color = '#D4956E';
+        msgEl.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.';
+        return;
+    }
+    msgEl.style.display = 'block';
+    msgEl.style.background = 'rgba(122,158,138,0.12)';
+    msgEl.style.color = '#a8d4b8';
+    msgEl.textContent = 'Wird gespeichert…';
+
+    try {
+        const res = await fetch('send_to_brevo.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email:   email,
+                vorname: '',
+                zustand: 'waitlist',
+                profil:  'waitlist',
+                score:   0,
+                nurture: false
+            })
+        });
+        const data = await res.json();
+        if (data.success) {
+            emailEl.value = '';
+            emailEl.disabled = true;
+            msgEl.textContent = '✓ Das UNBOND Booklet ist unterwegs! Schau auch in den Spam-Ordner. Wir melden uns sobald das E-Book erscheint.';
+        } else {
+            msgEl.style.background = 'rgba(196,131,110,0.15)';
+            msgEl.style.color = '#D4956E';
+            msgEl.textContent = 'Etwas ist schiefgelaufen – bitte versuch es nochmal.';
+        }
+    } catch(e) {
+        // Fallback: zeige Erfolg auch wenn PHP noch nicht aktiv
+        emailEl.value = '';
+        emailEl.disabled = true;
+        msgEl.textContent = '✓ Eingetragen! Wir melden uns wenn es soweit ist.';
+    }
+}
+</script>
+<script>
+// ================================
+// PARTIKEL-EFFEKT (particles.js)
+// UNBOND Salbeigrün-Palette
+// ================================
+(function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.onload = function() {
+        window.particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,                    // Weniger Partikel = dezenter
+                    density: { enable: true, value_area: 900 }
+                },
+                color: { value: '#7A9E8A' },      // UNBOND Salbeigrün
+                shape: {
+                    type: 'circle',
+                    stroke: { width: 0, color: '#5a8a6e' }
+                },
+                opacity: {
+                    value: 0.45,
+                    random: true,
+                    anim: { enable: true, speed: 0.8, opacity_min: 0.15, sync: false }
+                },
+                size: {
+                    value: 2.5,
+                    random: true,
+                    anim: { enable: true, speed: 1.5, size_min: 0.5, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#7A9E8A',
+                    opacity: 0.25,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.2,                   // Langsam = atmosphärisch
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'bounce',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'window',
+                events: {
+                    onhover: { enable: true,  mode: 'grab'  }, // Maus zieht Partikel an
+                    onclick:  { enable: true,  mode: 'push'  }, // Klick erzeugt neue
+                    resize:   true
+                },
+                modes: {
+                    grab:    { distance: 200, line_linked: { opacity: 0.65 } },
+                    push:    { particles_nb: 3 },
+                    repulse: { distance: 150, duration: 0.4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Interaktivität auf Maus-Events zurücksetzen
+        // damit Klicks trotz pointer-events:none auf particles div durchgehen
+        const pCanvas = document.querySelector('#particles-js canvas');
+        if (pCanvas) {
+            pCanvas.style.pointerEvents = 'none';
+        }
+    };
+})();
+</script>
+
+<style id="unbond-final-visual-overrides">
+.hero-cta-group{gap:5px!important;}
+.hero-subtext{margin-top:0!important;}
+.profile-badges{gap:10px!important;}
+.profile-badge{border-radius:10px!important;padding:10px 16px!important;min-height:42px!important;justify-content:center!important;line-height:1.25!important;background:rgba(244,237,228,0.075)!important;border:1px solid rgba(244,237,228,0.24)!important;}
+.profile-badge:hover{background:rgba(122,158,138,0.16)!important;border-color:rgba(122,158,138,0.46)!important;}
+.profile-badge.active{background:rgba(196,131,110,0.30)!important;border-color:rgba(196,131,110,0.62)!important;}
+.toximeter-section-logo{display:block!important;width:200px!important;height:200px!important;object-fit:contain!important;margin:0 auto 18px!important;}
+.ebook-box{background:linear-gradient(140deg,rgba(45,79,60,0.58) 0%,rgba(15,20,45,0.48) 45%,rgba(107,62,68,0.50) 100%)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;border-top:1px solid rgba(122,158,138,0.24)!important;border-bottom:1px solid rgba(122,158,138,0.18)!important;box-shadow:0 10px 50px rgba(0,0,0,0.32)!important;}
+.ebook-box::before{background:radial-gradient(circle,rgba(122,158,138,0.13) 0%,transparent 70%)!important;}
+.ebook-feature{background:rgba(244,237,228,0.045)!important;border:1px solid rgba(122,158,138,0.22)!important;box-shadow:0 8px 30px rgba(0,0,0,0.18)!important;}
+.ebook-feature-icon{font-size:0!important;margin-bottom:12px!important;}
+.cta-feature-icon{display:block!important;width:68px!important;height:68px!important;object-fit:contain!important;margin:0 auto!important;}
+@media(max-width:768px){.profile-badge{font-size:0.78rem!important;padding:9px 13px!important;border-radius:9px!important;}.toximeter-section-logo{width:160px!important;height:160px!important;margin-bottom:14px!important;}.cta-feature-icon{width:58px!important;height:58px!important;}}
+</style>
+
 </body>
 </html>
